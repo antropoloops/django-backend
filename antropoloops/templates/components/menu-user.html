@@ -1,0 +1,14 @@
+{# User menu #}
+{% load static i18n %}
+
+{% if not request.user.is_anonymous %}
+<div class="menu-user {% if modifier %}menu-user--{{modifier}}{% endif %}">
+    <ul>
+        <li class="menu-user__link {% if modifier %}menu-user__item--{{modifier}}{% endif %}">
+            <a href="{% url 'logout' %}" data-icon="login">
+                  {% trans 'Logout' %}
+            </a>
+        </li>
+    </ul>
+</div>
+{% endif %}

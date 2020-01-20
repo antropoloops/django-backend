@@ -1,0 +1,17 @@
+{# site messages #}
+
+{% if messages %}
+<div class="region-messages">
+    <ul class="site-messages">
+        {% for message in messages %}
+            <li class="{% if message.tags %}site-message--{{ message.tags }}{% endif %} site-message--{{ forloop.counter }}">
+                <span class="site-message__close"
+                      data-hide=".site-message--{{ forloop.counter }}">
+                  ×
+                </span>
+                {{ message|safe }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

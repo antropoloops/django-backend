@@ -1,0 +1,13 @@
+// General
+.region-header
+  padding: $m/3
+.region-content
+  min-height: calc(100vh - #{$header_height} - #{$footer_height})
+  position: relative
+
+// Centered
+.centered-page
+  .region-content__wrapper
+    display: flex
+    min-height: calc(100vh - #{$header_height} - #{$footer_height})
+    align-items: center

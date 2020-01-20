@@ -1,0 +1,8 @@
+{# Renders a template with a single column of fixed width #}
+{% extends 'base.html' %} {% block layout_classes %}single-fixed{% endblock %}
+
+{% block layout %}
+<div class="region-content__wrapper">
+    {% block main %}{% endblock %}
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+            {% endblock %}
+            {% block title_suffix %}
+                /// antropoloops player
+            {% endblock %}
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# favicon #}
+        {% block branding_favicon %}
+            <link rel="shortcut icon" href="{% img 'favicon.ico' %}" />
+        {% endblock %}
+
+        {# Global stylesheets #}
+        <link rel="stylesheet" type="text/css" href="{% css 'style' %}">
+
+        {% block extra_media %}
+            {# Override this in templates to add extra stylesheets and js #}
+        {% endblock %}
+    </head>
+
+    <body class="{% block body_class %}{% endblock %} {% if not request.user.is_anonymous %}logged-in{% endif %}">
+
+        {# header #}
+        <header class="region-header">
+            {# Site brand #}
+            {% include 'components/brand.html' %}
+            {# User actions menu #}
+            {% include 'components/menu-user.html' with modifier='navigation' %}
+        </header>
+
+        {# Site messages #}
+        {% include 'components/messages.html' %}
+
+        {# content #}
+        <main class="region-content">
+            {% block layout %}{% endblock %}
+        </main>
+
+        {# footer #}
+        <footer class="region-footer">
+        </footer>
+
+        {# Global javascript #}
+        <script type="text/javascript" src="{% js 'antropoloops' %}"></script>
+
+        {% block extra_js %}
+            {# Override this in templates to add extra javascript #}
+        {% endblock %}
+    </body>
+</html>

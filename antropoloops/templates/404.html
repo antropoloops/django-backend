@@ -1,0 +1,22 @@
+{% extends 'layouts/single-column.html' %}
+{% load i18n %}
+
+{% block body_class %}page-404 centered-page{% endblock %}
+
+{% block title %}
+    {% trans 'Página no encontrada' %}
+{% endblock %}
+
+{% block main %}
+<div class="error-message error-message--404">
+    <p class="error-message__icon">
+        {% icon 'x-circle' %}
+    </p>
+    <h3 class="error-message__title">
+        {% trans 'Página no encontrada' %}
+    </h3>
+    <p class="error-message__advice">
+        {% trans '¿Has escrito correctamente la URL?' %}
+    </p>
+</div>
+{% endblock %}

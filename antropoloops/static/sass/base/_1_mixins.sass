@@ -1,0 +1,25 @@
+// Nicolas Gallagher clearfix
+// @see http://nicolasgallagher.com/micro-clearfix-hack/
+
+=clearfix
+  *zoom: 1
+  &:before,
+  &:after
+    content: " "
+    display: table
+  &:after
+    clear: both
+
+// Mobile-first breakpoint mixins
+
+// Breakpoints
+$breakpoints: ( xs: 480px, sm: 768px, md: 992px, lg: 1200px, xl: 1400px ) !default
+
+// Breakpoint mixin
+=breakpoint($resolution)
+  @if $resolution == 'xs'
+    @media screen and (max-width: map-get($breakpoints, 'sm'))
+      @content
+  @else
+    @media screen and (min-width: map-get($breakpoints, $resolution))
+      @content
