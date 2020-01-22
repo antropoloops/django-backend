@@ -17,7 +17,7 @@ body
   color: $color_text
   background-color: $color_background
   font-family: $font_text, $font_text_alternates
-  font-weight: $font_text_weight
+  font-weight: $weight_text
 
 // RESET OF DEFAULT MARGINS AND PADDINGS
 p
@@ -31,7 +31,7 @@ figure
 // SET DEFAULT TEXT SIZES
 =h($n)
   font-family : $font_headers, $font_headers_alternates
-  font-weight : $font_headers_weight
+  font-weight : $weight_headers
   font-size   : nth($size_headers, $n)
 
 @for $i from 1 through 6

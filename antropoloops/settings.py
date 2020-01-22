@@ -31,12 +31,13 @@ MEDIA_ROOT = os.path.join(ENV_PATH, '..', 'media')
 
 # Registration
 
-LOGIN_REDIRECT = '/'
-LOGOUT_REDIRECT = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'goodbye'
 
 # Application definition
 
 DJANGO_APPS = [
+    'apps.registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,12 +47,12 @@ DJANGO_APPS = [
 ]
 
 CONTRIB_APPS = [
-    'registration',
 ]
 
 PROJECT_APPS = [
     'apps.views',
     'apps.feather',
+
 ]
 
 INSTALLED_APPS = DJANGO_APPS + CONTRIB_APPS + PROJECT_APPS

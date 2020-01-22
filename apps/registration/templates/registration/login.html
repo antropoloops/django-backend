@@ -1,0 +1,25 @@
+{# Login form page. Overrides auth's template #}
+{% extends 'layouts/single-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+page--registration page--login
+{% endblock %}
+
+{# html title #}
+{% block title %}
+Login
+{% endblock %}
+
+{# Content #}
+{% block main %}
+
+<h1 class="page__title">
+  {% icon 'log-in' %} {% trans 'Login' %}
+</h1>
+{% include 'registration/forms/form--login.html' %}
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{# Login form page. Overrides auth's template #}
+{% extends 'layouts/single-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+page--registration page--chao
+{% endblock %}
+
+{# html title #}
+{% block title %}
+{% trans 'Hasta la vista!' %}
+{% endblock %}
+
+{# Content #}
+{% block main %}
+<div class="goodbye">
+    {% icon 'heart' %}
+    <h1 class="page__title">
+      ¡Gracias por la visita!
+    </h1>
+</div>
+
+{% endblock %}

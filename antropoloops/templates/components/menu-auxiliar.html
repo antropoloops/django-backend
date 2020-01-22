@@ -1,0 +1,17 @@
+{# User menu #}
+{% load static i18n %}
+
+<div class="menu-auxiliar {% if modifier %}menu-auxiliar--{{modifier}}{% endif %}">
+    <ul class="menu-auxiliar__items {% if modifier %}menu-auxiliar__items--{{modifier}}{% endif %}">
+        <li class="menu-auxiliar__item {% if modifier %}menu-auxiliar__item--{{modifier}}{% endif %}">
+            <a href="/">
+                  {% trans 'Política de datos' %}
+            </a>
+        </li>
+        <li class="menu-auxiliar__item {% if modifier %}menu-auxiliar__item--{{modifier}}{% endif %}">
+            <a href="/">
+                  {% trans 'Contacta' %}
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,13 @@
+{# Render a simple field #}
+
+<div class="field field--{{ class }} required">
+    <label class="field__label field__label--{{ class }}">
+        {% icon icon %}{{ field.label }}
+    </label>
+    <p class="field__widget field__widget--{{ class }}">
+        {{ field }}
+    </p>
+    <div class="field__error field__error--{{ class }}">
+        {{ field.errors }}
+    </div>
+</div>

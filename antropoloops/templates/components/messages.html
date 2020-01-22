@@ -4,7 +4,7 @@
 <div class="region-messages">
     <ul class="site-messages">
         {% for message in messages %}
-            <li class="{% if message.tags %}site-message--{{ message.tags }}{% endif %} site-message--{{ forloop.counter }}">
+            <li class="site-message {% if message.tags %}site-message--{{ message.tags }}{% endif %} site-message--{{ forloop.counter }}">
                 <span class="site-message__close"
                       data-hide=".site-message--{{ forloop.counter }}">
                   ×

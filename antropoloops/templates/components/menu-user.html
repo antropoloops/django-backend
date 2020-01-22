@@ -3,10 +3,17 @@
 
 {% if not request.user.is_anonymous %}
 <div class="menu-user {% if modifier %}menu-user--{{modifier}}{% endif %}">
-    <ul>
-        <li class="menu-user__link {% if modifier %}menu-user__item--{{modifier}}{% endif %}">
-            <a href="{% url 'logout' %}" data-icon="login">
-                  {% trans 'Logout' %}
+    <ul class="menu-user__items {% if modifier %}menu-user__items--{{modifier}}{% endif %}">
+        {% if request.user.is_staff %}
+        <li class="menu-user__item {% if modifier %}menu-user__item--{{modifier}}{% endif %}">
+            <a href="{% url 'admin:index' %}">
+                  {% icon 'settings' %}
+            </a>
+        </li>
+        {% endif %}
+        <li class="menu-user__item {% if modifier %}menu-user__item--{{modifier}}{% endif %}">
+            <a href="{% url 'logout' %}">
+                  {% icon 'log-out' %}
             </a>
         </li>
     </ul>

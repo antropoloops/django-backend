@@ -109,3 +109,6 @@ private_settings.py
 # styles
 css
 .sass-cache
+
+# assets
+assets/*

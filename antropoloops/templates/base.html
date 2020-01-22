@@ -26,7 +26,7 @@
         {% endblock %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %} {% if not request.user.is_anonymous %}logged-in{% endif %}">
+    <body class="{% block body_css_classes %}{% endblock %} {% if not request.user.is_anonymous %}logged-in{% endif %}">
 
         {# header #}
         <header class="region-header">
@@ -46,6 +46,10 @@
 
         {# footer #}
         <footer class="region-footer">
+            <div class="signature">
+                Play Antropoloops, 2020
+            </div>
+            {% include 'components/menu-auxiliar.html' with modifier='footer' %}
         </footer>
 
         {# Global javascript #}

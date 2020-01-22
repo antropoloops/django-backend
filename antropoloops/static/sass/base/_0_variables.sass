@@ -3,25 +3,21 @@
 //
 
 // Grid system
-$size_base     : 16px
-$m             : 1.5 * $size_base
-$grid_columns  : 12
-$columns_guter : $m
-$grid_classes  : false
-$width_fixed   : $m*40
+$size_base      : 16px
+$m              : 1.5 * $size_base
+$grid_columns   : 12
+$columns_gutter : $m
+$grid_classes   : false
+$width_fixed    : $m*40
 
 // Main regions
 $header  : '.region-header'
-$header_height : $m*2
-$header_padding: $m
+$height_header : $m*2
+$padding_header: $m/3
 $content : '.region-content'
-$content_margin_top: $m*2
-$content_margin_bottom: $m*2
 $footer  : '.region-footer'
-$footer_height : $m*2
-$footer_padding: $m 0
-$sticky_footer: true
-$toolbar_height: $m*2
+$height_footer : $m*2
+$padding_footer: $m/3
 
 // Minimum padding in responsive one-col-layouts
 $min_padding: $m/2
@@ -33,20 +29,24 @@ $min_padding: $m/2
 
 // Interface colors (from Bootstrap)
 $color_calm    : #5bc0de
-$color_success : #9d0
+$color_success : darken(#9d0, 10%)
 $color_warning : #f0ad4e
 $color_danger  : #d9534f
 
 // Site palette
-
+$green   : #7ffa07
+$orange  : #ec8a0c
+$pink    : #ef719d
+$magenta : #d815c2
+$yellow  : #feec00
 
 // Element colors
-$color_background           : #111
-$color_text                 : white
+$color_background : #111
+$color_text       : white
 
 // Text selection
-$color_selection_background : white
-$color_selection_text       : #111
+$color_selection_background : #e73f26
+$color_selection_text       : white
 
 
 //
@@ -56,12 +56,12 @@ $color_selection_text       : #111
 @import url('https://fonts.googleapis.com/css?family=Public+Sans:300,700&display=swap')
 
 $font_text            : 'Public Sans'
-$font_text_weight     : 300
 $font_text_alternates : sans-serif
+$weight_text          : 300
 
 $font_headers            : 'Public Sans'
-$font_headers_weight     : 700
 $font_headers_alternates : sans-serif
+$weight_headers          : 700
 
 // Font sizes
 

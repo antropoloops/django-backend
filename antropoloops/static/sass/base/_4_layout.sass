@@ -1,13 +1,21 @@
-// General
+// Regions
 .region-header
-  padding: $m/3
+  padding: $padding_header
+  height: $height_header
 .region-content
-  min-height: calc(100vh - #{$header_height} - #{$footer_height})
-  position: relative
+  height: calc(100vh - #{$height_header} - #{$height_footer})
+.region-footer
+  padding: $padding_footer
+  height: $height_footer
+  background-color: black
 
-// Centered
-.centered-page
-  .region-content__wrapper
-    display: flex
-    min-height: calc(100vh - #{$header_height} - #{$footer_height})
-    align-items: center
+// Registration pages
+// Align vertically contents of region-content
+.page--registration .region-content
+  display: table
+  margin: 0 auto
+.page--registration .region-content__inner
+  display: table-cell
+  vertical-align: middle
+  width: 640px
+  max-width: 100%

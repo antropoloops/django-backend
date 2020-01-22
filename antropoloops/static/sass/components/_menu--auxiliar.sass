@@ -1,0 +1,20 @@
+.menu-auxiliar--footer
+  display: inline-block
+  font-size: .8em
+  margin-left: $m
+.menu-auxiliar--footer a
+  &:link, &:visited
+    color: white
+  &:hover
+    color: $yellow
+  &:active
+    color: white
+
+.menu-auxiliar__item
+  display: inline
+
+.menu-auxiliar__item:not(:last-child)
+  margin-right: $m/2
+  &:after
+    content: " | "
+    margin-left: $m/2

@@ -1,0 +1,82 @@
+@import compass/css3/animation
+
+// Common settings for forms
+
+.form__error,
+.field__error
+  color: red
+  font-size: .9em
+  margin-bottom: $m
+
+.field__error
+  padding: 0 $m
+
+form
+  background: rgba(black, .75)
+  padding: $m*2 $m*2 $m*2 $m*3
+  border: 8px solid black
+  border-width: 8px 0
+  +animation(fadeup 1.25s 1)
+
+form .field__label
+  +h(6)
+  margin-bottom: $m/2
+  position: relative
+  display: block
+  font-size: 1.2em
+  &:after
+    content: "*"
+    color: #e73f26
+  .feather
+    stroke: #e3660b
+    height: $m
+    position: absolute
+    left: -38px
+    bottom: -48px
+
+form .field__widget input
+  border: 0
+  border-radius: 0
+  line-height: $m*2
+  width: 100%
+  margin-bottom: $m
+  color: $color_background
+  padding: 0 $m/2
+  border-radius: 4px
+
+.form__submit
+  +h(5)
+  text-transform: uppercase
+  background-color: $color_success
+  line-height: $m*2
+  border: 0
+  margin: $m/2 auto
+  display: block
+  width: 33%
+  border-radius: 4px
+  transition: background-color .2s ease
+  text-shadow: 0 0 10px rgba(black, .5)
+  &:hover
+    background-color: darken($color_success, 10%)
+
+.form-instructions
+  margin-bottom: $m*1.5
+  padding: 0 $m
+
+.form__actions
+  margin: $m*1.5 0 0 -30px
+.form__actions .feather
+  max-width: $m*.75
+  position: relative
+  top: 6px
+  margin-right: $m/2
+  stroke: $orange
+.form__actions
+  a
+    transition: color .2s ease
+  a:link, a:visited
+    color: white
+  a:hover
+    color: $orange
+  a:active
+    color: white

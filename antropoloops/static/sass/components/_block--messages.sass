@@ -1,0 +1,30 @@
+@import compass/css3/animation
+
+.site-messages
+  position: fixed
+  top: $m*2
+  right: $m
+  font-size: 1.1em
+  width: 360px
+  max-width: 100%
+  +animation( slideright 1s 1)
+
+.site-message
+  border-radius: 4px
+  padding: $m/2
+  transition: opacity .2s ease
+
+.site-message.collapsed
+  opacity: 0
+  pointer-events: none
+
+.site-message__close
+  position: absolute
+  top: 0
+  left: -$m
+  font-size: 1.5em
+  &:hover
+    cursor: pointer
+
+.site-message--success
+  background-color: $color_success

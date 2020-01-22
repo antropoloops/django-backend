@@ -3,21 +3,26 @@
 # django
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView
 # project
 from apps.views.front import Front as front
-
+from apps.registration import urls as registration_urls
 urlpatterns = [
-    path('login', auth_views.LoginView.as_view(), name='login'),
-    path('logout', auth_views.LogoutView.as_view(), name='logout'),
+    # URLS related to user actions (login, password change, etc.)
+    path('', include(registration_urls)),
+    # django default admin urls
     path('admin/', admin.site.urls),
-    path('404', TemplateView.as_view(template_name='404.html')),
-    path('', front.as_view() )
+
+    # PAGES
+    # front
+    path('', LoginView.as_view() ),
 ]
 
+# Add static URLS when running a standalone server through manage.py
 if settings.DEBUG == True:
    urlpatterns += static( settings.STATIC_URL, document_root = settings.STATIC_ROOT )
    urlpatterns += static( settings.MEDIA_URL,  document_root = settings.MEDIA_ROOT )
