@@ -52,7 +52,6 @@ CONTRIB_APPS = [
 PROJECT_APPS = [
     'apps.views',
     'apps.feather',
-
 ]
 
 INSTALLED_APPS = DJANGO_APPS + CONTRIB_APPS + PROJECT_APPS
