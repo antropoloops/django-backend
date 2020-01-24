@@ -51,10 +51,14 @@ DJANGO_APPS = [
 ]
 
 CONTRIB_APPS = [
+    'colorfield',
+    'django_countries',
+    'adminsortable',
 ]
 
 PROJECT_APPS = [
     'apps.feather',
+    'apps.models',
 ]
 
 INSTALLED_APPS = PROJECT_ADMIN_APPS + DJANGO_APPS + CONTRIB_APPS + PROJECT_APPS

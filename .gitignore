@@ -112,3 +112,6 @@ css
 
 # assets
 assets/*
+
+# ignore migrations
+migrations

@@ -1,3 +1,6 @@
 Django==2.2.9
+django-colorfield==0.1.15
+django-countries==5.5
 pytz==2019.3
+six==1.14.0
 sqlparse==0.3.0

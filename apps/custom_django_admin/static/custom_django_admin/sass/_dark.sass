@@ -1,6 +1,8 @@
 // Override django admin styles
 // Dark flavour
 
+@import compass/css3/appearance
+
 // VARIABLES
 $m: 24px
 $color_background : #111
@@ -67,6 +69,7 @@ div.breadcrumbs
   .form-row
     padding: $m
     border-bottom: 2px solid $color_background_darkest
+    background: none
   .form-row:last-child
     border: 0
   .form-row .help
@@ -80,6 +83,8 @@ div.breadcrumbs
     background: none
     border: 0
   // Forms
+  fieldset.module > h2
+    background: black
   fieldset.module
     margin-top: 0
     margin-bottom: 0
@@ -169,3 +174,27 @@ div.breadcrumbs
     background: none
     color: white
     border: 0
+  .module thead th
+    background: none
+    color: $color_text
+  .inline-group div.add-row,
+  .inline-group .tabular tr.add-row td
+    background: none
+  #changelist .actions select,
+  .module select
+    +appearance(none)
+    border: 0
+    color: white
+    background: black
+  table
+    border: 0 !important
+  .inline-group div.add-row, .inline-group .tabular tr.add-row td
+    border: 0
+
+#container .messagelist
+  margin: $m $m*2
+  li
+    background: none !important
+    color: white
+  li.success
+    border: 2px solid #9d0
