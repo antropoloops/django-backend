@@ -1,0 +1,25 @@
+{# Override django-admin base template #}
+{% extends "admin/base.html" %}
+
+{% load static i18n %}
+
+{% block title %}
+{{ title }} /// Antropoloops
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'custom_django_admin/css/style.css' %}"
+/>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        {% trans 'Play Antropoloops' %}
+    </a>
+</h1>
+{% endblock %}

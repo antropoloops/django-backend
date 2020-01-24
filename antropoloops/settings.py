@@ -36,8 +36,12 @@ LOGOUT_REDIRECT_URL = 'goodbye'
 
 # Application definition
 
-DJANGO_APPS = [
+PROJECT_ADMIN_APPS = [
+    'apps.custom_django_admin',
     'apps.registration',
+]
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,11 +54,10 @@ CONTRIB_APPS = [
 ]
 
 PROJECT_APPS = [
-    'apps.views',
     'apps.feather',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + CONTRIB_APPS + PROJECT_APPS
+INSTALLED_APPS = PROJECT_ADMIN_APPS + DJANGO_APPS + CONTRIB_APPS + PROJECT_APPS
 
 # Middleware
 
