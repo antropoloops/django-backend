@@ -9,8 +9,8 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView
 # project
-from apps.views.front import Front as front
 from apps.registration import urls as registration_urls
+
 urlpatterns = [
     # URLS related to user actions (login, password change, etc.)
     path('', include(registration_urls)),
