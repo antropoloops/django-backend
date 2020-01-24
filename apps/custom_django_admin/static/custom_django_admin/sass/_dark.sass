@@ -9,7 +9,7 @@ $color_background : #111
 $color_background_darker : darken($color_background, 5%)
 $color_background_darkest : darken($color_background, 10%)
 $color_text : white
-$color_links_hover : yellow
+$color_links_hover : #7ffa07
 // #9d0 from bootstrap's success color
 $color_submit_button_light : darken(#9d0, 20%)
 $color_submit_button_dark  : darken(#9d0, 30%)
@@ -40,8 +40,33 @@ a:active
     font-weight: bold
 div.breadcrumbs
   background: transparent
-  margin-bottom: $m*2
-
+  color: white
+  a
+    font-weight: bold
+    transition: color .2s ease
+    text-decoration: underline
+    text-decoration-style: dotted
+  a:link, a:visited
+    color: $color_text
+  a:hover
+    color: $color_links_hover
+  a:active
+    color: $color_text
+#user-tools
+  padding: $m
+  background-color: black
+  color: white
+  a
+    font-weight: bold
+    transition: color .2s ease
+    text-decoration: none !important
+    border: 0
+  a:link, a:visited
+    color: $color_text
+  a:hover
+    color: $color_links_hover
+  a:active
+    color: $color_text
 // Components
 // Always under #content to override avoiding !important clausules
 
@@ -51,6 +76,7 @@ div.breadcrumbs
     color: $color_text
     font-weight: bold
     font-size: 2em
+    margin-top: $m*2
   // Modules
   .module
     background: transparent
@@ -190,6 +216,8 @@ div.breadcrumbs
     border: 0 !important
   .inline-group div.add-row, .inline-group .tabular tr.add-row td
     border: 0
+  #changelist-filter
+    background: none
 
 #container .messagelist
   margin: $m $m*2
@@ -198,3 +226,15 @@ div.breadcrumbs
     color: white
   li.success
     border: 2px solid #9d0
+
+::-webkit-scrollbar
+  height: $m
+  width: $m/3
+  background: black
+
+::-webkit-scrollbar-thumb
+  background-color: #7ffa07
+
+*
+  scrollbar-color: #7ffa07 black
+  scrollbar-width: thin

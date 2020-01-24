@@ -7,6 +7,10 @@
 {{ title }} /// Antropoloops
 {% endblock %}
 
+{% block extrahead %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" />
+{% endblock %}
+
 {% block extrastyle %}
 {{ block.super }}
 <link
@@ -19,7 +23,7 @@
 {% block branding %}
 <h1 id="site-name">
     <a href="{% url 'admin:index' %}">
-        {% trans 'Play Antropoloops' %}
+        <img src="{% static 'img/logo.png' %}" />
     </a>
 </h1>
 {% endblock %}
