@@ -137,6 +137,9 @@ class Audioset(Publishable):
         _('Nombre del set'),
         max_length=128,
         blank=False,
+        help_text=_(
+            'Elige un nombre para el audioset.'
+        )
     )
     slug = models.SlugField(
         _('Ruta'),
@@ -171,6 +174,11 @@ class Audioset(Publishable):
         blank=False,
         default=1,
         choices=categories.VISUAL_DISPLAY_MODE,
+        help_text=_(
+            'Elige el modo en que quieres mostrar el audioset. Elige <em>panel</em> '
+            'si quieres mostrar los distintos clips sobre una imagen de fondo. '
+            'Elige <em>mapa</em> si quieres localizarlos sobre un mapa. '
+        )
     )
     #TODO: background
     map_url = models.URLField(
