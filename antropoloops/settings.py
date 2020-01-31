@@ -58,6 +58,7 @@ CONTRIB_APPS = [
 
 PROJECT_APPS = [
     'apps.feather',
+    'apps.limited_textarea_widget',
     'apps.models',
 ]
 
