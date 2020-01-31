@@ -1,0 +1,25 @@
+// User profile and actions
+
+.user-profile__username
+  font-weight: 600
+
+.menu-actions--dashboard
+  margin-top: $m*2
+
+.menu-actions__item--dashboard
+  line-height: $m*2
+  vertical-align: middle
+  &:not(:last-child)
+    border-bottom: 1px dashed rgba(white, .15)
+
+.menu-actions__item--dashboard a
+  display: block
+  &:link, &:visited, &:hover, &:active
+    color: white
+  &:hover
+    background-color: black
+
+.menu-actions__item--dashboard .feather
+  color: $green
+  vertical-align: middle
+  margin-right: $m/2

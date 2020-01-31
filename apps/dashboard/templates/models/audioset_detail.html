@@ -1,0 +1,25 @@
+{# Dashboard page #}
+{% extends 'layouts/two-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--audioset toppadded
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {% trans 'Edita: ' %} {{ object.name }}
+{% endblock %}
+
+{# Sidebar #}
+{% block sidebar %}
+
+{% endblock %}
+
+{# Content #}
+{% block main %}
+
+{% endblock %}

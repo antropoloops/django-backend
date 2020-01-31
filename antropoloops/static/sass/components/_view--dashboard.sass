@@ -1,0 +1,54 @@
+// Dashboard view
+
+.audioset-view--dashboard
+  width: 1180px
+  max-width: 100%
+  margin: 0 auto
+
++breakpoint('sm')
+  .audioset-view__link--dashboard
+    width: 33%
+    display: inline-block
+    vertical-align: top
+
+.audioset-view__link--dashboard
+  position: relative
+  padding: $m
+  margin: $m 0
+  animation: fadeup 1s 1
+  animation-timing-function: ease-out
+  &:link, &:visited, &:hover, &:active
+    color: inherit
+  &:hover:after
+    box-sizing: border-box
+    content: attr(data-hover)
+    text-align: center
+    padding-top: 40%
+    background: rgba($color_background, .9)
+    color: $green
+    font-weight: 600
+    font-size: 1.2em
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    animation: fadein .5s 1
+
+.field-thumbnail--dashboard
+  text-align: center
+
+.field-thumbnail--dashboard .blank-image
+  filter: invert(100%)
+  width: 100%
+
+.field-date--dashboard
+  font-size: .8em
+  margin-bottom: $m/4
+
+.field-date--dashboard .field__value
+  font-weight: bold
+
+.field-description--dashboard .blank-description
+  font-style: italic
+  padding: 0 $m

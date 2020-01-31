@@ -1,0 +1,20 @@
+{# Renders an audioset in a view using a grid display #}
+{% load i18n dashboard_tags %}
+
+<div class="field field-date field-date--dashboard">
+    <span class="field__label">
+        {% trans 'Última actualización' %}
+    </span>
+    <span class="field__value">
+        {{ audioset.update_date | date:"d/m/Y" }}
+    </span>
+</div>
+<figure class="field field-thumbnail field-thumbnail--dashboard">
+    {{ audioset|logo }}
+</figure>
+<h3 class="field field-name field-name--dashboard">
+    {{ audioset.name }}
+</h3>
+<div class="field field-description field-description--dashboard">
+    {{ audioset|description }}
+</div>

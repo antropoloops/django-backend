@@ -60,6 +60,7 @@ PROJECT_APPS = [
     'apps.feather',
     'apps.limited_textarea_widget',
     'apps.models',
+    'apps.dashboard',
 ]
 
 INSTALLED_APPS = PROJECT_ADMIN_APPS + DJANGO_APPS + CONTRIB_APPS + PROJECT_APPS

@@ -1,0 +1,58 @@
+{# Dashboard page #}
+{% extends 'layouts/two-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--dashboard toppadded
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {% trans 'Tu perfil' %}
+{% endblock %}
+
+{# Sidebar #}
+{% block sidebar %}
+<div class="user-profile">
+    {% trans 'Bienvenido' %},
+    <span class="user-profile__username">{{ request.user.username }}</span>
+    {% include 'components/menu-actions.html' with modifier='dashboard' %}
+</div>
+{% endblock %}
+
+{# Content #}
+{% block main %}
+<div class="audioset-view audioset-view--dashboard">
+{% for audioset in audioset_list %}
+    {# Render each item using a grid display #}
+    <a href="{% url 'audioset_update' audioset.slug %}"
+       class="audioset-view__link--dashboard"
+       data-hover="{% trans 'Edita este audioset' %}"
+    >
+        <div class="audioset-view__item--dashboard">
+        {% include 'components/audioset_item--dashboard.html' with audioset=audioset %}
+        </div>
+    </a>
+{% empty %}
+    <div class="audioset-view__empty--dashboard">
+    {% blocktrans trimmed %}
+        No has creado todavía ningún audioset
+    {% endblocktrans %}
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{# ExtraJS #}
+{% block extra_js %}
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll('.audioset-view>a').forEach( function(it, i){
+        it.style.animationDelay = i*.2 + 's';
+    })
+})
+</script>
+{% endblock %}

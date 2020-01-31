@@ -6,10 +6,11 @@ from django.urls import path
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import TemplateView
-from django.contrib.auth.views import LoginView
+from django.views.generic.base import RedirectView
+from django.urls import reverse_lazy
 # project
 from apps.registration import urls as registration_urls
+from apps.dashboard import urls as dashboard_urls
 
 urlpatterns = [
     # URLS related to user actions (login, password change, etc.)
@@ -18,8 +19,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # PAGES
+    # URLS related to user dashboard (audiosets view, forms, etc.)
+    path('', include(dashboard_urls)),
     # front
-    path('', LoginView.as_view() ),
+    path('', RedirectView.as_view(url='dashboard')),
 ]
 
 # Add static URLS when running a standalone server through manage.py

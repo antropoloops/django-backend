@@ -1,0 +1,22 @@
+{# menu for user actions in dashboard #}
+{% load i18n %}
+
+<div class="menu-actions {% if modifier %}menu-actions--{{modifier}}{% endif %}">
+    <ul class="menu-actions__items {% if modifier %}menu-actions__items--{{modifier}}{% endif %}">
+        <li class="menu-actions__item {% if modifier %}menu-actions__item--{{modifier}}{% endif %}">
+            <a href="{% url 'audioset_create' %}">
+                  {% icon 'plus' %}  {% trans 'Crea un audioset nuevo' %}
+            </a>
+        </li>
+        <li class="menu-actions__item {% if modifier %}menu-actions__item--{{modifier}}{% endif %}">
+            <a href="{% url 'password_reset' %}">
+                  {% icon 'key' %}  {% trans 'Cambia tu contraseña' %}
+            </a>
+        </li>
+        <li class="menu-actions__item {% if modifier %}menu-actions__item--{{modifier}}{% endif %}">
+            <a href="{% url 'logout' %}">
+                  {% icon 'log-out' %} {% trans 'Salir de Play Antropoloops' %}
+            </a>
+        </li>
+    </ul>
+</div>

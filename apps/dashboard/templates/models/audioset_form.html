@@ -1,0 +1,62 @@
+{# Dashboard page #}
+{% extends 'layouts/two-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--dashboard toppadded
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {% trans 'Crea un audioset nuevo' %}
+{% endblock %}
+
+{# Sidebar #}
+{% block sidebar %}
+<div class="user-profile">
+    {% icon 'user' %}
+    {% trans 'Bienvenido' %},
+    <span class="user-profile__username">{{ request.user.username }}</span>
+    {% include 'components/menu-actions.html' with modifier='dashboard' %}
+</div>
+{% endblock %}
+
+{# Content #}
+{% block main %}
+<p class="fake-breadcrumb" onclick="history.go(-1)">
+    {% icon 'arrow-left' %} {% trans 'Cancelar' %}
+</p>
+<h1 clas="page__title">
+    {% icon 'plus' %} {% trans 'Crea un audioset nuevo' %}
+</h1>
+{% if form.errors and not form.non_field_errors %}
+    <p class="form-errors">
+        {% if form.errors.items|length == 1 %}
+            {% trans "Parece que hay un error en el formulario. Revísalo, por favor." %}
+        {% else %}
+            {% trans "Parece que hay errores en el formulario. Revísalo, por favor.." %}
+        {% endif %}
+    </p>
+{% endif %}
+
+{% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <p class="form-errors">
+            {{ error }}
+        </p>
+    {% endfor %}
+{% endif %}
+<form class="form--audioset-create" method="post">
+    {% csrf_token %}
+    {{ form.errors }}
+    {{ form.as_p }}
+    <input type="submit" value="{% trans 'Crear audioset' %}" />
+</form>
+{% endblock %}
+
+{% block extra_js %}
+    {{ form.media }}
+{% endblock %}

@@ -3,11 +3,28 @@
   padding: $padding_header
   height: $height_header
 .region-content
-  height: calc(100vh - #{$height_header} - #{$height_footer})
+  min-height: calc(100vh - #{$height_header} - #{$height_footer})
 .region-footer
   padding: $padding_footer
   height: $height_footer
-  background-color: black
+
+// Two col layout
+.region-content > .two-col > div
+  padding-left: $m/2
+  padding-right: $m/2
+
++breakpoint('sm')
+  .region-content > .two-col
+    display: flex
+    width: 100%
+  .region-content > .two-col > .left
+    flex-grow: 1
+  .region-content > .two-col > .right
+    flex-grow: 4
+
+// Classes
+body.toppadded .region-content
+  padding-top: $m*3
 
 // Registration pages
 // Align vertically contents of region-content
