@@ -73,6 +73,12 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
         }),
     )
     inlines = [ TrackInlineAdmin, ]
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.owner = request.user
+        super().save_model(request, obj, form, change)
+
     class Media:
         js = ('models/js/modeladmin_audioset.js',)
 
