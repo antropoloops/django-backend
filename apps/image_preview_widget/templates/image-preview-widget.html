@@ -1,0 +1,8 @@
+{% load static image_preview_widget_tags %}
+
+<div class="field__widget--picture-preview">
+    <div class="placeholder" {% if value|check_file %}data-image="{% get_media_prefix %}{{ value }}"{% endif %}>
+        {{ placeholder }}
+    </div>
+    {{ parent_widget }}
+</div>
