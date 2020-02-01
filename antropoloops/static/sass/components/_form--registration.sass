@@ -1,24 +1,17 @@
 @import compass/css3/animation
 
-// Common settings for forms
+// Common settings registration forms
+// -> app registration
 
-.form__error,
-.field__error
-  color: red
-  font-size: .9em
-  margin-bottom: $m
-
-.field__error
-  padding: 0 $m
-
-form
+.form-registration
   background: rgba(black, .75)
   padding: $m*2 $m*2 $m*2 $m*3
   border: 8px solid black
   border-width: 8px 0
   +animation(fadeup 1.25s 1)
 
-form .field__label
+// labels
+.form-registration .field__label
   +h(6)
   margin-bottom: $m/2
   position: relative
@@ -34,7 +27,8 @@ form .field__label
     left: -38px
     bottom: -48px
 
-form .field__widget input
+//widgets
+.form-registration .field__widget input
   border: 0
   border-radius: 0
   line-height: $m*2
@@ -44,7 +38,7 @@ form .field__widget input
   padding: 0 $m/2
   border-radius: 4px
 
-.form__submit
+.form-registration__submit
   +h(5)
   text-transform: uppercase
   background-color: $color_success
@@ -59,19 +53,26 @@ form .field__widget input
   &:hover
     background-color: darken($color_success, 10%)
 
-.form-instructions
+// errors
+.form-registration__errors,
+.form-registration__non-field-errors
+  color: red
+  font-size: .9em
+  margin-bottom: $m
+
+.form-registration .field__error
+  padding: 0 $m
+
+// instructions
+
+.form-registration__instructions
   margin-bottom: $m*1.5
   padding: 0 $m
 
-.form__actions
+// actions
+
+.form-registration__actions
   margin: $m*1.5 0 0 -30px
-.form__actions .feather
-  max-width: $m*.75
-  position: relative
-  top: 6px
-  margin-right: $m/2
-  stroke: $orange
-.form__actions
   a
     transition: color .2s ease
   a:link, a:visited
@@ -80,3 +81,10 @@ form .field__widget input
     color: $orange
   a:active
     color: white
+
+.form-registration .form__actions .feather
+  max-width: $m*.75
+  position: relative
+  top: 6px
+  margin-right: $m/2
+  stroke: $orange

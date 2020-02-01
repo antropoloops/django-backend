@@ -1,13 +1,15 @@
 {# Render a simple field #}
 
-<div class="field field--{{ class }} required">
-    <label class="field__label field__label--{{ class }}">
+<div class="field form-{{ name }}__field field-{{ class }} required">
+    <label class="field__label field-{{ class }}__label">
         {% icon icon %}{{ field.label }}
     </label>
-    <p class="field__widget field__widget--{{ class }}">
+    <p class="field__widget field-{{ class }}__widget">
         {{ field }}
     </p>
-    <div class="field__error field__error--{{ class }}">
+    {% if field.errors %}
+    <div class="field__errors field-{{ class }}__errors">
         {{ field.errors }}
     </div>
+    {% endif %}
 </div>

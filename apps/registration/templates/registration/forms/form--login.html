@@ -1,16 +1,16 @@
 {# Login form #}
 {% load i18n static %}
 
-<form action="{{ action }}" method="post" class="form--registration">
+<form action="{{ action }}" method="post" class="form-registration form-registration--login">
     {% csrf_token %}
-    {% include 'registration/forms/form-errors.html' %}
-    <div class="form__fields--registration">
-        {% include 'registration/forms/form-field.html' with field=form.username icon='user' class='username' %}
-        {% include 'registration/forms/form-field.html' with field=form.password icon='key' class='password' %}
+    {% include 'registration/forms/form-errors.html' with name="registration" modifier="login" %}
+    <div class="form-registration__fields">
+        {% include 'registration/forms/form-field.html' with name="registration" field=form.username icon='user' class='username' %}
+        {% include 'registration/forms/form-field.html' with name="registration" field=form.password icon='key' class='password' %}
     </div>
-    <input class="form__submit form__submit--registration" type="submit" value="{% trans 'Accede' %}" />
-    <ul class="form__actions form__actions--registration">
-        <li class="form__actions-item form__actions-item--registration">
+    <input class="form-registration__submit" type="submit" value="{% trans 'Accede' %}" />
+    <ul class="form-registration__actions">
+        <li class="form-registration__actions-item">
             {% icon 'alert-circle' %}
             <a href="{% url 'password_reset' %}">
                 {% trans '¿Has olvidado tu nombre de usuari@ o contraseña?' %}

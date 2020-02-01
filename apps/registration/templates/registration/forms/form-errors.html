@@ -2,19 +2,23 @@
 {% load i18n %}
 
 {% if form.errors and not form.non_field_errors %}
-<p class="form__error">
-    {% if form.errors.items|length == 1 %}
-        {% trans "It seems there's an error in the form. Please review it." %}
-    {% else %}
-        {% trans "It seems there're errors in the form. Please review it." %}
-    {% endif %}
-</p>
+<ul class="form__errors form-{{ name }}__errors">
+    <li class="form__error form-{{ name }}__error {% if modifier %}form-{{ name }}__error--{{ modifier }}{% endif %}">
+        {% if form.errors.items|length == 1 %}
+            {% trans "It seems there's an error in the form. Please review it." %}
+        {% else %}
+            {% trans "It seems there're errors in the form. Please review it." %}
+        {% endif %}
+    </li>
+</ul>
 {% endif %}
 
 {% if form.non_field_errors %}
 {% for error in form.non_field_errors %}
-    <p class="form__error">
+<ul class="form__non-field-errors form-{{ name }}__non-field-errors">
+    <li class="form__non-field-error form-{{ name }}__non-field-error {% if modifier %}form-{{ name }}__error--{{ modifier }}{% endif %}">
         {{ error }}
-    </p>
+    </li>
+</ul>
 {% endfor %}
 {% endif %}
