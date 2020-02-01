@@ -1,6 +1,8 @@
 Django==2.2.9
+django-admin-sortable==2.2.3
 django-colorfield==0.1.15
 django-countries==5.5
+Pillow==7.0.0
 pytz==2019.3
 six==1.14.0
 sqlparse==0.3.0

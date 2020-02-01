@@ -8,9 +8,6 @@ from . import models
 
 # Declare modeladmins
 
-class AlbumAdmin(admin.ModelAdmin):
-    model = models.Album
-
 class AudioAdmin(admin.ModelAdmin):
     model = models.Audio
 
@@ -55,7 +52,7 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
             'classes' : ( 'fieldset--display', ),
             'fields' : (
                 'mode_display',
-                # TODO: add background
+                'background',
                 'map_url',
                 'map_lambda',
                 'map_shift_vertical',
@@ -84,7 +81,6 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
 
 # Register model admins
 
-admin.site.register(models.Album, AlbumAdmin)
 admin.site.register(models.Audio, AudioAdmin)
 admin.site.register(models.Clip, ClipAdmin)
 admin.site.register(models.Track, TrackAdmin)

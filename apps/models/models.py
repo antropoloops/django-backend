@@ -12,38 +12,6 @@ from . import categories
 from . import validators
 
 
-class Album(models.Model):
-    """ Album model definition """
-
-    name = models.CharField(
-        _('Nombre del álbum'),
-        max_length=128,
-        blank=False,
-    )
-    artist = models.CharField(
-        _('Nombre del artista'),
-        max_length=128,
-        blank=False,
-    )
-    year = models.PositiveSmallIntegerField(
-        _('Año de lanzamiento'),
-        blank=True,
-        validators=[ validators.album_year_validator ]
-    )
-    country = CountryField(
-        _('País'),
-        blank=True,
-    )
-    # TODO: cover #
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('Álbum')
-        verbose_name_plural = _('Álbumes')
-
-
 class Audio(models.Model):
     """ Audio model definition """
 
@@ -52,12 +20,25 @@ class Audio(models.Model):
         max_length=128,
         blank=False,
     )
-    album = models.ForeignKey(
-        Album,
+    artist = models.CharField(
+        _('Nombre del artista'),
+        max_length=128,
+        blank=True,
+    )
+    year = models.PositiveSmallIntegerField(
+        _('Año'),
         blank=True,
         null=True,
-        verbose_name=_('Álbum'),
-        on_delete=models.SET_NULL,
+        validators=[ validators.album_year_validator ]
+    )
+    country = CountryField(
+        _('País'),
+        blank=True,
+    )
+    album_name = models.CharField(
+    _('Nombre del álbum'),
+    max_length=128,
+    blank=True,
     )
     #TODO: audio_mp3
     #TODO: audio_ogg
@@ -87,21 +68,16 @@ class Clip(models.Model):
             'de la canción relacionada'
         )
     )
-    artist = models.CharField(
-        _('Nombre del artista'),
-        max_length=128,
-        blank=True,
-        help_text=_(
-            'Si este campo se deja vacío se usará el artista '
-            'del audio relacionado'
-        )
-    )
     place = models.CharField(
         _('Lugar'),
         max_length=128,
         blank=True,
     )
-    #TODO: cover
+    image = models.ImageField(
+        _('Imagen representativa'),
+        blank=True,
+        upload_to='images/clips'
+    )
     audio = models.ForeignKey(
         Audio,
         _('Audio'),
@@ -165,7 +141,11 @@ class Audioset(Publishable):
             'del audioset.'
         )
     )
-    #TODO: logo
+    logo = models.ImageField(
+        _('Logo'),
+        blank=True,
+        upload_to='images/audiosets'
+    )
 
     # Visual fieldset
     mode_display = models.CharField(
@@ -180,7 +160,11 @@ class Audioset(Publishable):
             'Elige <em>mapa</em> si quieres localizarlos sobre un mapa. '
         )
     )
-    #TODO: background
+    background = models.ImageField(
+        _('Logo'),
+        blank=True,
+        upload_to='images/backgrounds'
+    )
     map_url = models.URLField(
         _('URL del mapa'),
         blank=True,
