@@ -17,6 +17,8 @@ urlpatterns = [
     path('', include(registration_urls)),
     # django default admin urls
     path('admin/', admin.site.urls),
+    # ckeditor urls
+    path(r'ckeditor/', include('ckeditor_uploader.urls')),
 
     # PAGES
     # URLS related to user dashboard (audiosets view, forms, etc.)

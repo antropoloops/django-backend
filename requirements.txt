@@ -1,7 +1,9 @@
 Django==2.2.9
 django-admin-sortable==2.2.3
+django-ckeditor==5.9.0
 django-colorfield==0.1.15
 django-countries==5.5
+django-js-asset==1.2.2
 Pillow==7.0.0
 pytz==2019.3
 six==1.14.0

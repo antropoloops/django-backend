@@ -60,10 +60,10 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ form.media }}
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-geo.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
     <script type="text/javascript" src="{% static 'dashboard/js/configuration-section.js' %}"></script>
-    {{ form.media }}
 {% endblock %}

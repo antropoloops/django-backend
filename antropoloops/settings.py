@@ -54,6 +54,8 @@ CONTRIB_APPS = [
     'colorfield',
     'django_countries',
     'adminsortable',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 PROJECT_APPS = [
@@ -145,6 +147,25 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# CKEDITOR
+# CKEDITOR_UPLOAD_PATH = "/inline-images/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'width'  : '100%',
+        'extraPlugins': 'videodetector,',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink', 'Image', 'VideoDetector'],
+            ['RemoveFormat', 'Source'],
+        ],
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_JQUERY_URL  = "/static/admin/js/vendor/jquery/jquery.min.js"
 
 
 #

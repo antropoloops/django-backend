@@ -49,13 +49,6 @@ class AudiosetUpdateForm(forms.ModelForm):
                     "Añade aquí una imagen de cabecera"
                 )
             ),
-            'readme' : widgets.Textarea(
-                attrs = {
-                    "placeholder" : _(
-                        "Aquí puedes añadir una descripción más extensa de tu proyecto"
-                    )
-                }
-            ),
             'mode_display' : widgets.RadioSelect(),
             'background' : ImagePreviewWidget(
                 placeholder=_(

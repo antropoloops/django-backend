@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from colorfield.fields import ColorField
 from django_countries.fields import CountryField
 from adminsortable.models import SortableMixin
+from ckeditor_uploader.fields import RichTextUploadingField
 # project
 from .abstract.publishable import Publishable
 from . import categories
@@ -173,7 +174,7 @@ class Audioset(Publishable):
             'Descripción corta. Se usará en vistas de contenido. '
         )
     )
-    readme = models.TextField(
+    readme = RichTextUploadingField(
         _('Descripción'),
         max_length=128,
         blank=True,
