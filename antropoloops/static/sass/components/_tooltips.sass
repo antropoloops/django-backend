@@ -1,0 +1,19 @@
+// Generic style for tooltips
+// Probably will need to be overriden
+// because some settings cannot defined forehand
+@import compass/css3/animation
+
+[data-tooltip]
+  position: relative
+[data-tooltip]:hover:after
+  content: attr(data-tooltip)
+  position: absolute
+  right: 0
+  top: $m
+  width: $m*3
+  text-align: center
+  background-color: rgba(black, .9)
+  z-index: 1000
+  padding: $m/2
+  +animation(fadein .25s 1)
+  border-radius: 4px

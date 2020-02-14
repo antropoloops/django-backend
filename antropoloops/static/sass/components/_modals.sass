@@ -1,0 +1,23 @@
+.modal
+  display: none
+
+.modal.visible
+  display: block
+
+.modal-anchor
+  position: relative
+
+.modal--dashboard
+  position: absolute
+  left: 0
+  top: $m*1.5
+  width: 100%
+  height: calc(100% - #{$m*1.5})
+  overflow-y: scroll
+  background: #222
+
+.modal__close
+  cursor: pointer
+  position: absolute !important
+  right: $m
+  top: $m

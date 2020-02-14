@@ -1,0 +1,69 @@
+{# Dashboard page #}
+{% extends 'layouts/single-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--audioset-configuration-form
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {% trans 'Configura: ' %} {{ object.name }}
+{% endblock %}
+
+{# Content #}
+{% block main %}
+{% include 'components/menu-audioset.html' with slug=audioset_slug active_item='configuration' %}
+<form enctype="multipart/form-data" class="form-audioset-configure" method="post">
+    {% csrf_token %}
+    {% include 'registration/forms/form-errors.html' with name="audioset-configure" %}
+    <div class="two-col">
+        <div class="left">
+            <div class="field-name--form-audioset-configure">
+                <a href="{% url 'dashboard' %}" title="{% trans 'Vuelve a tu pantalla de perfil' %}">
+                    {% icon 'arrow-left-circle' %}
+                </a>
+                {{ audioset_name }}
+            </div>
+            {% include 'models/audioset_configuration_field.html' with field=form.logo %}
+            {% include 'models/audioset_configuration_field.html' with field=form.readme %}
+        </div>
+        <div class="right">
+            <div class="mode-selector" data-current-state="{{ form.mode_display.value }}">
+                <p class="mode-selector__explanation">
+                {% blocktrans trimmed %}
+                    ¿Qué tipo de fondo quieres para el audioset?
+                {% endblocktrans %}
+                </p>
+                {{ form.mode_display }}
+                <div class="mode-selector__state" data-state="1">
+                    <div class="mode-selector__state-fields">
+                        {% include 'models/audioset_configuration_field.html' with field=form.background %}
+                    </div>
+                </div>
+                <div class="mode-selector__state" data-state="2">
+                    <div class="mode-selector__state-fields">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input class="form-audioset-configure__submit audioset-submit" type="submit"
+           value="{% trans 'Guarda los cambios' %}"
+    ></input>
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script type="text/javascript" src="{% static 'dashboard/js/configuration-section.js' %}"></script>
+    {{ form.media }}
+{% endblock %}

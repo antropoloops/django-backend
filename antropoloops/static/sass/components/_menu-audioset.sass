@@ -1,0 +1,48 @@
+// Navigation menu in audioset configuration
+
+.menu-audioset
+  margin: $m/2 0
+
+// Icons
+.menu-audioset .feather
+  vertical-align: middle
+  height: .9em
+  position: relative
+  top: -2px
+  &:hover
+    cursor: help
+
+// Links
+.menu-audioset a
+  &:link, &:visited
+    color: white
+  &:hover
+    color: $green
+  &:active
+    color: white
+
+// Items
+.menu-audioset__item
+  display: inline
+  opacity: .75
+  margin-right: $m
+  position: relative
+  font-size: 1.2em
+.menu-audioset__item.active
+  font-weight: 600
+  opacity: 1
+  &:before
+    content: url()
+.menu-audioset__helptext
+  display: none
+  position: absolute
+  background: rgba(black, .9)
+  width: 240px
+  left: 0
+  top: $m
+  z-index: 1000000
+  padding: $m/2
+
+// Helptexts
+.menu-audioset .feather:hover + .menu-audioset__helptext
+  display: block

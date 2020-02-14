@@ -17,8 +17,13 @@ urlpatterns = [
         name='audioset_create'
     ),
     path(
-        'audioset/edita/<slug:slug>',
-        views.AudiosetDetailView.as_view(),
+        'audioset/<slug:slug>/configura',
+        views.AudiosetUpdateView.as_view(),
         name='audioset_update'
+    ),
+    path(
+        'audioset/<slug:slug>/gestiona-clips',
+        views.AudiosetDetailView.as_view(),
+        name='audioset_tracklist'
     ),
 ]

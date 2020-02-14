@@ -1,0 +1,29 @@
+{# renders a clip #}
+{% load i18n %}
+
+<div class="clip--audioset">
+    <figure class="clip__thumbnail--audioset">
+        <img src="{{ clip.image.url }}" />
+    </figure>
+    <div class="clip__name--audioset">
+        {{ clip.name }}
+    </div>
+    <span class="clip__key--audioset">
+        {{ clip.key }}
+    </span>
+    <ul class="clip-actions">
+        <li class="clip-actions__edit"
+            data-tooltip="{% trans 'Edita este clip' %}"
+            data-modal-show=".form-modal"
+            data-modal-show-id="{{ clip.pk }}"
+            data-modal-model="clip"
+        >
+            {% icon 'edit' %}
+        </li>
+        <li class="clip-actions__delete"
+            data-tooltip="{% trans 'Borrar este clip' %}"
+        >
+            {% icon 'trash-2' %}
+        </li>
+    </ul>
+</div>

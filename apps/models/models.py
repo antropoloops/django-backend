@@ -65,7 +65,7 @@ class Clip(models.Model):
         blank=True,
         help_text=_(
             'Si este campo se deja vacío se usará el nombre '
-            'de la canción relacionada'
+            'del audio relacionado'
         )
     )
     place = models.CharField(
@@ -151,8 +151,9 @@ class Audioset(Publishable):
     mode_display = models.CharField(
         _('Tipo de visual'),
         max_length=2,
-        blank=False,
-        default=1,
+        blank=True,
+        null=False,
+        default='',
         choices=categories.VISUAL_DISPLAY_MODE,
         help_text=_(
             'Elige el modo en que quieres mostrar el audioset. Elige <em>panel</em> '
@@ -161,7 +162,7 @@ class Audioset(Publishable):
         )
     )
     background = models.ImageField(
-        _('Logo'),
+        _('Background'),
         blank=True,
         upload_to='images/backgrounds'
     )
@@ -205,6 +206,10 @@ class Audioset(Publishable):
         _('Quantize'),
         default=0,
     )
+
+    @property
+    def is_panel(self):
+        return self.mode_display=='1'
 
     def __str__(self):
         return self.name

@@ -1,0 +1,77 @@
+// Track forms
+@import compass/css3/appearance
+
+.form-modal__label,
+.form-modal__fields
+  padding: $m
+.form-modal__header
+  background-color: rgba(black, .15)
+.form-modal__fields
+  margin-top: 0
+.form-modal__label
+  margin: 0
+.fieldset__content > p,
+  margin-bottom: $m
+  padding-bottom: $m
+  border-bottom: 1px solid #111
+.form-modal__fields label
+  font-weight: 600
+  display: block
+  margin-bottom: $m/2
+.form-modal__fields input
+  &[type=text],
+  &[type=number],
+  &[name=color]
+    margin: $m/4 $m/2
+    border: 0
+    line-height: $m*1.5
+    background-color: rgba(black, .75)
+    padding: 0 $m/2
+.form-modal__fields textarea
+  background-color: rgba(black, .75)
+  padding: $m/2
+  border: 0
+.form-modal__fields select
+  background-color: rgba(black, .75)
+  padding: $m/2
+  border: 0
+  +appearance(none)
+.form-modal__fields .helptext
+  display: block
+  font-size: .9em
+$actions: create update
+@each $action in $actions
+  [data-action='#{$action}']
+    [data-action]
+      display: none
+    [data-action='#{$action}']
+      display: block
+
+.fieldset__name
+  margin-top: 0
+  color: $green
+  padding-bottom: $m
+  border-bottom: 3px solid black
+.fieldset__name::before
+  content: "\2303"
+  position: relative
+  top: 2px
+  margin-right: $m/3
+  opacity: .75
+.collapsed .fieldset__name::before
+  content: "\2304"
+  position: relative
+  top: -4px
+.collapsible .fieldset__name
+  cursor: pointer
+.collapsed .fieldset__content
+  display: none
+.form-modal__submit
+  display: inline-block
+  border: 2px solid $green
+  padding: $m/2
+  margin: $m
+  .feather
+    vertical-align: middle
+  &:hover
+    cursor: pointer

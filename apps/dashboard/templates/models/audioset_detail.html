@@ -1,25 +1,64 @@
 {# Dashboard page #}
-{% extends 'layouts/two-column.html' %}
+{% extends 'layouts/single-column.html' %}
 
 {# tags not defined as built-ins in settings.py #}
 {% load i18n static %}
 
 {# body's css classes #}
 {% block body_css_classes %}
-    page--audioset toppadded
+    page--audioset
 {% endblock %}
 
 {# html title #}
 {% block title %}
-    {% trans 'Edita: ' %} {{ object.name }}
-{% endblock %}
-
-{# Sidebar #}
-{% block sidebar %}
-
+    {% trans 'Añade tracks: ' %} {{ object.name }}
 {% endblock %}
 
 {# Content #}
 {% block main %}
+{% include 'components/menu-audioset.html' with slug=audioset_slug active_item='tracklist' %}
+<div class="two-col">
+    <div class="left modal-anchor">
+        <div class="field-name--form-audioset-configure">
+            <a href="{% url 'dashboard' %}" title="{% trans 'Vuelve a tu pantalla de perfil' %}">
+                {% icon 'arrow-left-circle' %}
+            </a>
+            {{ audioset.name }}
+        </div>
+        <p class="tracklist__add-item"
+           data-modal-show=".form-modal"
+           data-modal-model="track"
+        >
+            {% icon 'plus' %}
+            {% trans 'Añade un track nuevo' %}
+        </p>
+        <ul class="tracklist tracklist--audioset">
+        {% for track in tracks.all %}
+            <li class="tracklist__item tracklist__item--audioset"
+                style="background-color: {{ track.color }}">
+                {% include 'components/item_track--audioset.html' with track=track %}
+            </li>
+        {% endfor %}
+        </ul>
+        {% include 'models/form_modal.html' with form=trackform model='track' %}
+        {% include 'models/form_modal.html' with form=clipform model='clip' inline=audioform %}
+    </div>
+    <div class="right">
+        {% if audioset.is_panel and audioset.background %}
+            <div class="audioset-background"
+                  style="background-image: url('{{ audioset.background.url }}') "
+            ></div>
+        {% else %}
+            <div id="map"></div>
+        {% endif %}
+    </div>
+{% endblock %}
 
+{% block extra_js %}
+    {{ trackform.media }}
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script type="text/javascript" src="{% static 'dashboard/js/tracklist-section.js' %}"></script>
 {% endblock %}

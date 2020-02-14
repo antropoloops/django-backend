@@ -1,0 +1,125 @@
+@import compass/css3/appearance
+
+$big_text: 1.5rem
+
+// Name
+.field-name--form-audioset-configure
+  padding: $m/4 $m/2
+  .feather
+    vertical-align: middle
+    margin-right: $m/3
+  a:link, a:visited,a:hover, a:active
+    color: white
+// Logo
+.field-logo--audioset-configuration-form,
+.field-background--audioset-configuration-form
+  position: relative
+  .widget-wrapper
+    opacity: 0
+    transition: opacity .2s ease
+    padding: $m/4
+    width: 100%
+    background: rgba(black, .85)
+    position: absolute
+    left: 0
+    bottom: 0
+    z-index: 1000
+    text-align: center
+    a
+      color: white !important
+  &:hover
+    .widget-wrapper
+      opacity: 1
+.form-audioset-configure .placeholder
+  font-size: $big_text
+  color: $color_placeholder
+  font-weight: 600
+.form-audioset-configure .placeholder__text
+  padding: $m*5 $m/2
+.field-logo--audioset-configuration-form .field__widget--picture-preview
+  position: relative
+.field-logo--audioset-configuration-form .placeholder__text
+  background-color: rgba(black, .1)
+// Readme
+.form-audioset-configure textarea
+  background: transparent
+  border: 0
+  padding: $m/2
+  font-size: $big_text
+  border: 0
+.form-audioset-configure textarea::placeholder
+  font-size: $big_text
+  font-weight: 600
+
+// Mode display
+.mode-selector,
+.mode-selector__state
+  position: relative
+  height: 100%
+
+.mode-selector__explanation
+  font-size: $big_text
+  color: #929292
+  padding-top: $m*3
+  font-weight: 600
+  margin: $m*2 0
+
+$states: 1 2
+@each $state in $states
+  .mode-selector[data-current-state='#{$state}']
+    [data-state]
+      display: none
+    [data-state='#{$state}']
+      display: block
+
+// Mode selector widget
+#id_mode_display,
+  +appearance(none)
+  background: none
+  border: 0
+  padding: $m/2
+  li:first-child
+    display: none
+  li:not(:first-child)
+    display: inline-block
+    margin: 0 $m
+
+[for=id_mode_display_1]:before
+  content: url('/static/dashboard/img/blank-image.svg')
+  display: block
+  margin-bottom: $m
+[for=id_mode_display_2]:before
+  content: url('/static/dashboard/img/world-image.svg')
+  display: block
+  max-width: 100%
+  margin-bottom: $m
+.mode-selector__state
+  display: none
+.mode-selector[data-current-state='1'],
+.mode-selector[data-current-state='2']
+  .mode-selector__explanation
+    display: none
+  #id_mode_display
+    position: absolute
+    top: $m
+    right: $m
+    font-weight: 600
+    text-transform: uppercase
+    font-size: .8em
+    display: block
+    z-index: 100
+    background: rgba(black, .75)
+    label
+      cursor: pointer
+    label:before
+      content: none
+
+.mode-selector .placeholder__text
+  padding-top: 20%
+
+#map
+  width: 100%
+  height: 75vh
+  background: transparent
+.leaflet-tile
+  filter: grayscale(100%) invert(100%)

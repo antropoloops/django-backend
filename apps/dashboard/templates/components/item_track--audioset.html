@@ -1,0 +1,36 @@
+{# Renders an audioset in a view using a grid display #}
+{% load i18n dashboard_tags %}
+
+<div class="track-header">
+    <h4 class="track__name--audioset">
+        {{ track.name }}
+    </h4>
+    <ul class="track-actions">
+        <li class="track-actions__edit"
+            data-modal-show=".form-modal"
+            data-modal-show-id="{{ track.pk }}"
+            data-modal-model="track"
+            data-tooltip="{% trans 'Edita este track' %}"
+        >
+            {% icon 'edit' %}
+        </li>
+        <li class="track-actions__add"
+            data-modal-show=".form-modal"
+            data-modal-model="clip"
+            data-tooltip="{% trans 'Añade un clip a este track' %}">
+            {% icon 'plus' %}
+        </li>
+        <li class="track-actions__delete"
+            data-tooltip="{% trans 'Borra este track' %}"
+        >
+            {% icon 'trash-2' %}
+        </li>
+    </ul>
+</div>
+<div class="track__clips--audioset">
+    {% for clip in track.clips.all %}
+        {% include 'components/item_clip--audioset.html' with clip=clip %}
+    {% empty %}
+        {% trans 'No has añadido clips todavía a este track' %}
+    {% endfor %}
+</div>

@@ -1,0 +1,39 @@
+{# audioset configuration navigation #}
+{% load i18n %}
+
+<nav class="menu-audioset">
+    <ul class="menu-audioset__items">
+        <li class="menu-audioset__item {% if active_item == 'configuration' %}active{% endif %}">
+            {% if active_item == 'configuration' %}
+                {% icon 'arrow-down' %}
+            {% else %}
+                {% icon 'arrow-right' %}
+            {% endif %}
+            <a href="{% url 'audioset_update' audioset.slug %}">
+                {% trans 'Configuración' %}
+            </a>
+            {% if active_item == 'configuration' %}
+                {% icon 'help-circle' %}
+                <div class="menu-audioset__helptext">
+                    {% lorem %}
+                </div>
+            {% endif %}
+        </li>
+        <li class="menu-audioset__item {% if active_item == 'tracklist' %}active{% endif %}">
+            {% if active_item == 'tracklist' %}
+                {% icon 'arrow-down' %}
+            {% else %}
+                {% icon 'arrow-right' %}
+            {% endif %}
+            <a href="{% url 'audioset_tracklist' audioset.slug %}">
+                {% trans 'Añade track y clips' %}
+            </a>
+            {% if active_item == 'tracklist' %}
+                {% icon 'help-circle' %}
+                <div class="menu-audioset__helptext">
+                    {% lorem %}
+                </div>
+            {% endif %}
+        </li>
+    </ul>
+</nav>
