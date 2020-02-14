@@ -27,7 +27,7 @@ MEDIA_URL = '/media/'
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(ENV_PATH, '..', 'media')
+MEDIA_ROOT = os.path.join(ENV_PATH, '..', 'assets/media')
 
 # Registration
 
