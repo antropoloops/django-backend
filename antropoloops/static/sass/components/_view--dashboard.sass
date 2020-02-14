@@ -1,17 +1,17 @@
 // Dashboard view
 
-.audioset-view--dashboard
+.view-dashboard
   width: 1180px
   max-width: 100%
   margin: 0 auto
 
 +breakpoint('sm')
-  .audioset-view__link--dashboard
+  .view-dashboard__item
     width: 33%
     display: inline-block
     vertical-align: top
 
-.audioset-view__link--dashboard
+.view-dashboard__item
   position: relative
   padding: $m
   margin: $m 0
@@ -36,19 +36,19 @@
     height: 100%
     animation: fadein .5s 1
 
-.field-thumbnail--dashboard
+.field-thumbnail--item-dashboard
   text-align: center
 
-.field-thumbnail--dashboard .blank-image
+.field-thumbnail--item-dashboard .blank-image
   width: 100%
 
-.field-date--dashboard
+.field-date--item-dashboard
   font-size: .8em
   margin-bottom: $m/4
 
-.field-date--dashboard .field__value
+.field-date--item-dashboard .field__value
   font-weight: bold
 
-.field-description--dashboard .blank-description
+.field-description--item-dashboard .blank-description
   font-style: italic
   padding: 0 $m

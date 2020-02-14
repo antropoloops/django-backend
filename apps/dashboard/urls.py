@@ -8,21 +8,31 @@ from . import views
 urlpatterns = [
     path(
         'dashboard',
-        views.DashboardView.as_view(),
-        name='dashboard'
+        views.ProjectListView.as_view(),
+        name='project_list'
     ),
     path(
-        'audioset/crea',
+        'proyecto/crea',
+        views.ProjectCreateView.as_view(),
+        name='project_create'
+    ),
+    path(
+        'proyecto/<int:pk>/edita',
+        views.ProjectDetailView.as_view(),
+        name='project_detail'
+    ),
+    path(
+        'proyecto/<int:pk>/crea-audioset',
         views.AudiosetCreateView.as_view(),
         name='audioset_create'
     ),
     path(
-        'audioset/<slug:slug>/configura',
+        'audioset/<int:pk>/configura',
         views.AudiosetUpdateView.as_view(),
         name='audioset_update'
     ),
     path(
-        'audioset/<slug:slug>/gestiona-clips',
+        'audioset/<int:pk>/gestiona-clips',
         views.AudiosetDetailView.as_view(),
         name='audioset_tracklist'
     ),

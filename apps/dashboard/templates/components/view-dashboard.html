@@ -1,0 +1,30 @@
+{# Dashboard views #}
+{% load i18n %}
+
+<div class="view-dashboard">
+    {% for item in item_list %}
+        <a href="{% url item_url item.pk %}"
+           class="view-dashboard__item"
+           data-hover="{% trans 'Edita este' %} {{ item_label }}"
+        >
+            {% include 'components/item-dashboard.html' %}
+        </a>
+    {% empty %}
+        <div class="view-dashboard__empty">
+        {% blocktrans trimmed %}
+            No has creado todavía ningún {{ item_label }}
+        {% endblocktrans %}
+        </div>
+    {% endfor %}
+</div>
+
+{# ExtraJS #}
+{% block extra_js %}
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll('.view-dashboard>a').forEach( function(it, i){
+        it.style.animationDelay = i*.2 + 's';
+    })
+})
+</script>
+{% endblock %}

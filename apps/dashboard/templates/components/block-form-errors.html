@@ -1,0 +1,25 @@
+{# Form errors #}
+{% load i18n %}
+
+{% if form.errors or form.non_field_errors %}
+<ul class="form-errors{% if modifier %} form-errors--{{ modifier }}{% endif %}">
+    <p class="form-errors__header{% if modifier %} form-errors__header--{{ modifier }}{% endif %}">
+        {% trans 'El formulario contiene errores' %}
+    </p>
+    <ul class="form-errors__list {% if modifier %} form-errors__list--{{ modifier }}{% endif %}">
+    {% if form.field_errors %}
+        {% for error in form.field_errors %}
+        <li class="form-error{% if modifier %} form-error--{{ modifier }}{% endif %}">
+            {{ error }}
+        </li>
+        {% endfor %}
+    {% endif %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <li class="form-erro{% if modifier %} form-error--{{ modifier }}{% endif %}">
+            {{ error }}
+        </li>
+        {% endfor %}
+    {% endif %}
+  </ul>
+{% endif %}

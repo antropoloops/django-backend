@@ -22,6 +22,16 @@ class TrackInlineAdmin(sortable.SortableStackedInline):
     fields = [ 'name', ]
     extra = 0
 
+class ProjectAdmin(admin.ModelAdmin):
+    model = models.Project
+    fields = (
+        ('name', 'slug'),
+        'owner',
+        'users',
+        'image',
+        'published'
+    )
+
 class AudiosetAdmin(sortable.NonSortableParentAdmin):
     """TODO: require conditionally fields in display fieldset"""
 
@@ -38,6 +48,7 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
         (None, {
             'fields' : (
                 'name',
+                'project',
                 'slug'
             )
         }),
@@ -84,4 +95,5 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
 admin.site.register(models.Audio, AudioAdmin)
 admin.site.register(models.Clip, ClipAdmin)
 admin.site.register(models.Track, TrackAdmin)
+admin.site.register(models.Project, ProjectAdmin)
 admin.site.register(models.Audioset, AudiosetAdmin)

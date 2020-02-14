@@ -1,0 +1,37 @@
+{# Dashboard page #}
+{% extends 'layouts/two-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--dashboard page--project-detail toppadded
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {{ object.name }}
+{% endblock %}
+
+{# Sidebar #}
+{% block sidebar %}
+    {% include 'components/block-greeting.html' %}
+    {% include 'components/menu-actions.html' with section='project-detail' section_id=view.kwargs.pk %}
+{% endblock %}
+
+{# Content #}
+{% block main %}
+    <p class="fake-breadcrumb">
+        <a href="{% url 'project_list' %}">
+            {% icon 'arrow-left' %} {% trans 'Volver a lista de proyectos' %}
+        </a>
+    </p>
+    <p class="page__section">
+        {% trans 'Proyecto' %} | <strong>{{ object.name }}</strong>
+    </p>
+    <h1 class="page__name">
+        {% trans 'Audiosets' %}
+    </h1>
+    {% include 'components/view-dashboard.html' with item_list=audioset_list item_label='audioset' item_url='audioset_update' %}
+{% endblock %}

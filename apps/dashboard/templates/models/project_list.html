@@ -1,0 +1,29 @@
+{# Dashboard page #}
+{% extends 'layouts/two-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--dashboard page--project-list toppadded
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {% trans 'Tus proyectos' %}
+{% endblock %}
+
+{# Sidebar #}
+{% block sidebar %}
+    {% include 'components/block-greeting.html' %}
+    {% include 'components/menu-actions.html' with section='project-list' %}
+{% endblock %}
+
+{# Content #}
+{% block main %}
+    <h1 class="page__title">
+        {% trans 'Tus proyectos' %}
+    </h1>
+    {% include 'components/view-dashboard.html' with item_list=project_list item_label='proyecto' item_url='project_detail' %}
+{% endblock %}

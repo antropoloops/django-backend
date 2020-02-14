@@ -11,14 +11,14 @@
 
 {# html title #}
 {% block title %}
-    {% trans 'Crea un audioset nuevo' %}
+    {% trans 'Crea un proyecto nuevo' %}
 {% endblock %}
 
 {# Sidebar #}
 {% block sidebar %}
 <div class="user-profile">
-  {% include 'components/block-greeting.html' %}
-  {% include 'components/menu-actions.html' with modifier='dashboard' %}
+    {% include 'components/block-greeting.html' %}
+    {% include 'components/menu-actions.html' with modifier='dashboard' %}
 </div>
 {% endblock %}
 
@@ -26,14 +26,15 @@
 {% block main %}
 {% include 'components/block-fake-breadcrumb.html' %}
 <h1 clas="page__title">
-    {% trans 'Crea un audioset nuevo' %}
+    {% icon 'plus' %} {% trans 'Crea un proyecto nuevo' %}
 </h1>
+
 {% include 'components/block-form-errors.html' with form=form %}
 <form class="form-item-dashboard--create" method="post">
     {% csrf_token %}
     {{ form.errors }}
     {{ form.as_p }}
-    <input type="submit" value="{% trans 'Crear audioset' %}" />
+    <input type="submit" value="{% trans 'Crear proyecto' %}" />
 </form>
 {% endblock %}
 

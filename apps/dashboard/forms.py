@@ -20,6 +20,19 @@ class AudiosetCreateForm(forms.ModelForm):
             'description' : LimitedTextareaWidget(limit=280),
         }
 
+
+class ProjectCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = antropoloops_models.Project
+        fields = [
+            'name',
+            'description',
+        ]
+        widgets = {
+            'description' : LimitedTextareaWidget(limit=280),
+        }
+
 class AudiosetUpdateForm(forms.ModelForm):
 
     class Meta:

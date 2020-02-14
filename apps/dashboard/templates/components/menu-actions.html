@@ -1,21 +1,33 @@
 {# menu for user actions in dashboard #}
 {% load i18n %}
 
-<div class="menu-actions {% if modifier %}menu-actions--{{modifier}}{% endif %}">
-    <ul class="menu-actions__items {% if modifier %}menu-actions__items--{{modifier}}{% endif %}">
-        <li class="menu-actions__item {% if modifier %}menu-actions__item--{{modifier}}{% endif %}">
-            <a href="{% url 'audioset_create' %}">
-                  {% icon 'plus' %}  {% trans 'Crea un audioset nuevo' %}
+<div class="menu-actions">
+    <ul class="menu-actions__items">
+        {% if section == 'project-list' %}
+        <li class="menu-actions__item">
+            <a href="{% url 'project_create' %}">
+                  {% icon 'plus' %}
+                  {% trans 'Crea un proyecto nuevo' %}
             </a>
         </li>
-        <li class="menu-actions__item {% if modifier %}menu-actions__item--{{modifier}}{% endif %}">
+        {% elif section == 'project-detail' %}
+        <li class="menu-actions__item">
+            <a href="{% url 'audioset_create' section_id %}">
+                  {% icon 'plus' %}
+                  {% trans 'Añade un audioset nuevo a este proyecto' %}
+            </a>
+        </li>
+        {% endif %}
+        <li class="menu-actions__item">
             <a href="{% url 'password_reset' %}">
-                  {% icon 'key' %}  {% trans 'Cambia tu contraseña' %}
+                  {% icon 'key' %}
+                  {% trans 'Cambia tu contraseña' %}
             </a>
         </li>
-        <li class="menu-actions__item {% if modifier %}menu-actions__item--{{modifier}}{% endif %}">
+        <li class="menu-actions__item">
             <a href="{% url 'logout' %}">
-                  {% icon 'log-out' %} {% trans 'Salir de Play Antropoloops' %}
+                  {% icon 'log-out' %}
+                  {% trans 'Salir de Play Antropoloops' %}
             </a>
         </li>
     </ul>

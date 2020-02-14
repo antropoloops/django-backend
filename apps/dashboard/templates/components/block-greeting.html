@@ -1,0 +1,10 @@
+{# A simple greeting block #}
+{% load i18n %}
+
+<div class="greeting">
+    {% icon 'user' %}
+    {% trans 'Bienvenido' %},
+    <span class="greeting__user">
+        {{ request.user.username }}
+    </span>
+</div>

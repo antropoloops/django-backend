@@ -9,7 +9,7 @@
             {% else %}
                 {% icon 'arrow-right' %}
             {% endif %}
-            <a href="{% url 'audioset_update' audioset.slug %}">
+            <a href="{% url 'audioset_update' audioset.pk %}">
                 {% trans 'Configuración' %}
             </a>
             {% if active_item == 'configuration' %}
@@ -25,7 +25,7 @@
             {% else %}
                 {% icon 'arrow-right' %}
             {% endif %}
-            <a href="{% url 'audioset_tracklist' audioset.slug %}">
+            <a href="{% url 'audioset_tracklist' audioset.pk %}">
                 {% trans 'Añade track y clips' %}
             </a>
             {% if active_item == 'tracklist' %}

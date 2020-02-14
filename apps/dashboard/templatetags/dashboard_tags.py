@@ -28,6 +28,6 @@ def logo(set):
 @register.filter
 def description(set):
     blank_description =  '<p class="blank-description">{0}</p>'.format(
-        _('Este audioset no aporta ninguna descripción')
+        _('Este elemento no aporta descripción')
     )
     return set.description if set.description else mark_safe(blank_description)

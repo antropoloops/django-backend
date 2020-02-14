@@ -2,6 +2,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 # contrib
 from colorfield.fields import ColorField
 from django_countries.fields import CountryField
@@ -106,6 +107,46 @@ class Clip(models.Model):
         return self.name if self.name else self.audio.name
 
 
+class Project(Publishable):
+    """ Project model definition """
+
+    name = models.CharField(
+        _('Nombre del proyecto'),
+        max_length=128,
+        blank=False,
+    )
+    description = models.TextField(
+        _('Descripción corta'),
+        blank=True,
+        help_text=_(
+            'Descripción corta. Se usará en vistas de contenido. '
+        )
+    )
+    image = models.ImageField(
+        _('Imagen representativa'),
+        blank=True,
+        upload_to='images/clips'
+    )
+    users = models.ManyToManyField(
+        User,
+        verbose_name=_('Usuarias'),
+        related_name='projects',
+        blank=True,
+        help_text=_(
+            'Usuarias con permisos dentro de este proyecto'
+        )
+    )
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        """Populate automatically 'slug' field"""
+        if not self.id and not self.slug:
+            self.slug = slugify(self.name)
+        super(Project, self).save(*args, **kwargs)
+
+
 class Audioset(Publishable):
     """ Audioset model definition """
 
@@ -139,6 +180,16 @@ class Audioset(Publishable):
         help_text=_(
             'Descripción larga. Se usará en la página específica '
             'del audioset.'
+        )
+    )
+    project = models.ForeignKey(
+        Project,
+        verbose_name=_('Proyecto'),
+        related_name='audioset',
+        null=True,
+        on_delete=models.CASCADE,
+        help_text=_(
+            'Proyecto al que pertenece el audioset'
         )
     )
     logo = models.ImageField(
