@@ -1,5 +1,5 @@
 {# Dashboard page #}
-{% extends 'layouts/single-column.html' %}
+{% extends 'layouts/single-column-fluid.html' %}
 
 {# tags not defined as built-ins in settings.py #}
 {% load i18n static %}
@@ -17,37 +17,32 @@
 {# Content #}
 {% block main %}
 {% include 'components/menu-audioset.html' with slug=audioset_slug active_item='configuration' %}
-<form enctype="multipart/form-data" class="form-audioset-configure" method="post">
+<form enctype="multipart/form-data" class="layout-form-audioset form-audioset-configure" method="post">
     {% csrf_token %}
     {% include 'registration/forms/form-errors.html' with name="audioset-configure" %}
-    <div class="two-col">
-        <div class="left">
-            <div class="field-name--form-audioset-configure">
-                <a href="{% url 'project_list' %}" title="{% trans 'Vuelve a tu pantalla de perfil' %}">
-                    {% icon 'arrow-left-circle' %}
-                </a>
-                {{ audioset_name }}
-            </div>
-            {% include 'models/audioset_configuration_field.html' with field=form.logo %}
-            {% include 'models/audioset_configuration_field.html' with field=form.readme %}
+    <div class="layout-form-audioset__left">
+        <div class="field-name--form-audioset-configure">
+            {{ audioset_name }}
         </div>
-        <div class="right">
-            <div class="mode-selector" data-current-state="{{ form.mode_display.value }}">
-                <p class="mode-selector__explanation">
-                {% blocktrans trimmed %}
-                    ¿Qué tipo de fondo quieres para el audioset?
-                {% endblocktrans %}
-                </p>
-                {{ form.mode_display }}
-                <div class="mode-selector__state" data-state="1">
-                    <div class="mode-selector__state-fields">
-                        {% include 'models/audioset_configuration_field.html' with field=form.background %}
-                    </div>
+        {% include 'models/audioset_configuration_field.html' with field=form.logo %}
+        {% include 'models/audioset_configuration_field.html' with field=form.readme %}
+    </div>
+    <div class="layout-form-audioset__right">
+        <div class="mode-selector" data-current-state="{{ form.mode_display.value }}">
+            <p class="mode-selector__explanation">
+            {% blocktrans trimmed %}
+                ¿Qué tipo de fondo quieres para el audioset?
+            {% endblocktrans %}
+            </p>
+            {{ form.mode_display }}
+            <div class="mode-selector__state" data-state="1">
+                <div class="mode-selector__state-fields">
+                    {% include 'models/audioset_configuration_field.html' with field=form.background %}
                 </div>
-                <div class="mode-selector__state" data-state="2">
-                    <div class="mode-selector__state-fields">
-                        <div id="map"></div>
-                    </div>
+            </div>
+            <div class="mode-selector__state" data-state="2">
+                <div class="mode-selector__state-fields">
+                    <div id="map"></div>
                 </div>
             </div>
         </div>

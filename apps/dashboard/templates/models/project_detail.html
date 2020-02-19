@@ -16,22 +16,16 @@
 
 {# Sidebar #}
 {% block sidebar %}
-    {% include 'components/block-greeting.html' %}
+    <p class="page__breadcrumb">
+        <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a> » {{ object.name }}
+    </p>
+    <h1 class="page__title">
+        {{ object.name }}
+    </h1>
     {% include 'components/menu-actions.html' with section='project-detail' section_id=view.kwargs.pk %}
 {% endblock %}
 
 {# Content #}
 {% block main %}
-    <p class="fake-breadcrumb">
-        <a href="{% url 'project_list' %}">
-            {% icon 'arrow-left' %} {% trans 'Volver a lista de proyectos' %}
-        </a>
-    </p>
-    <p class="page__section">
-        {% trans 'Proyecto' %} | <strong>{{ object.name }}</strong>
-    </p>
-    <h1 class="page__name">
-        {% trans 'Audiosets' %}
-    </h1>
     {% include 'components/view-dashboard.html' with item_list=audioset_list item_label='audioset' item_url='audioset_update' %}
 {% endblock %}

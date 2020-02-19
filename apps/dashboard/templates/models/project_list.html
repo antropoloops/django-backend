@@ -16,14 +16,16 @@
 
 {# Sidebar #}
 {% block sidebar %}
-    {% include 'components/block-greeting.html' %}
+    <p class="page__breadcrumb">
+        {% trans 'Proyectos' %}
+    </p>
+    <h1 class="page__title">
+        {% trans 'Tus proyectos' %}
+    </h1>
     {% include 'components/menu-actions.html' with section='project-list' %}
 {% endblock %}
 
 {# Content #}
 {% block main %}
-    <h1 class="page__title">
-        {% trans 'Tus proyectos' %}
-    </h1>
     {% include 'components/view-dashboard.html' with item_list=project_list item_label='proyecto' item_url='project_detail' %}
 {% endblock %}

@@ -1,5 +1,5 @@
 {# Dashboard page #}
-{% extends 'layouts/single-column.html' %}
+{% extends 'layouts/single-column-fluid.html' %}
 
 {# tags not defined as built-ins in settings.py #}
 {% load i18n static %}
@@ -17,12 +17,9 @@
 {# Content #}
 {% block main %}
 {% include 'components/menu-audioset.html' with slug=audioset_slug active_item='tracklist' %}
-<div class="two-col">
-    <div class="left modal-anchor">
+<div class="layout-form-audioset">
+    <div class="layout-form-audioset__left modal-anchor">
         <div class="field-name--form-audioset-configure">
-            <a href="{% url 'project_list' %}" title="{% trans 'Vuelve a tu pantalla de perfil' %}">
-                {% icon 'arrow-left-circle' %}
-            </a>
             {{ audioset.name }}
         </div>
         <p class="tracklist__add-item"
@@ -43,7 +40,7 @@
         {% include 'models/form_modal.html' with form=trackform model='track' %}
         {% include 'models/form_modal.html' with form=clipform model='clip' inline=audioform %}
     </div>
-    <div class="right">
+    <div class="layout-form-audioset__right">
         {% if audioset.is_panel and audioset.background %}
             <div class="audioset-background"
                   style="background-image: url('{{ audioset.background.url }}') "
@@ -52,6 +49,7 @@
             <div id="map"></div>
         {% endif %}
     </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}

@@ -1,5 +1,5 @@
 {# Dashboard page #}
-{% extends 'layouts/two-column.html' %}
+{% extends 'layouts/single-column-fixed.html' %}
 
 {# tags not defined as built-ins in settings.py #}
 {% load i18n static %}
@@ -14,23 +14,15 @@
     {% trans 'Crea un proyecto nuevo' %}
 {% endblock %}
 
-{# Sidebar #}
-{% block sidebar %}
-<div class="user-profile">
-    {% include 'components/block-greeting.html' %}
-    {% include 'components/menu-actions.html' with modifier='dashboard' %}
-</div>
-{% endblock %}
-
 {# Content #}
 {% block main %}
 {% include 'components/block-fake-breadcrumb.html' %}
 <h1 clas="page__title">
-    {% icon 'plus' %} {% trans 'Crea un proyecto nuevo' %}
+    {% trans 'Crea un proyecto nuevo' %}
 </h1>
 
-{% include 'components/block-form-errors.html' with form=form %}
-<form class="form-item-dashboard--create" method="post">
+<form class="form-project-create form-simple" method="post">
+    {% include 'components/block-form-errors.html' with form=form %}
     {% csrf_token %}
     {{ form.errors }}
     {{ form.as_p }}

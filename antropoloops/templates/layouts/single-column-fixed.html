@@ -1,0 +1,11 @@
+{# Renders a template with a single fixed column #}
+{% extends 'base.html' %}
+{% block layout_classes %}layout-one-col-fixed{% endblock %}
+
+{% block layout %}
+<div class="region-content__inner">
+    <div class="layout-one-col-fixed__col pad">
+        {% block main %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

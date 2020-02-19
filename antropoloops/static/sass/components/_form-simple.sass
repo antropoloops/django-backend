@@ -2,51 +2,58 @@
 
 @import compass/css3/appearance
 
-.form-item-dashboard--create
+.form-simple
   background: none
   border: 0
-  width: 640px
+  margin: 0 auto
 
-.form-item-dashboard--create > p > label
+.form-simple > p > label
   font-weight: 600
   display: block
   margin: $m*1.5 0 $m/2
   text-transform: uppercase
 
-.form-item-dashboard--create
+.form-simple
   input, select, textarea
     width: 100%
     background-color: black
     border: 0
     min-height: $m*1.5
 
-.form-item-dashboard--create
+.form-simple
   input, select, textarea
     padding: $m/2 $m
 
 
-.form-item-dashboard--create select
+.form-simple select
   +appearance(none)
 
-.form-item-dashboard--create .helptext
+.form-simple .helptext
   display: block
   font-size: .9em
   margin-top: $m/2
   margin-left: $m
 
-.form-item-dashboard--create input[type=submit]
+.form-simple input[type=submit]
   line-height: $m*1.5
-  margin-top: $m*2
+  margin: $m*2 $m
   background-color: $color_success
   color: white
   border: 0
   font-weight: 600
+  width: 240px
   text-transform: uppercase
   transition: background-color .2s ease
   &:hover
     background-color: darken($color_success, 10%)
 
-.form-item-dashboard--create .textarea-counter
+.form-simple input[type=submit].submit--delete
+  background-color: $color_danger
+
+.form-simple .form__cancel:hover
+  cursor: pointer
+
+.form-simple .textarea-counter
   text-align: right
   font-size: .8em
   magin-bottom: $m/4

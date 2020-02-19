@@ -8,44 +8,28 @@
   padding: $padding_footer
   height: $height_footer
 
-// Two col layout
-.region-content > .two-col > div
+.pad
   padding-left: $m/2
   padding-right: $m/2
 
+// One column layout
+
+.layout-one-col-fixed__col
+  width: 640px
+  max-width: 100%
+  margin: 0 auto
+
+// Two column layout
+
 +breakpoint('sm')
-  .two-col .left
+  .layout-two-col__left-col
     display: inline-block
     width: 25%
     float: left
-  .two-col .right
+  .layout-two-col__right-col
     display: inline-block
     width: 75%
 
 // Classes
 body.toppadded .region-content
   padding-top: $m*3
-
-// Registration pages
-// Align vertically contents of region-content
-.page--registration .region-content__inner
-  margin: 0 auto
-  width: 640px
-  max-width: 100%
-  padding-top: 100px
-
-.page--audioset-configuration-form,
-.page--audioset
-  .region-content
-    padding: $m
-  .left
-    background: #505050
-    height: 75vh
-  .right
-    height: 75vh
-    overflow: hidden
-    text-align: center
-    background: #444444
-  .left__inner
-    max-height: 75vh
-    overflow-y: auto !important

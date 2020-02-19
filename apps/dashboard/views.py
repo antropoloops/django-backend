@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from apps.models import models as antropoloops_models
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -49,7 +49,7 @@ class ProjectCreateView(CreateView):
     """ Project creation form in user dashboard. """
 
     model = antropoloops_models.Project
-    form_class  = forms.ProjectCreateForm
+    form_class  = forms.ProjectForm
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -59,7 +59,35 @@ class ProjectCreateView(CreateView):
         messages.success(self.request, _(
             'Has creado el proyecto con éxito'
         ))
-        return reverse_lazy('project_detail', kwargs={'slug' : self.object.slug })
+        return reverse_lazy('project_detail', kwargs={'slug' : self.object.pk })
+
+
+class ProjectUpdateView(UpdateView):
+    """ Project update form in user dashboard. """
+
+    model = antropoloops_models.Project
+    form_class  = forms.ProjectForm
+
+
+    def get_success_url(self):
+        messages.success(self.request, _(
+            'Has editado el proyecto con éxito'
+        ))
+        return reverse_lazy('project_detail', kwargs={'slug' : self.object.pk })
+
+
+class ProjectDeleteView(DeleteView):
+    """ Project delete form in user dashboard """
+
+    model = antropoloops_models.Project
+    success_url = reverse_lazy('project_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(
+            self.request,
+            _('El proyecto ha sido borrado con éxito')
+        )
+        return super(ProjectDeleteView, self).delete(request, *args, **kwargs)
 
 
 class AudiosetCreateView(CreateView):
@@ -84,6 +112,26 @@ class AudiosetCreateView(CreateView):
         return reverse_lazy('project_detail', kwargs={
             'pk' : self.kwargs.get('pk')
         })
+
+class AudiosetDeleteView(DeleteView):
+    """ Audioset delete form in user dashboard """
+
+    model = antropoloops_models.Audioset
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'project_detail',
+            kwargs = {
+                'pk' : self.request.kwargs.get('project_pk')
+            }
+        )
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(
+            self.request,
+            _('El audioset ha sido borrado con éxito')
+        )
+        return super(AudiosetDeleteView, self).delete(request, *args, **kwargs)
 
 
 class AudiosetUpdateView(UpdateView):

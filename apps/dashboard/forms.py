@@ -21,7 +21,7 @@ class AudiosetCreateForm(forms.ModelForm):
         }
 
 
-class ProjectCreateForm(forms.ModelForm):
+class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = antropoloops_models.Project

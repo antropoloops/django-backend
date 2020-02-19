@@ -17,18 +17,18 @@
                   {% trans 'Añade un audioset nuevo a este proyecto' %}
             </a>
         </li>
+        <li class="menu-actions__item">
+            <a href="{% url 'project_update' section_id %}">
+                  {% icon 'edit' %}
+                  {% trans 'Edita este proyecto' %}
+            </a>
+        </li>
+        <li class="menu-actions__item">
+            <a href="{% url 'project_delete' section_id %}">
+                  {% icon 'trash-2' %}
+                  {% trans 'Borra este proyecto' %}
+            </a>
+        </li>
         {% endif %}
-        <li class="menu-actions__item">
-            <a href="{% url 'password_reset' %}">
-                  {% icon 'key' %}
-                  {% trans 'Cambia tu contraseña' %}
-            </a>
-        </li>
-        <li class="menu-actions__item">
-            <a href="{% url 'logout' %}">
-                  {% icon 'log-out' %}
-                  {% trans 'Salir de Play Antropoloops' %}
-            </a>
-        </li>
     </ul>
 </div>

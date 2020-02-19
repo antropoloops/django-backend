@@ -1,10 +1,5 @@
 // Dashboard view
 
-.view-dashboard
-  width: 1180px
-  max-width: 100%
-  margin: 0 auto
-
 +breakpoint('sm')
   .view-dashboard__item
     width: 33%
@@ -13,8 +8,8 @@
 
 .view-dashboard__item
   position: relative
-  padding: $m
-  margin: $m 0
+  padding: 0 $m $m
+  margin: 0 0 $m
   opacity: 0
   animation: fadeup 1s 1 forwards
   animation-timing-function: ease-out
@@ -52,3 +47,21 @@
 .field-description--item-dashboard .blank-description
   font-style: italic
   padding: 0 $m
+
+.project-delete
+  a
+    &:link, &:visited
+      color: white
+    &:hover
+      color: $green
+    &:active
+      color: white
+  .feather
+    vertical-align: middle
+    height: .9em
+    position: relative
+    top: -2px
+  +breakpoint('sm')
+    font-size: .9em
+    float: right
+    margin-right: $m

@@ -11,21 +11,28 @@
 
 {# html title #}
 {% block title %}
-    {% trans 'Crea un audioset nuevo' %}
+    {% trans 'Borrar proyecto' %}
 {% endblock %}
 
 {# Content #}
 {% block main %}
-{% include 'components/block-fake-breadcrumb.html' %}
 <h1 clas="page__title">
-    {% trans 'Crea un audioset nuevo' %}
+    {% trans 'Borrar' %} «{{ object.name }}»
 </h1>
+<p>
+{% blocktrans trimmed %}
+¿Estás seguro que quieres borrar este proyecto? Este acción no se puede deshacer.
+{% endblocktrans %}
+</p>
 {% include 'components/block-form-errors.html' with form=form %}
-<form class="form-audioset-create form-simple" method="post">
+<form class="form-project-delete form-simple" method="post">
     {% csrf_token %}
     {{ form.errors }}
     {{ form.as_p }}
-    <input type="submit" value="{% trans 'Crear audioset' %}" />
+    <input class="submit--delete" type="submit" value="{% trans 'Borrar audioset' %}" />
+    <span class="form__cancel" onclick="history.go(-1)">
+        {% trans 'Cancelar' %}
+    </span>
 </form>
 {% endblock %}
 

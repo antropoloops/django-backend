@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function()
         data.objects.countries,
       );
       var countries = geodata.features;
-      var container = document.querySelector('.right');
+      var container = document.querySelector('.layout-form-audioset__right');
       var W = container.offsetWidth;
       var H = container.offsetHeight;
       var svg = d3.select('#map')
