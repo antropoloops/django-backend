@@ -67,6 +67,7 @@ class AudiosetCreateView(CreateView):
 
     model = antropoloops_models.Audioset
     form_class  = forms.AudiosetCreateForm
+    template_name = 'models/audioset_creation_form.html'
 
     def form_valid(self, form):
         project = antropoloops_models.Project.objects.get(
@@ -107,10 +108,11 @@ class AudiosetUpdateView(UpdateView):
         return reverse_lazy('audioset_tracklist', kwargs={'slug' : self.object.slug })
 
 
-class AudiosetDetailView(DetailView):
+class AudiosetTracklistView(DetailView):
     """ Audioset detail view/ajax update form """
 
     model = antropoloops_models.Audioset
+    template_name = 'models/audioset_tracklist_form.html'
 
     def get_context_data(self, request):
         tracks = antropoloops_models.Track.objects.filter(
@@ -118,7 +120,7 @@ class AudiosetDetailView(DetailView):
         )
 
     def get_context_data(self, **kwargs):
-        context = super(AudiosetDetailView, self).get_context_data(**kwargs)
+        context = super(AudiosetTracklistView, self).get_context_data(**kwargs)
         context['tracks'] = antropoloops_models.Track.objects.filter(
             audioset = self.object
         )

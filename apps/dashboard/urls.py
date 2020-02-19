@@ -33,7 +33,7 @@ urlpatterns = [
     ),
     path(
         'audioset/<int:pk>/gestiona-clips',
-        views.AudiosetDetailView.as_view(),
+        views.AudiosetTracklistView.as_view(),
         name='audioset_tracklist'
     ),
 ]
