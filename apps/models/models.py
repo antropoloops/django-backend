@@ -14,16 +14,36 @@ from . import categories
 from . import validators
 
 
-class Audio(models.Model):
-    """ Audio model definition """
+class Clip(models.Model):
+    """ Clip model definition """
 
     name = models.CharField(
-        _('Nombre del audio'),
+        _('Nombre del clip'),
         max_length=128,
         blank=False,
     )
+    audio_name = models.CharField(
+        _('Nombre del audio'),
+        max_length=128,
+        blank=False,
+        null=True,
+    )
     artist = models.CharField(
         _('Nombre del artista'),
+        max_length=128,
+        blank=True,
+    )
+    album_name = models.CharField(
+        _('Nombre del álbum'),
+        max_length=128,
+        blank=True,
+    )
+    country = CountryField(
+        _('País'),
+        blank=True,
+    )
+    place = models.CharField(
+        _('Lugar'),
         max_length=128,
         blank=True,
     )
@@ -31,16 +51,16 @@ class Audio(models.Model):
         _('Año'),
         blank=True,
         null=True,
-        validators=[ validators.album_year_validator ]
+        # validators=[ validators.album_year_validator ]
     )
-    country = CountryField(
-        _('País'),
+    readme = models.TextField(
+        _('Notas adicionales'),
         blank=True,
     )
-    album_name = models.CharField(
-    _('Nombre del álbum'),
-    max_length=128,
-    blank=True,
+    image = models.ImageField(
+        _('Imagen representativa'),
+        blank=True,
+        upload_to='images/clips'
     )
     #TODO: audio_mp3
     #TODO: audio_ogg
@@ -53,41 +73,6 @@ class Audio(models.Model):
         _('Volumen'),
         default=0,
     )
-
-    def __str__(self):
-        return self.name
-
-
-class Clip(models.Model):
-    """ Clip model definition """
-
-    name = models.CharField(
-        _('Nombre del clip'),
-        max_length=128,
-        blank=True,
-        help_text=_(
-            'Si este campo se deja vacío se usará el nombre '
-            'del audio relacionado'
-        )
-    )
-    place = models.CharField(
-        _('Lugar'),
-        max_length=128,
-        blank=True,
-    )
-    image = models.ImageField(
-        _('Imagen representativa'),
-        blank=True,
-        upload_to='images/clips'
-    )
-    audio = models.ForeignKey(
-        Audio,
-        _('Audio'),
-    )
-    readme = models.TextField(
-        _('Notas adicionales'),
-        blank=True,
-    )
     key = models.CharField(
         _('Tecla'),
         max_length=1,
@@ -96,12 +81,12 @@ class Clip(models.Model):
     pos_x = models.IntegerField(
         _('Coordenada X'),
         default = 0,
-        blank=True,
+        blank=False,
     )
     pos_y = models.IntegerField(
         _('Coordenada Y'),
         default = 0,
-        blank=True,
+        blank=False,
     )
 
     def __str__(self):
@@ -300,6 +285,7 @@ class Track(SortableMixin):
     clips = models.ManyToManyField(
         Clip,
         verbose_name=_('Clips'),
+        related_name='track'
     )
     audioset = models.ForeignKey(
         Audioset,

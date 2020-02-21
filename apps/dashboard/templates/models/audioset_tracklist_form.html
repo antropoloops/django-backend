@@ -23,22 +23,25 @@
             {{ audioset.name }}
         </div>
         <p class="tracklist__add-item"
-           data-modal-show=".form-modal"
-           data-modal-model="track"
+           data-show-template="template-form-track"
+           data-action="create"
+           data-model="track"
         >
             {% icon 'plus' %}
             {% trans 'Añade un track nuevo' %}
         </p>
         <ul class="tracklist tracklist--audioset">
         {% for track in tracks.all %}
-            <li class="tracklist__item tracklist__item--audioset"
+            <li class="tracklist__item tracklist__item--audioset" draggable="true"
                 style="background-color: {{ track.color }}">
-                {% include 'components/item_track--audioset.html' with track=track %}
+                {% include 'components/view-item-track.html' with track=track %}
             </li>
         {% endfor %}
         </ul>
-        {% include 'models/form_modal.html' with form=trackform model='track' %}
-        {% include 'models/form_modal.html' with form=clipform model='clip' inline=audioform %}
+        <div id="form-tracklist-container"></div>
+        {% include 'models/template_form_track.html' with form=trackform %}
+        {% include 'models/template_form_clip.html' with form=clipform %}
+        {% include 'models/template_form_delete.html' %}
     </div>
     <div class="layout-form-audioset__right">
         {% if audioset.is_panel and audioset.background %}
@@ -53,10 +56,13 @@
 {% endblock %}
 
 {% block extra_js %}
-    {{ trackform.media }}
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3-geo.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous">
+    </script>
     <script type="text/javascript" src="{% static 'dashboard/js/tracklist-section.js' %}"></script>
 {% endblock %}

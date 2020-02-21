@@ -1,0 +1,103 @@
+// Tracklist forms
+
+@import compass/css3/appearance
+
+#form-tracklist-container
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  max-height: 100%
+  overflow-y: scroll
+  background-color: #393939
+
+#form-tracklist-container form
+  // height from layout-form-audioset
+  min-height: 75vh
+
+.form-tracklist__label,
+.form-tracklist__fields
+  padding: $m
+.form-tracklist__header
+  background-color: rgba(black, .15)
+.form-tracklist__text
+  padding: $m*2 $m 0
+.form-tracklist__fields
+  margin-top: 0
+.form-tracklist__label
+  margin: 0
+.fieldset__content > p,
+  margin-bottom: $m
+  padding-bottom: $m
+  border-bottom: 1px solid #111
+.form-tracklist__fields label
+  font-weight: 600
+  display: block
+  margin-bottom: $m/2
+.form-tracklist__fields input
+  &[type=text],
+  &[type=number],
+  &[name=color]
+    margin: $m/4 $m/2
+    border: 0
+    line-height: $m*1.5
+    background-color: rgba(black, .75)
+    padding: 0 $m/2
+.form-tracklist__fields textarea
+  background-color: rgba(black, .75)
+  padding: $m/2
+  border: 0
+.form-tracklist__fields select
+  background-color: rgba(black, .75)
+  padding: $m/2
+  border: 0
+  +appearance(none)
+.form-tracklist__fields .helptext
+  display: block
+  font-size: .9em
+
+$actions: create update delete
+@each $action in $actions
+  [data-action='#{$action}']
+    [data-action]
+      display: none
+    [data-action='#{$action}']
+      display: block
+
+.form-tracklist [type=submit]
+  display: inline-block
+  border: 2px solid $green
+  background: none
+  padding: $m/2
+  margin: $m
+  &:hover
+    cursor: pointer
+
+.form-tracklist__close
+  cursor: pointer
+  position: absolute !important
+  right: $m
+  top: $m
+
+
+// Fieldsets
+.form-tracklist
+  .fieldset__name
+    margin-top: 0
+    color: $green
+    padding-bottom: $m
+    border-bottom: 3px solid black
+  .fieldset__name::before
+    content: "\2303"
+    position: relative
+    top: 2px
+    margin-right: $m/3
+    opacity: .75
+  .collapsed .fieldset__name::before
+    content: "\2304"
+    position: relative
+    top: -4px
+  .collapsible .fieldset__name
+    cursor: pointer
+  .collapsed .fieldset__content
+    display: none

@@ -11,6 +11,7 @@ from django.urls import reverse_lazy
 # project
 from apps.registration import urls as registration_urls
 from apps.dashboard import urls as dashboard_urls
+from apps.api import urls as api_urls
 
 urlpatterns = [
     # URLS related to user actions (login, password change, etc.)
@@ -25,6 +26,10 @@ urlpatterns = [
     path('', include(dashboard_urls)),
     # front
     path('', RedirectView.as_view(url='dashboard')),
+
+    # API
+    # v1.0
+    path('api/1.0/', include(api_urls)),
 ]
 
 # Add static URLS when running a standalone server through manage.py

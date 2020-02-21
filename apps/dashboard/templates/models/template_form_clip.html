@@ -1,0 +1,28 @@
+{# Modal forms for tracklist section #}
+{% load i18n %}
+
+<template id="template-form-clip">
+    <form class="form-tracklist" data-model="clip" data-action="create">
+        {% csrf_token %}
+        <div class="form-tracklist__header">
+            <span class="form-tracklist__close" data-tooltip="{% trans 'Cancelar' %}" onclick="clean()">
+                {% icon 'x' %}
+            </span>
+            <h3 class="form-tracklist__label" data-action="create">
+                {% trans 'Añade un clip' %}
+            </h3>
+            <h3 class="form-tracklist__label" data-action="update">
+                {% trans 'Edita este clip' %}
+            </h3>
+        </div>
+        <div class="form-tracklist__fields">
+            <div class="fieldset fieldset-display {%if inline %}collapsible{% endif %}">
+                <div class="fieldset__content">
+                    {{ form.as_p }}
+                    <input type="hidden" name="track" />
+                </div>
+            </div>
+        </div>
+        <input class="form-tracklist__submit" type="submit" value="{% trans 'Guardar' %}" />
+    </form>
+</template>

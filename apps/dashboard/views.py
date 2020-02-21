@@ -153,7 +153,7 @@ class AudiosetUpdateView(UpdateView):
             'Has configurado el audioset con éxito. Ahora puedes añadirle '
             'tracks y clips'
         ))
-        return reverse_lazy('audioset_tracklist', kwargs={'slug' : self.object.slug })
+        return reverse_lazy('audioset_tracklist', kwargs={'pk' : self.object.pk })
 
 
 class AudiosetTracklistView(DetailView):
@@ -172,7 +172,6 @@ class AudiosetTracklistView(DetailView):
         context['tracks'] = antropoloops_models.Track.objects.filter(
             audioset = self.object
         )
-        context['trackform'] = forms.TrackForm
-        context['clipform']  = forms.ClipForm
-        context['audioform'] = forms.InlineAudioForm
+        context['trackform'] = forms.TrackUpdateFormAjax
+        context['clipform']  = forms.ClipUpdateFormAjax
         return context

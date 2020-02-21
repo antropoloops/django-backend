@@ -1,0 +1,26 @@
+{# ContentTemplate for generic Track form in tracklist section #}
+{% load i18n %}
+
+<template id="template-form-track">
+    <form class="form-tracklist" data-model="track" data-action="create">
+        {% csrf_token %}
+        <div class="form-tracklist__header">
+            <span class="form-tracklist__close" onclick="clean()" data-tooltip="{% trans 'Cancelar' %}">
+                {% icon 'x' %}
+            </span>
+            <h3 class="form-tracklist__label" data-action="create">
+                {% trans 'Añade un track' %}
+            </h3>
+            <h3 class="form-tracklist__label" data-action="update">
+                {% trans 'Edita este track' %}
+            </h3>
+        </div>
+        <div class="form-tracklist__fields">
+            {{ form.as_p }}
+            <input id="id_audioset" type="hidden" name="audioset" value="{{ view.kwargs.pk }}" />
+        </div>
+        <input class="form-tracklist__submit" type="submit" value="{% trans 'Guardar' %}" />
+    </form>
+    {# include here to avois referring to not created yet nodes #}
+    {{ trackform.media }}
+</template>

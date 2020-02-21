@@ -1,0 +1,36 @@
+.clip
+  position: relative
+.clip-actions
+  position: absolute
+  left: 135px
+  top: $m/3
+[class*='clip-actions__']
+  display: inline
+  cursor: pointer
+  margin-left: $m/4
+.clip__thumbnail
+  display: inline-block
+  width: 120px
+  float: left
+  background-color: rgba(black, .15)
+  img
+    max-height: 100%
+    width: auto
+.clip__name
+  display: inline-block
+  width: calc(100% - 120px)
+  line-height: 120px
+  padding-left: $m
+  position: relative
+.clip__key
+  position: absolute
+  right: $m
+  height: $m
+  text-align: center
+  line-height: $m
+  border-radius: 50%
+  width: $m
+  background-color: rgba(black, .25)
+  top: calc(60px - #{$m/2})
+.track__clips .empty
+  padding: $m

@@ -8,6 +8,14 @@ from apps.models import models as antropoloops_models
 from apps.limited_textarea_widget.widgets import LimitedTextareaWidget
 from apps.image_preview_widget.widgets import ImagePreviewWidget
 
+
+def namedWidget(input_name, widget=forms.CharField):
+    if isinstance(widget, type):
+        widget = widget()
+    render = widget.render
+    widget.render = lambda name, value, attrs=None, renderer=None: render(input_name, value, attrs, renderer)
+    return widget
+
 class AudiosetCreateForm(forms.ModelForm):
 
     class Meta:
@@ -65,12 +73,57 @@ class TrackForm(forms.ModelForm):
             'color',
         ]
 
+class TrackFormAjax(forms.ModelForm):
+
+    class Meta:
+        model = antropoloops_models.Track
+        fields = [
+            'name',
+            'color',
+            'audioset'
+        ]
+        widgets = {
+            'audioset' : widgets.HiddenInput()
+        }
+
+
+class TrackUpdateFormAjax(forms.ModelForm):
+
+    pk = forms.IntegerField(
+        widget=widgets.HiddenInput()
+    )
+
+    class Meta:
+        model = antropoloops_models.Track
+        fields = [
+            'name',
+            'color',
+            'audioset'
+        ]
+        widgets = {
+            'audioset' : widgets.HiddenInput()
+        }
+
+
 class ClipForm(forms.ModelForm):
     class Meta:
         model = antropoloops_models.Clip
-        exclude = ('audio', )
+        fields = '__all__'
 
-class InlineAudioForm(forms.ModelForm):
+
+class ClipFormAjax(forms.ModelForm):
+
     class Meta:
-        model = antropoloops_models.Audio
+        model = antropoloops_models.Clip
+        fields = '__all__'
+
+
+class ClipUpdateFormAjax(forms.ModelForm):
+
+    pk = forms.IntegerField(
+        widget=widgets.HiddenInput()
+    )
+
+    class Meta:
+        model = antropoloops_models.Clip
         fields = '__all__'

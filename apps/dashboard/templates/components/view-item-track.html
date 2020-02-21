@@ -2,35 +2,45 @@
 {% load i18n dashboard_tags %}
 
 <div class="track-header">
-    <h4 class="track__name--audioset">
+    <h4 class="track__name">
         {{ track.name }}
     </h4>
     <ul class="track-actions">
         <li class="track-actions__edit"
-            data-modal-show=".form-modal"
-            data-modal-show-id="{{ track.pk }}"
-            data-modal-model="track"
+            data-show-template="template-form-track"
+            data-action="update"
+            data-model="track"
+            data-id="{{ track.pk }}"
             data-tooltip="{% trans 'Edita este track' %}"
         >
             {% icon 'edit' %}
         </li>
         <li class="track-actions__add"
-            data-modal-show=".form-modal"
-            data-modal-model="clip"
+            data-show-template="template-form-clip"
+            data-action="create"
+            data-model="clip"
+            data-id="{{ clip.pk }}"
+            data-track="{{ track.pk }}"
             data-tooltip="{% trans 'Añade un clip a este track' %}">
             {% icon 'plus' %}
         </li>
         <li class="track-actions__delete"
+            data-show-template="template-form-delete"
+            data-action="delete"
+            data-model="track"
+            data-id="{{ track.pk }}"
             data-tooltip="{% trans 'Borra este track' %}"
         >
             {% icon 'trash-2' %}
         </li>
     </ul>
 </div>
-<div class="track__clips--audioset">
+<div class="track__clips">
     {% for clip in track.clips.all %}
-        {% include 'components/item_clip--audioset.html' with clip=clip %}
+        {% include 'components/view-item-clip.html' with clip=clip track=track.pk %}
     {% empty %}
+        <div class="empty">
         {% trans 'No has añadido clips todavía a este track' %}
+        </div>
     {% endfor %}
 </div>

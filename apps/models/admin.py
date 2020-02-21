@@ -8,9 +8,6 @@ from . import models
 
 # Declare modeladmins
 
-class AudioAdmin(admin.ModelAdmin):
-    model = models.Audio
-
 class ClipAdmin(admin.ModelAdmin):
     model = models.Clip
 
@@ -92,7 +89,6 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
 
 # Register model admins
 
-admin.site.register(models.Audio, AudioAdmin)
 admin.site.register(models.Clip, ClipAdmin)
 admin.site.register(models.Track, TrackAdmin)
 admin.site.register(models.Project, ProjectAdmin)

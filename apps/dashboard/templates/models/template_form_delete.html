@@ -1,0 +1,25 @@
+{# Modal delete form for tracklist section #}
+{% load i18n %}
+
+<template id="template-form-delete">
+    <form class="form-tracklist" data-action="delete">
+        {% csrf_token %}
+        <div class="form-tracklist__header">
+            <span class="form-tracklist__close" data-tooltip="{% trans 'Cancelar' %}" onclick="clean()">
+                {% icon 'x' %}
+            </span>
+            <h3 class="form-tracklist__label">
+                {% trans 'Borra este elemento' %} {{ model }}
+            </h3>
+        </div>
+        <p class="form-tracklist__text">
+            {% blocktrans trimmed %}
+            ¿Estás segura? Está acción no se puede deshacer
+            {% endblocktrans %}
+        </p>
+        <div class="form-tracklist__fields">
+            <input class="pk" name="pk" type="hidden" value="" />
+        </div>
+        <input class="form-tracklist__submit" type="submit" value="{% trans 'Borrar' %}" />
+    </form>
+</template>
