@@ -163,4 +163,23 @@ jQuery(document).ready( function()
         .style("stroke-width", 0.5)
         .style("fill", "#888888");
     });
+
+    // Drag and drop
+
+    var containerSelector = '.tracklist';
+    var containers = document.querySelectorAll(containerSelector);
+
+    if (containers.length === 0) {
+        return false;
+    }
+    console.log(Sortable);
+
+    var sortable = new Sortable(containers, {
+        draggable: '.tracklist__item',
+        mirror: {
+          appendTo: containerSelector,
+          constrainDimensions: true,
+        },
+    });
+
 });
