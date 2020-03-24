@@ -2,9 +2,11 @@
 
 <div class="field__widget--picture-preview">
     <div class="placeholder" {% if value|check_file %}data-image="{% get_media_prefix %}{{ value }}"{% endif %}>
+        {% if placeholder %}
         <p class="placeholder__text">
             {{ placeholder }}
         </p>
+        {% endif %}
     </div>
     <div class="widget-wrapper">
         {{ parent_widget }}
