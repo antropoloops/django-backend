@@ -14,7 +14,7 @@
   text-transform: uppercase
 
 .form-simple
-  input, select, textarea
+  input:not([type=checkbox]), select, textarea
     width: 100%
     background-color: black
     border: 0
@@ -90,3 +90,18 @@
   text-align: right
   font-size: .8em
   margin-bottom: $m/4
+
+.form-simple .field__widget--picture-preview
+  .placeholder
+    text-align: center
+    margin: $m 0
+  a
+    color: white
+    text-decoration: underline
+    text-decoration-style: dotted
+  input[type=checkbox]
+    margin-left: $m/2
+    position: relative
+    top: 2px
+  br
+    margin-bottom: $m/2

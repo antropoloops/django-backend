@@ -7,20 +7,11 @@ from django.utils.safestring import mark_safe
 
 register = template.Library()
 
-@register.filter
-def logo(set):
-    field_exists = hasattr(set, 'logo')
-    default_img_url = settings.STATIC_URL + 'dashboard/img/blank-image.svg'
-    if field_exists and set.logo:
-        return mark_safe(
-            '<img src="{0}" alt="{1}" />'.format(
-                set.logo.url,
-                _('Logo del audioset')
-            )
-        )
+@register.simple_tag
+def blank_image():
     return mark_safe(
         '<img class="blank-image" src="{0}" alt="{1}" />'.format(
-            default_img_url,
+            settings.STATIC_URL + 'dashboard/img/blank-image.svg',
             _('Imagen genérica')
         )
     )

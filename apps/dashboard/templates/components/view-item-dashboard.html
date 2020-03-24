@@ -1,5 +1,5 @@
 {# Renders a publishable item in the dashboard view #}
-{% load i18n dashboard_tags %}
+{% load i18n dashboard_tags imagekit %}
 
 <div class="field-date--item-dashboard">
     <span class="field__label">
@@ -10,7 +10,11 @@
     </span>
 </div>
 <figure class="field-thumbnail--item-dashboard">
-    {{ item|logo }}
+    {% if item.image %}
+        {% thumbnail '480x480' item.image %}
+    {% else %}
+        {% blank_image %}
+    {% endif %}
 </figure>
 <h3 class="field-name--item-dashboard">
     {{ item.name }}

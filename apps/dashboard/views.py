@@ -88,7 +88,7 @@ class ProjectUpdateView(UpdateView):
         messages.success(self.request, _(
             'Has editado el proyecto con éxito'
         ))
-        return reverse_lazy('project_detail', kwargs={'PK' : self.object.pk })
+        return reverse_lazy('project_detail', kwargs={'pk' : self.object.pk })
 
 
 class ProjectDeleteView(DeleteView):

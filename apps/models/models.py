@@ -111,7 +111,11 @@ class Project(Publishable):
     image = models.ImageField(
         _('Imagen representativa'),
         blank=True,
-        upload_to='images/clips'
+        upload_to='images/projects',
+        help_text=_(
+            'Añade opcionalmente una imagen representativa. Ésta se usará en la '
+            ' vista de proyectos. '
+        )
     )
     users = models.ManyToManyField(
         User,

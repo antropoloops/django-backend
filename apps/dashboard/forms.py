@@ -35,9 +35,11 @@ class ProjectForm(forms.ModelForm):
         model = antropoloops_models.Project
         fields = [
             'name',
+            'image',
             'description',
         ]
         widgets = {
+            'image' : ImagePreviewWidget(),
             'description' : LimitedTextareaWidget(limit=280),
         }
 

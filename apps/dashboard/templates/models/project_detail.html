@@ -2,7 +2,7 @@
 {% extends 'layouts/two-column.html' %}
 
 {# tags not defined as built-ins in settings.py #}
-{% load i18n static %}
+{% load i18n static imagekit dashboard_tags %}
 
 {# body's css classes #}
 {% block body_css_classes %}
@@ -22,6 +22,13 @@
     <h1 class="page__title">
         {{ object.name }}
     </h1>
+    <figure class="page__image page__image--project">
+        {% if object.image %}
+            {% thumbnail '480x480' object.image %}
+        {% else %}
+            {% blank_image %}
+        {% endif %}
+    </figure>
     {% include 'components/menu-actions.html' with section='project-detail' section_id=view.kwargs.pk %}
 {% endblock %}
 
