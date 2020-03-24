@@ -51,6 +51,14 @@ class ProjectCreateView(CreateView):
     model = antropoloops_models.Project
     form_class  = forms.ProjectForm
 
+    def get_context_data(self, **kwargs):
+        """Pass context data to generic view."""
+
+        context = super(ProjectCreateView, self).get_context_data(**kwargs)
+        context['page_title'] = _('Crea un proyecto nuevo')
+        context['submit_text'] = _('Crear proyecto')
+        return context
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super(ProjectCreateView, self).form_valid(form)
@@ -59,7 +67,7 @@ class ProjectCreateView(CreateView):
         messages.success(self.request, _(
             'Has creado el proyecto con éxito'
         ))
-        return reverse_lazy('project_detail', kwargs={'slug' : self.object.pk })
+        return reverse_lazy('project_detail', kwargs={'pk' : self.object.pk })
 
 
 class ProjectUpdateView(UpdateView):
@@ -68,12 +76,19 @@ class ProjectUpdateView(UpdateView):
     model = antropoloops_models.Project
     form_class  = forms.ProjectForm
 
+    def get_context_data(self, **kwargs):
+        """Pass context data to generic view."""
+
+        context = super(ProjectUpdateView, self).get_context_data(**kwargs)
+        context['page_title']  = _('Editar «{}» ' . format(context['object'].name));
+        context['submit_text'] = _('Guardar cambios')
+        return context
 
     def get_success_url(self):
         messages.success(self.request, _(
             'Has editado el proyecto con éxito'
         ))
-        return reverse_lazy('project_detail', kwargs={'slug' : self.object.pk })
+        return reverse_lazy('project_detail', kwargs={'PK' : self.object.pk })
 
 
 class ProjectDeleteView(DeleteView):
@@ -97,6 +112,16 @@ class AudiosetCreateView(CreateView):
     form_class  = forms.AudiosetCreateForm
     template_name = 'models/audioset_creation_form.html'
 
+    def get_context_data(self, **kwargs):
+        """Pass context data to generic view."""
+        context = super(AudiosetCreateView, self).get_context_data(**kwargs)
+        project = antropoloops_models.Project.objects.get(
+            pk=self.kwargs.get('pk')
+        )
+        context['page_title'] = _('Añade un audioset a «{}»'.format(project.name))
+
+        return context
+
     def form_valid(self, form):
         project = antropoloops_models.Project.objects.get(
             pk=self.kwargs.get('pk')
@@ -109,8 +134,12 @@ class AudiosetCreateView(CreateView):
         messages.success(self.request, _(
             'Has añadido éxitosamente el audioset'
         ))
-        return reverse_lazy('project_detail', kwargs={
-            'pk' : self.kwargs.get('pk')
+        if 'add_return' in self.request.POST:
+            return reverse_lazy('project_detail', kwargs={
+                'pk' : self.kwargs.get('pk')
+            })
+        return reverse_lazy('audioset_update', kwargs={
+            'pk' : self.object.pk
         })
 
 class AudiosetDeleteView(DeleteView):
@@ -122,7 +151,7 @@ class AudiosetDeleteView(DeleteView):
         return reverse_lazy(
             'project_detail',
             kwargs = {
-                'pk' : self.request.kwargs.get('project_pk')
+                'pk' : self.kwargs.get('project_pk')
             }
         )
 
@@ -131,7 +160,7 @@ class AudiosetDeleteView(DeleteView):
             self.request,
             _('El audioset ha sido borrado con éxito')
         )
-        return super(AudiosetDeleteView, self).delete(request, *args, **kwargs)
+        return super(AudiosetDeleteView, self).delete(self, request, *args, **kwargs)
 
 
 class AudiosetUpdateView(UpdateView):

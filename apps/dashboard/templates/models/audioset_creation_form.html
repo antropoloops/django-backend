@@ -6,26 +6,33 @@
 
 {# body's css classes #}
 {% block body_css_classes %}
-    page--dashboard toppadded
+    page--dashboard toppadded page-form-audioset
 {% endblock %}
 
 {# html title #}
 {% block title %}
-    {% trans 'Crea un audioset nuevo' %}
+    {% trans 'Añade un audioset' %}
 {% endblock %}
 
 {# Content #}
 {% block main %}
 {% include 'components/block-fake-breadcrumb.html' %}
 <h1 clas="page__title">
-    {% trans 'Crea un audioset nuevo' %}
+    {{ page_title }}
 </h1>
 {% include 'components/block-form-errors.html' with form=form %}
 <form class="form-audioset-create form-simple" method="post">
     {% csrf_token %}
     {{ form.errors }}
     {{ form.as_p }}
-    <input type="submit" value="{% trans 'Crear audioset' %}" />
+    <input type="submit"
+           name="add_configure"
+           value="{% trans 'Añadir audioset y configurarlo' %}"
+    />
+    <input type="submit"
+           name="add_return"
+           value="{% trans 'Añadir audioset y volver a la vista de proyecto' %}"
+    />
 </form>
 {% endblock %}
 

@@ -34,21 +34,54 @@
   margin-top: $m/2
   margin-left: $m
 
-.form-simple input[type=submit]
+.form-simple input[type=submit],
+.form__cancel
   line-height: $m*1.5
-  margin: $m*2 $m
-  background-color: $color_success
   color: white
   border: 0
   font-weight: 600
-  width: 240px
   text-transform: uppercase
+  text-align: center
   transition: background-color .2s ease
-  &:hover
-    background-color: darken($color_success, 10%)
+  display: block
 
-.form-simple input[type=submit].submit--delete
+.page-form-project .form-simple input[type=submit]
+  margin: $m*2 auto
+  width: 240px
+  background-color: $color_success
+  &:hover
+    background-color: lighten($color_success, 5%)
+    outline: 2px solid darken($color_success, 10%)
+
+.page-form-audioset .form-simple input[type=submit]
+  width: 480px
+  margin: $m/2 auto
+.page-form-audioset .form-simple input[type=submit][name=add_configure]
+  margin-top: $m*2
+  background-color: $color_success
+  &:hover
+    background-color: lighten($color_success, 5%)
+    outline: 2px solid darken($color_success, 10%)
+.page-form-audioset .form-simple input[type=submit][name=add_return]
+  background-color: $color_calm
+  &:hover
+    background-color: lighten($color_calm, 5%)
+    outline: 2px solid darken($color_calm, 10%)
+
+
+.form-simple input[type=submit].submit--delete,
+.form-simple .form__cancel
+  width: 240px
+
+.form-simple input[type=submit].submit--delete,
+  margin: $m*2 auto $m/2
   background-color: $color_danger
+  &:hover
+    background-color: lighten($color_danger, 5%)
+    outline: 2px solid darken($color_danger, 10%)
+.form-simple .form__cancel
+  border: 1px solid white
+  margin: 0 auto
 
 .form-simple .form__cancel:hover
   cursor: pointer
@@ -56,4 +89,4 @@
 .form-simple .textarea-counter
   text-align: right
   font-size: .8em
-  magin-bottom: $m/4
+  margin-bottom: $m/4

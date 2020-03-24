@@ -6,19 +6,19 @@
 
 {# body's css classes #}
 {% block body_css_classes %}
-    page--dashboard toppadded
+    page--dashboard toppadded page-form-project
 {% endblock %}
 
 {# html title #}
 {% block title %}
-    {% trans 'Crea un proyecto nuevo' %}
+    {{ page_title }}
 {% endblock %}
 
 {# Content #}
 {% block main %}
 {% include 'components/block-fake-breadcrumb.html' %}
 <h1 clas="page__title">
-    {% trans 'Crea un proyecto nuevo' %}
+    {{ page_title }}
 </h1>
 
 <form class="form-project-create form-simple" method="post">
@@ -26,7 +26,7 @@
     {% csrf_token %}
     {{ form.errors }}
     {{ form.as_p }}
-    <input type="submit" value="{% trans 'Crear proyecto' %}" />
+    <input type="submit" value="{{ submit_text }}" />
 </form>
 {% endblock %}
 

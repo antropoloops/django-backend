@@ -107,7 +107,7 @@ ENV/
 private_settings.py
 
 # styles
-css
+style.css
 .sass-cache
 
 # assets
