@@ -48,13 +48,16 @@ class AudiosetUpdateForm(forms.ModelForm):
     class Meta:
         model = antropoloops_models.Audioset
         fields = [
-            'logo',
+            'image',
             'readme',
             'mode_display',
-            'background'
+            'background',
+            'map_scale',
+            'map_center_x',
+            'map_center_y'
         ]
         widgets = {
-            'logo' : ImagePreviewWidget(
+            'image' : ImagePreviewWidget(
                 placeholder=_(
                     "Añade aquí una imagen de cabecera"
                 )

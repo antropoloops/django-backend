@@ -182,7 +182,7 @@ class Audioset(Publishable):
             'Proyecto al que pertenece el audioset'
         )
     )
-    logo = models.ImageField(
+    image = models.ImageField(
         _('Logo'),
         blank=True,
         upload_to='images/audiosets'
@@ -221,17 +221,17 @@ class Audioset(Publishable):
         default=0,
         blank=True,
     )
-    map_scale = models.IntegerField(
+    map_scale = models.FloatField(
         _('Escala del mapa'),
-        default=1,
+        default=250,
         blank=True,
     )
-    map_center_x = models.IntegerField(
+    map_center_x = models.FloatField(
         _('Coordenada X del centro del mapa'),
         default=0,
         blank=True,
     )
-    map_center_y = models.IntegerField(
+    map_center_y = models.FloatField(
         _('Coordenada Y del centro del mapa'),
         default=0,
         blank=True,

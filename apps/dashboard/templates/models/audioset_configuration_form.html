@@ -24,7 +24,7 @@
         <div class="field-name--form-audioset-configure">
             {{ audioset_name }}
         </div>
-        {% include 'models/audioset_configuration_field.html' with field=form.logo %}
+        {% include 'models/audioset_configuration_field.html' with field=form.image %}
         {% include 'models/audioset_configuration_field.html' with field=form.readme %}
     </div>
     <div class="layout-form-audioset__right">
@@ -43,6 +43,16 @@
             <div class="mode-selector__state" data-state="2">
                 <div class="mode-selector__state-fields">
                     <div id="map"></div>
+                    <div class="map__fields">
+                        {% include 'models/audioset_configuration_field.html' with field=form.map_scale %}
+                        {% include 'models/audioset_configuration_field.html' with field=form.map_center_x %}
+                        {% include 'models/audioset_configuration_field.html' with field=form.map_center_y %}
+                    </div>
+                    <div class="map__helptext">
+                    {% blocktrans trimmed %}
+                    Puedes desplazar el centro del mapa y ajustar su zoom usando el ratón
+                    {% endblocktrans %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,9 +66,18 @@
 
 {% block extra_js %}
     {{ form.media }}
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/d3-geo.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="{% static 'dashboard/js/map-loader.js' %}"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', loadMap(
+        {{ object.map_scale }},
+        {{ object.map_center_x }},
+        {{ object.map_center_y }},
+        true
+    ));
+    </script>
     <script type="text/javascript" src="{% static 'dashboard/js/configuration-section.js' %}"></script>
 {% endblock %}

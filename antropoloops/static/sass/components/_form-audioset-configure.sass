@@ -51,7 +51,20 @@ $big_text: 1.5rem
   font-size: $big_text
   font-weight: 600
 
+.field__widget--picture-preview
+  font-size: .8em
+  input[type=checkbox]
+    margin-left: $m/2
+    position: relative
+    top: 2px
+  br
+    margin-bottom: $m/2
+  .placeholder
+    background-color: rgba(black, .05)
 // Mode display
+.mode-selector
+  text-align: center
+
 .mode-selector,
 .mode-selector__state
   position: relative
@@ -121,8 +134,25 @@ $states: 1 2
   width: 100%
   height: 75vh
   background: transparent
-.leaflet-tile
-  filter: grayscale(100%) invert(100%)
+  position: relative
+
+.page--audioset-configuration-form #map
+  &:before
+    content: ""
+    border-left: 1px dashed rgba(white, .1)
+    top: 0
+    left: 50%
+    height: 100%
+    width: 1px
+    position: absolute
+  &:after
+    content: ""
+    border-bottom: 1px dashed rgba(white, .1)
+    top: 50%
+    left: 0
+    height: 1px
+    width: 100%
+    position: absolute
 
 .form-audioset-configure .django-ckeditor-widget
   width: 100%
@@ -144,3 +174,17 @@ $states: 1 2
   background: rgba(black, .1)
   a.cke_path_item, span.cke_path_empty
     color: white !important
+
+.map__fields
+  visibility: hidden
+  pointer-events: none
+  position: absolute
+
+.map__helptext
+  position: absolute
+  font-size: 1.25em
+  font-weight: 700
+  z-index: 11000
+  left: $m
+  bottom: $m
+  text-shadow: 0 0 4px rgba(black, .25)

@@ -6,7 +6,11 @@
 .layout-form-audioset__left
   background-color: #393939
   position: relative
-  min-height: 100%
+  max-height: 100%
+  overflow-y: scroll
+.layout-form-audioset__left,
+.layout-form-audioset__right
+  height: 100%
 +breakpoint('sm')
   .layout-form-audioset__left
     display: inline-block
