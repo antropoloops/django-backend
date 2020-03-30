@@ -27,9 +27,10 @@
 .form-tracklist__label
   margin: 0
 .fieldset__content > p,
+.form-tracklist__fields > p
   margin-bottom: $m
   padding-bottom: $m
-  border-bottom: 1px solid #111
+  border-bottom: 1px solid rgba(black, .25)
 .form-tracklist__fields label
   font-weight: 600
   display: block
@@ -37,12 +38,17 @@
 .form-tracklist__fields input
   &[type=text],
   &[type=number],
-  &[name=color]
     margin: $m/4 $m/2
     border: 0
     line-height: $m*1.5
-    background-color: rgba(black, .75)
     padding: 0 $m/2
+    color: #333
+.form-tracklist__fields input[type=color]
+  margin: $m/4 $m/2
+  border: 0 !important
+  padding: 0
+  min-width: $m*2
+
 .form-tracklist__fields textarea
   background-color: rgba(black, .75)
   padding: $m/2

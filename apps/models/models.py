@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 # contrib
-from colorfield.fields import ColorField
+from colorful.fields import RGBColorField
 from django_countries.fields import CountryField
 from adminsortable.models import SortableMixin
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -281,9 +281,8 @@ class Track(SortableMixin):
         _('Volumen'),
         default=0
     )
-    color = ColorField(
+    color = RGBColorField(
         _('Color'),
-        default='#ffffff',
         blank=True
     )
     clips = models.ManyToManyField(

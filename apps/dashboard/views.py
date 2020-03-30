@@ -201,6 +201,6 @@ class AudiosetTracklistView(DetailView):
         context['tracks'] = antropoloops_models.Track.objects.filter(
             audioset = self.object
         )
-        context['trackform'] = forms.TrackUpdateFormAjax
+        context['trackform'] = forms.TrackUpdateFormAjax(initial={'audioset' : self.kwargs['pk']})
         context['clipform']  = forms.ClipUpdateFormAjax
         return context

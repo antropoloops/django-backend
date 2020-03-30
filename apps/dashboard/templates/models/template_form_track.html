@@ -17,10 +17,7 @@
         </div>
         <div class="form-tracklist__fields">
             {{ form.as_p }}
-            <input id="id_audioset" type="hidden" name="audioset" value="{{ view.kwargs.pk }}" />
         </div>
         <input class="form-tracklist__submit" type="submit" value="{% trans 'Guardar' %}" />
     </form>
-    {# include here to avois referring to not created yet nodes #}
-    {{ trackform.media }}
 </template>

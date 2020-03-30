@@ -61,6 +61,7 @@
     <script src="https://d3js.org/d3-geo.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script type="text/javascript" src="{% static 'colorfield/jscolor/jscolor.js' %}"></script>
     <script type="text/javascript" src="{% static 'dashboard/js/map-loader.js' %}"></script>
     <script>
     document.addEventListener('DOMContentLoaded', loadMap(
@@ -74,5 +75,6 @@
 			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 			  crossorigin="anonymous">
     </script>
+      <script src="{% static 'dashboard/js/tracklist-section.js' %}"></script>
     <script src="{% static 'dashboard/js/draggable.js' %}"></script>
 {% endblock %}

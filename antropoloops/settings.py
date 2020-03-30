@@ -51,12 +51,12 @@ DJANGO_APPS = [
 ]
 
 CONTRIB_APPS = [
-    'colorfield',
     'django_countries',
     'adminsortable',
     'ckeditor',
     'ckeditor_uploader',
-    'imagekit'
+    'imagekit',
+    'colorful',
 ]
 
 PROJECT_APPS = [

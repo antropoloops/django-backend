@@ -71,13 +71,9 @@ jQuery(document).ready( function()
                             var data = JSON.parse(response)[0];
                             Object.keys(data.fields).forEach(function(field){
                                 var widget = form.querySelector('[name='+field+']');
-                                console.log(field, data.fields[field]);
                                 // Image and color field values cannot be set directly
-                                if(field != 'image' && field != 'color'){
+                                if(field != 'image'){
                                     widget.value = data.fields[field];
-                                }
-                                if(field=='color'){
-                                  widget.style.backgroundColor = data[field];
                                 }
                                 form.querySelector('[name=pk]').value = data.pk;
                             });
@@ -137,14 +133,13 @@ jQuery(document).ready( function()
     if (containers.length === 0) {
         return false;
     }
-    console.log(Sortable);
 
-    var sortable = new Sortable(containers, {
-        draggable: '.tracklist__item',
-        mirror: {
-          appendTo: containerSelector,
-          constrainDimensions: true,
-        },
-    });
+    // var sortable = new Sortable(containers, {
+    //     draggable: '.tracklist__item',
+    //     mirror: {
+    //       appendTo: containerSelector,
+    //       constrainDimensions: true,
+    //     },
+    // });
 
 });
