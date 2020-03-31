@@ -17,6 +17,13 @@ from . import validators
 class Clip(models.Model):
     """ Clip model definition """
 
+    order = models.PositiveSmallIntegerField(
+        _('Orden'),
+        default=0,
+        blank=False,
+        editable=False,
+        db_index=True,
+    )
     name = models.CharField(
         _('Nombre del clip'),
         max_length=128,
@@ -91,6 +98,9 @@ class Clip(models.Model):
 
     def __str__(self):
         return self.name if self.name else self.audio.name
+
+    class Meta:
+        ordering = ('track', 'order',)
 
 
 class Project(Publishable):
@@ -270,8 +280,8 @@ class Track(SortableMixin):
         max_length=128,
         blank=False,
     )
-    position = models.PositiveSmallIntegerField(
-        _('Posición'),
+    order = models.PositiveSmallIntegerField(
+        _('Orden'),
         default=0,
         blank=False,
         editable=False,
@@ -298,7 +308,7 @@ class Track(SortableMixin):
     )
 
     class Meta:
-        ordering = ('position',)
+        ordering = ('order',)
 
     def __str__(self):
         return self.name

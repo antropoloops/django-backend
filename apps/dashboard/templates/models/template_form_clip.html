@@ -18,7 +18,12 @@
         <div class="form-tracklist__fields">
             <div class="fieldset fieldset-display {%if inline %}collapsible{% endif %}">
                 <div class="fieldset__content">
-                    {{ form.as_p }}
+                    {% for field in form %}
+                    <div class="form-field form-field--{{ field.name }}">
+                        <label class="form-field__label {% if field.field.required %}required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
                     <input type="hidden" name="track" />
                 </div>
             </div>

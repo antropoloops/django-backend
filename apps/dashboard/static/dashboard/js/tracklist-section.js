@@ -11,13 +11,15 @@
          'create' : '/api/1.0/track/crea',
          'update' : '/api/1.0/track/edita',
          'delete' : '/api/1.0/track/borra',
+         'sort'   : '/api/1.0/track/ordena',
      },
      'clip' : {
          'get'    : '/api/1.0/clip/',
          'create' : '/api/1.0/clip/crea',
          'update' : '/api/1.0/clip/edita',
          'delete' : '/api/1.0/clip/borra',
-     }
+         'sort'   : '/api/1.0/clip/ordena',
+     },
  }
 
 // Container node to hold forms in the view
@@ -134,12 +136,65 @@ jQuery(document).ready( function()
         return false;
     }
 
-    // var sortable = new Sortable(containers, {
-    //     draggable: '.tracklist__item',
-    //     mirror: {
-    //       appendTo: containerSelector,
-    //       constrainDimensions: true,
-    //     },
-    // });
+    jQuery( function(){
+        jQuery('.tracklist').sortable({
+            stop : order_tracks,
+        });
+        jQuery('.track__clips').sortable({
+            stop : function(e){
+                order_clips(e.target);
+            },
+        });
+    });
 
+    function order_tracks()
+    {
+        var tracks   = document.querySelectorAll('.tracklist__item');
+        var audioset = document.querySelector('.tracklist').dataset.audioset;
+        var csrf     = document.querySelector('.tracklist').dataset.csrf;
+        var data   = {
+            'csrfmiddlewaretoken' : csrf,
+            'audioset' : audioset
+        };
+        tracks.forEach( function(track, new_ordinal){
+            data['track_' + track.dataset.id ] = new_ordinal + 1;
+        });
+        jQuery.ajax({
+            type : 'POST',
+            url  : endpoints['track']['sort'],
+            data : jQuery.param(data),
+            success : function(response)
+            {
+                location.reload();
+            },
+            error : function(response){
+                console.log('Error: ', response);
+            },
+        });
+    }
+
+    function order_clips(list){
+        var clips    = list.querySelectorAll('.clip');
+        var track    = list.dataset.track;
+        var csrf     = document.querySelector('.tracklist').dataset.csrf;
+        var data   = {
+            'csrfmiddlewaretoken' : csrf,
+            'track' : track
+        };
+        clips.forEach( function(clip, new_ordinal){
+            data['clip_' + clip.dataset.id ] = new_ordinal + 1;
+        });
+        jQuery.ajax({
+            type : 'POST',
+            url  : endpoints['clip']['sort'],
+            data : jQuery.param(data),
+            success : function(response)
+            {
+                // pass
+            },
+            error : function(response){
+                console.log('Error: ', response);
+            },
+        });
+    }
 });

@@ -202,5 +202,5 @@ class AudiosetTracklistView(DetailView):
             audioset = self.object
         )
         context['trackform'] = forms.TrackUpdateFormAjax(initial={'audioset' : self.kwargs['pk']})
-        context['clipform']  = forms.ClipUpdateFormAjax
+        context['clipform']  = forms.ClipUpdateFormAjax()
         return context

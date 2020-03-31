@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.core import serializers
+# contrib
+from bulk_update.helper import bulk_update
 # app
 from apps.dashboard import forms
 from apps.models import models
@@ -78,7 +80,6 @@ def track_update(request):
             "Forbidden"
         )
 
-
 @csrf_protect
 def track_delete(request):
     """ Creates a Track object. """
@@ -88,6 +89,23 @@ def track_delete(request):
         models.Track.objects.get(pk=pk).delete()
         return HttpResponse(
             _( "El track %s ha sido borrado con éxito" % pk )
+        )
+    else:
+        return HttpResponse(
+            "Forbidden"
+        )
+
+@csrf_protect
+def track_sort(request):
+    """ Sorts Tracks related to a specific audioset. """
+
+    if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
+        tracks = models.Track.objects.filter(audioset=request.POST['audioset'])
+        for track in tracks:
+            track.order = request.POST['track_' + str(track.pk)]
+        bulk_update(tracks)
+        return HttpResponse(
+            _( "Los tracks han sido ordenados con éxito" )
         )
     else:
         return HttpResponse(
@@ -169,6 +187,23 @@ def clip_delete(request):
         models.Clip.objects.get(pk=pk).delete()
         return HttpResponse(
             _( "El clip %s ha sido borrado con éxito" % pk )
+        )
+    else:
+        return HttpResponse(
+            "Forbidden"
+        )
+
+@csrf_protect
+def clip_sort(request):
+    """ Sorts Clips related to a specific track. """
+
+    if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
+        clips = models.Clip.objects.filter(track=request.POST['track'])
+        for clip in clips:
+            clip.order = request.POST['clip_' + str(clip.pk)]
+        bulk_update(clips)
+        return HttpResponse(
+            _( "Los clips han sido ordenados con éxito" )
         )
     else:
         return HttpResponse(

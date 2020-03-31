@@ -18,6 +18,11 @@ urlpatterns = [
         name='track_update'
     ),
     path(
+        'track/ordena',
+        views.track_sort,
+        name='track_sort'
+    ),
+    path(
         'track/borra',
         views.track_delete,
         name='track_delete'
@@ -37,6 +42,11 @@ urlpatterns = [
         'clip/edita',
         views.clip_update,
         name='clip_update'
+    ),
+    path(
+        'clip/ordena',
+        views.clip_sort,
+        name='clip_sort'
     ),
     path(
         'clip/borra',

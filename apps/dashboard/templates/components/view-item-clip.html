@@ -1,7 +1,7 @@
 {# renders a clip #}
 {% load i18n static %}
 
-<div class="clip">
+<div class="clip" data-id="{{ clip.pk }}">
     <figure class="clip__thumbnail">
         {% if clip.image %}
         <img src="{{ clip.image.url }}" />

@@ -26,15 +26,27 @@
   margin-top: 0
 .form-tracklist__label
   margin: 0
-.fieldset__content > p,
+.form-field,
 .form-tracklist__fields > p
   margin-bottom: $m
   padding-bottom: $m
   border-bottom: 1px solid rgba(black, .25)
-.form-tracklist__fields label
+.form-field--pk
+  display: none
+.form-field__label,
+.form-tracklist__fields > p label
   font-weight: 600
   display: block
   margin-bottom: $m/2
+  opacity: .85
+  &.required
+    opacity: 1
+  &.required:after
+    content: "*"
+    color: $green
+    margin-left: $m/3
+
+.form-field input,
 .form-tracklist__fields input
   &[type=text],
   &[type=number],

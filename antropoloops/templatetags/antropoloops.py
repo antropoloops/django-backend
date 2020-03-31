@@ -4,6 +4,7 @@ import os.path
 from django import template
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.middleware.csrf import get_token
 # project
 from django.conf import settings
 
@@ -20,3 +21,7 @@ def js(file):
 @register.simple_tag
 def img(file):
     return  settings.STATIC_URL + 'img/' + file
+
+@register.simple_tag
+def csrf(req):
+    return get_token(req)
