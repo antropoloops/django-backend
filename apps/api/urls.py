@@ -28,6 +28,11 @@ urlpatterns = [
         name='track_delete'
     ),
     path(
+        'track/clips',
+        views.track_clips,
+        name='track_clips'
+    ),
+    path(
         'track/',
         views.track,
         name='track'

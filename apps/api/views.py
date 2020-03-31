@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.core import serializers
+from .serializers import PropJsonSerializer
 # contrib
 from bulk_update.helper import bulk_update
 # app
@@ -33,13 +34,37 @@ def track(request):
             "Forbidden"
         )
 
+def track_clips(request):
+    """ Get Track clips. """
+
+    if request.is_ajax and request.user.is_authenticated:
+        pk = request.GET['pk']
+        clips = models.Clip.objects.filter(track__audioset=pk)
+        return JsonResponse(
+            PropJsonSerializer().serialize(
+                clips,
+                fields=(
+                    'name',
+                    'pos_x',
+                    'pos_y',
+                ),
+                props=(
+                    'color',
+                )
+            ),
+            safe=False
+        )
+    else:
+        return HttpResponse(
+            "Forbidden"
+        )
+
 @csrf_protect
 def track_create(request):
     """ Creates a Track object. """
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
-        print(data)
         form = forms.TrackFormAjax(data)
         if form.is_valid():
             new_track = form.save()
@@ -136,7 +161,6 @@ def clip_create(request):
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
-        print(data)
         form = forms.ClipFormAjax(data)
         if form.is_valid():
             track = models.Track.objects.get(pk=data['track'])
@@ -160,7 +184,6 @@ def clip_update(request):
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
-        print(data)
         clip = models.Clip.objects.get(pk=data['pk'])
         clipform = forms.ClipUpdateFormAjax(data, instance=clip)
         if clipform.is_valid():
@@ -183,7 +206,6 @@ def clip_delete(request):
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         pk = request.POST['pk']
-        print(request.POST)
         models.Clip.objects.get(pk=pk).delete()
         return HttpResponse(
             _( "El clip %s ha sido borrado con éxito" % pk )

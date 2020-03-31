@@ -76,8 +76,8 @@ jQuery(document).ready( function()
                         success : function(response)
                         {
                             var data = JSON.parse(response)[0];
-                            Object.keys(data.fields).forEach(function(field){
-                              console.log(field);
+                            Object.keys(data.fields).forEach(function(field)
+                            {
                                 var widget = form.querySelector('[name='+field+']');
                                 // Image and color field values cannot be set directly
                                 if(field != 'image' && field != 'order'){

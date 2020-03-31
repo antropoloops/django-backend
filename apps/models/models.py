@@ -99,6 +99,10 @@ class Clip(models.Model):
     def __str__(self):
         return self.name if self.name else self.audio.name
 
+    @property
+    def color(self):
+        return self.track.first().color
+
     class Meta:
         ordering = ('track', 'order',)
 

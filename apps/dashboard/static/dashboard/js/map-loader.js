@@ -3,7 +3,7 @@
  *  Configuration screen
  */
 
-function loadMap(map_scale, map_center_x, map_center_y, draggable)
+function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
 {
     // Map container and main elements
     var container = document.querySelector('.layout-form-audioset__right').getBoundingClientRect();
@@ -41,6 +41,24 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable)
           .style("stroke", "#2c2c2c")
           .style("stroke-width", 0.5)
           .style("fill", "#888888");
+
+        if(audioset){
+            d3.json('/api/1.0/track/clips?pk='+audioset, function(error, data)
+            {
+                svg.selectAll(".map__clip-marker")
+                  .data(JSON.parse(data))
+                  .enter()
+                  .append('circle')
+                  .attr('class', 'map__clip-marker')
+                  .attr('r', 10)
+                  .attr('fill', function(d){ return d.fields.color })
+                  .attr('stroke', 'rgba(0, 0, 0, .15)')
+                  .attr('stroke-width', '8')
+                  .attr("transform", function(d){
+                      return 'translate('+ (W/2 - d.fields.pos_x) + ',' + (H/2 - d.fields.pos_y) + ')'
+                  });
+            })
+        }
     });
 
     // Map drag options
@@ -64,6 +82,9 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable)
         document.querySelector('#id_map_center_y').value = translation[1] - H/2;
     }
 
+    // Populate map with clips
+
+    // Map finder
     document.querySelector('.map__finder input').addEventListener('blur', function(e){
         var place = e.target.value;
         var url = "https://nominatim.openstreetmap.org/search/" + encodeURIComponent(place) + "?format=json";
@@ -73,18 +94,18 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable)
             success : function(response)
             {
                 var projection_coords = projection([ response[0].lon, response[0].lat ]);
+                console.log('translate('+ projection_coords + ')');
                 svg.append("circle")
                   .attr('class','marker')
                   .attr('r', 10)
                   .attr('fill', 'green')
                   .attr('stroke', '#7ffa07')
                   .attr('stroke-width', '8')
-                  .attr("xlink:href",'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/24x24/DrawingPin1_Blue.png')
                   .attr("transform", function(d){
                       return 'translate('+ projection_coords + ')'
                   });
-                document.querySelector('#id_pos_x').value = parseInt(projection_coords[0]);
-                document.querySelector('#id_pos_y').value = parseInt(projection_coords[1]);
+                document.querySelector('#id_pos_y').value = parseInt( H/2 - projection_coords[1] );
+                document.querySelector('#id_pos_x').value = parseInt( W/2 - projection_coords[0] );
 
                 // var data = JSON.parse(response)[0];
             },
