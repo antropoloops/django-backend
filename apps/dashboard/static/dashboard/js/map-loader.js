@@ -83,8 +83,8 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable)
                   .attr("transform", function(d){
                       return 'translate('+ projection_coords + ')'
                   });
-                document.querySelector('#id_pos_x').value = projection_coords[0];
-                document.querySelector('#id_pos_y').value = projection_coords[1];
+                document.querySelector('#id_pos_x').value = parseInt(projection_coords[0]);
+                document.querySelector('#id_pos_y').value = parseInt(projection_coords[1]);
 
                 // var data = JSON.parse(response)[0];
             },

@@ -54,7 +54,6 @@ jQuery(document).ready( function()
             var action      = d.action;
             var track       = d.track;
             var id          = d.id;
-            console.log(d.model);
 
             // Build template
             var template_markup = document.querySelector(template_id);
@@ -78,9 +77,10 @@ jQuery(document).ready( function()
                         {
                             var data = JSON.parse(response)[0];
                             Object.keys(data.fields).forEach(function(field){
+                              console.log(field);
                                 var widget = form.querySelector('[name='+field+']');
                                 // Image and color field values cannot be set directly
-                                if(field != 'image'){
+                                if(field != 'image' && field != 'order'){
                                     widget.value = data.fields[field];
                                 }
                                 form.querySelector('[name=pk]').value = data.pk;
@@ -120,7 +120,6 @@ jQuery(document).ready( function()
 
             if(d.model == 'clip'){
                 document.querySelector('#map').classList.add('show_finder');
-                document.querySelector('#map').dataset.color =
             }
 
 
