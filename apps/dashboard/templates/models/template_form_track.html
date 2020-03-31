@@ -5,7 +5,7 @@
     <form class="form-tracklist" data-model="track" data-action="create">
         {% csrf_token %}
         <div class="form-tracklist__header">
-            <span class="form-tracklist__close" onclick="clean()" data-tooltip="{% trans 'Cancelar' %}">
+            <span class="form-tracklist__close" onclick="closePopup()" data-tooltip="{% trans 'Cancelar' %}">
                 {% icon 'x' %}
             </span>
             <h3 class="form-tracklist__label" data-action="create">

@@ -54,14 +54,21 @@
                   style="background-image: url('{{ audioset.background.url }}') "
             ></div>
         {% else %}
-            <div id="map"></div>
+            <div id="map">
+                <div class="map__finder">
+                  <input type="text" placeholder="Busca un lugar (por ejemplo 'Sevilla' o 'India')">
+                </div>
+            </div>
         {% endif %}
     </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
-    {# map #}
+    {# jquery #}
+    <script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    {# d3 #}
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/d3-geo.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
@@ -75,7 +82,5 @@
     ));
     </script>
     {# forms #}
-    <script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="{% static 'dashboard/js/tracklist-section.js' %}"></script>
 {% endblock %}

@@ -14,7 +14,6 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable)
       .append("svg")
       .attr("width",  W)
       .attr("height", H);
-    var g = svg.append("g");
 
     // Map projection
     var projection  = d3.geoRobinson().translate([
@@ -65,4 +64,33 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable)
         document.querySelector('#id_map_center_y').value = translation[1] - H/2;
     }
 
+    document.querySelector('.map__finder input').addEventListener('blur', function(e){
+        var place = e.target.value;
+        var url = "https://nominatim.openstreetmap.org/search/" + encodeURIComponent(place) + "?format=json";
+        jQuery.ajax({
+            type : 'GET',
+            url  : url,
+            success : function(response)
+            {
+                var projection_coords = projection([ response[0].lon, response[0].lat ]);
+                svg.append("circle")
+                  .attr('class','marker')
+                  .attr('r', 10)
+                  .attr('fill', 'green')
+                  .attr('stroke', '#7ffa07')
+                  .attr('stroke-width', '8')
+                  .attr("xlink:href",'https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/24x24/DrawingPin1_Blue.png')
+                  .attr("transform", function(d){
+                      return 'translate('+ projection_coords + ')'
+                  });
+                document.querySelector('#id_pos_x').value = projection_coords[0];
+                document.querySelector('#id_pos_y').value = projection_coords[1];
+
+                // var data = JSON.parse(response)[0];
+            },
+            error : function(req){
+                console.log('Error: ', req);
+            },
+        });
+    });
 }

@@ -1,0 +1,33 @@
+#map
+  position: relative
+
+.map__fields
+  visibility: hidden
+  pointer-events: none
+  position: absolute
+
+.map__helptext
+  position: absolute
+  font-size: 1.25em
+  font-weight: 700
+  z-index: 11000
+  left: $m
+  bottom: $m
+  text-shadow: 0 0 4px rgba(black, .25)
+
+.map__finder
+  position: absolute
+  bottom: $m
+  left: $m
+  color: #222
+  font-size: .9em
+  display: none
+  &:before
+    font-family: sans-serif
+    content: "\1F50D"
+  input
+    width: $m*15
+    max-width: 100%
+
+.show_finder .map__finder
+  display: block

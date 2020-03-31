@@ -30,6 +30,11 @@ function clean(){
         form_container.removeChild(form_container.firstChild);
 }
 
+function closePopup(){
+    clean();
+    document.querySelector('#map').classList.remove('show_finder');
+}
+
 
 jQuery(document).ready( function()
 {
@@ -49,6 +54,7 @@ jQuery(document).ready( function()
             var action      = d.action;
             var track       = d.track;
             var id          = d.id;
+            console.log(d.model);
 
             // Build template
             var template_markup = document.querySelector(template_id);
@@ -111,6 +117,12 @@ jQuery(document).ready( function()
                     },
                 });
             });
+
+            if(d.model == 'clip'){
+                document.querySelector('#map').classList.add('show_finder');
+                document.querySelector('#map').dataset.color =
+            }
+
 
             // Remove previous content and add new one
             clean();

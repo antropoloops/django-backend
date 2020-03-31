@@ -35,7 +35,7 @@
         </li>
     </ul>
 </div>
-<div class="track__clips" data-track="{{ track.pk }}">
+<div class="track__clips" data-track="{{ track.pk }}" data-color="{{ track.color }}">
     {% for clip in track.clips.all %}
         {% include 'components/view-item-clip.html' with clip=clip track=track.pk %}
     {% empty %}
