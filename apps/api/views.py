@@ -167,7 +167,6 @@ def clip_create(request):
             new_clip = form.save()
             track.clips.add(new_clip)
             track.save()
-            print(new_clip.track)
             return HttpResponse(
                 _("El clip %s ha sido creado con éxito" % new_clip.pk )
             )
@@ -185,9 +184,11 @@ def clip_update(request):
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
         clip = models.Clip.objects.get(pk=data['pk'])
-        clipform = forms.ClipUpdateFormAjax(data, instance=clip)
+        clipform = forms.ClipUpdateFormAjax(data, files=request.FILES, instance=clip)
         if clipform.is_valid():
             print('%s guardado' % clip.name)
+            if 'image_delete' in data:
+                clip.image = None
             clipform.save()
         else:
             return HttpResponse(clipform.errors)

@@ -128,6 +128,7 @@ class ClipUpdateFormAjax(forms.ModelForm):
     pk = forms.IntegerField(
         widget=widgets.HiddenInput()
     )
+    image = ImagePreviewWidget()
 
     class Meta:
         model = antropoloops_models.Clip

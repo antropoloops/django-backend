@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <template id="template-form-clip">
-    <form class="form-tracklist" data-model="clip" data-action="create">
+    <form enctype="multipart/form-data" class="form-tracklist" data-model="clip" data-action="create">
         {% csrf_token %}
         <div class="form-tracklist__header">
             <span class="form-tracklist__close" data-tooltip="{% trans 'Cancelar' %}" onclick="closePopup()">

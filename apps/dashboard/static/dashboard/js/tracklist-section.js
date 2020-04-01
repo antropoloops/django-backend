@@ -76,12 +76,33 @@ jQuery(document).ready( function()
                         success : function(response)
                         {
                             var data = JSON.parse(response)[0];
+                            console.log(data);
                             Object.keys(data.fields).forEach(function(field)
                             {
                                 var widget = form.querySelector('[name='+field+']');
                                 // Image and color field values cannot be set directly
                                 if(field != 'image' && field != 'order'){
                                     widget.value = data.fields[field];
+                                }
+                                if( field == 'image' && data.fields[field] )
+                                {
+                                    // As we cannot set image src via ajax we mock the image input
+                                    // using JS
+                                    var widget_container = document.querySelector('.form-field--image');
+                                    // Placeholder
+                                    var thumbnail = document.createElement('img');
+                                    thumbnail.src = '/media/' + data.fields['image'];
+                                    thumbnail.classList.add('form-field--image-preview');
+                                    widget_container.appendChild(thumbnail);
+                                    // Checkbox to delete the image
+                                    var delete_input = document.createElement('input');
+                                    delete_input.type = 'checkbox';
+                                    delete_input.name = 'image_delete';
+                                    delete_input.classList.add('form-field--image-delete');
+                                    var delete_input_label = document.createElement('label');
+                                    delete_input_label.innerHTML = 'Borrar la imagen';
+                                    widget_container.appendChild(delete_input);
+                                    widget_container.appendChild(delete_input_label);
                                 }
                                 form.querySelector('[name=pk]').value = data.pk;
                             });
@@ -99,20 +120,23 @@ jQuery(document).ready( function()
                 var endpoint = endpoints[model][action];
                 // Serialize form data but delete pks to
                 // avoid breaking creation forms
-                var data = jQuery(form).serialize();
+                // TODO: not rely on FormData to prevent old browsers from not working at all
+                var data = new FormData(form);
                 if(action=='create')
                     delete data['pk']
                 jQuery.ajax({
                     type : 'POST',
                     url  : endpoint,
                     data : data,
+                    processData: false,
+                    contentType: false,
                     success : function(req)
                     {
-                        // TODO: catch form errors here
                         location.reload();
                     },
                     error : function(req)
                     {
+                        // TODO: catch form errors here
                         console.log('Error: ', req);
                     },
                 });
