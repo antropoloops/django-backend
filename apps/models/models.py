@@ -48,6 +48,7 @@ class Clip(models.Model):
     country = CountryField(
         _('País'),
         blank=True,
+        blank_label=_('Escoge un pais')
     )
     place = models.CharField(
         _('Lugar'),
@@ -308,6 +309,7 @@ class Track(SortableMixin):
         Audioset,
         null=True,
         verbose_name=_('Audioset'),
+        related_name='tracks',
         on_delete=models.CASCADE,
     )
 

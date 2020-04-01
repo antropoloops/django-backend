@@ -28,6 +28,11 @@
                 </div>
             </div>
         </div>
+        <div class="form-errors hidden">
+            {% blocktrans trimmed %}
+            El formulario contiene errores. Revísalo, por favor.
+            {% endblocktrans %}
+        </div>
         <input class="form-tracklist__submit" type="submit" value="{% trans 'Guardar' %}" />
     </form>
 </template>

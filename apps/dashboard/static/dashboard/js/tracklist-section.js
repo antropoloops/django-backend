@@ -32,6 +32,7 @@ function clean(){
 
 function closePopup(){
     clean();
+    document.querySelector('.form-errors').classList.add( 'hidden' );
     document.querySelector('#map').classList.remove('show_finder');
 }
 
@@ -76,7 +77,6 @@ jQuery(document).ready( function()
                         success : function(response)
                         {
                             var data = JSON.parse(response)[0];
-                            console.log(data);
                             Object.keys(data.fields).forEach(function(field)
                             {
                                 var widget = form.querySelector('[name='+field+']');
@@ -130,14 +130,25 @@ jQuery(document).ready( function()
                     data : data,
                     processData: false,
                     contentType: false,
-                    success : function(req)
+                    success : function(response)
                     {
                         location.reload();
                     },
-                    error : function(req)
+                    error : function(response)
                     {
-                        // TODO: catch form errors here
-                        console.log('Error: ', req);
+                        // Validation failed
+                        if(response.status==400)
+                        {
+                            var form_errors = document.querySelector('.form-errors');
+                            form_errors.classList.remove('hidden');
+                            var errors_msg = JSON.parse(response.responseText);
+                            Object.keys(errors_msg).forEach( function(fieldname) {
+                                  console.log(fieldname);
+                                  var field = document.querySelector('.form-field--' + fieldname);
+                                  field.classList.add('not-validated');
+                                  field.dataset.error = errors_msg[fieldname][0].message;
+                            });
+                        }
                     },
                 });
             });
@@ -199,10 +210,6 @@ jQuery(document).ready( function()
             type : 'POST',
             url  : endpoints['track']['sort'],
             data : jQuery.param(data),
-            success : function(response)
-            {
-                location.reload();
-            },
             error : function(response){
                 console.log('Error: ', response);
             },
@@ -224,10 +231,6 @@ jQuery(document).ready( function()
             type : 'POST',
             url  : endpoints['clip']['sort'],
             data : jQuery.param(data),
-            success : function(response)
-            {
-                // pass
-            },
             error : function(response){
                 console.log('Error: ', response);
             },

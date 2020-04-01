@@ -1,3 +1,5 @@
+# python
+from functools import reduce
 # django
 from django import forms
 from django.forms import widgets
@@ -27,7 +29,6 @@ class AudiosetCreateForm(forms.ModelForm):
         widgets = {
             'description' : LimitedTextareaWidget(limit=280),
         }
-
 
 class ProjectForm(forms.ModelForm):
 
@@ -110,6 +111,7 @@ class TrackUpdateFormAjax(forms.ModelForm):
         }
 
 
+
 class ClipForm(forms.ModelForm):
     class Meta:
         model = antropoloops_models.Clip
@@ -128,7 +130,20 @@ class ClipUpdateFormAjax(forms.ModelForm):
     pk = forms.IntegerField(
         widget=widgets.HiddenInput()
     )
-    image = ImagePreviewWidget()
+
+    def clean_key(self):
+        audioset_tracks = self.instance.track.first().audioset.tracks.all()
+        current_key = self.instance.key
+        keys    = list( antropoloops_models.Clip.objects.filter(track__in=audioset_tracks).values_list('key', flat=True) )
+        if current_key in keys:
+            keys.remove(current_key)
+        new_key = self.cleaned_data['key']
+        if new_key and new_key in keys:
+            current_keys = reduce(lambda a, b : ("'%s' '%s'")%(a, b), keys)
+            raise forms.ValidationError(
+                _("La tecla '%s' ya está seleccionada. Teclas seleccionadas actualmente: %s" % ( new_key, current_keys ))
+            )
+        return new_key
 
     class Meta:
         model = antropoloops_models.Clip

@@ -129,3 +129,19 @@ $actions: create update delete
   top: 3px
 .form-field--image-delete + label
   font-size: .9em
+
+// Errors
+.form-errors
+  padding: $m
+  background-color: $color_danger
+  color: white
+.form-errors.hidden
+  display: none
+.not-validated
+  background-color: $color_danger
+  padding: $m/2
+  &:after
+    display: block
+    content: attr(data-error)
+    font-size: .9em
+    padding: $m/4

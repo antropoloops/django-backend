@@ -29,10 +29,7 @@ def track(request):
             ),
             safe=False
         )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+    return HttpResponse(status=403)
 
 def track_clips(request):
     """ Get Track clips. """
@@ -54,10 +51,7 @@ def track_clips(request):
             ),
             safe=False
         )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+    return HttpResponse(status=403)
 
 @csrf_protect
 def track_create(request):
@@ -71,14 +65,13 @@ def track_create(request):
             return HttpResponse(
                 _("El track %s ha sido creado con éxito" % new_track.pk )
             )
-        print(form.errors)
-        return HttpResponse(
-            form.errors
-        )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+        else:
+            return HttpResponse(
+                form.errors.as_json(),
+                status=400
+            )
+        return HttpResponse(status=200)
+    return HttpResponse(status=403)
 
 @csrf_protect
 def track_update(request):
@@ -93,17 +86,13 @@ def track_update(request):
         )
         if form.is_valid():
             form.save()
+        else:
             return HttpResponse(
-                _( "El track ha sido editado con éxito" )
+                form.errors.as_json(),
+                status=400
             )
-        print(form.errors)
-        return HttpResponse(
-            _( "El formulario no es válido" )
-        )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+        return HttpResponse(status=200)
+    return HttpResponse(status=403)
 
 @csrf_protect
 def track_delete(request):
@@ -112,13 +101,8 @@ def track_delete(request):
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         pk = request.POST['pk']
         models.Track.objects.get(pk=pk).delete()
-        return HttpResponse(
-            _( "El track %s ha sido borrado con éxito" % pk )
-        )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+        return HttpResponse(status=200)
+    return HttpResponse(status=403)
 
 @csrf_protect
 def track_sort(request):
@@ -129,13 +113,8 @@ def track_sort(request):
         for track in tracks:
             track.order = request.POST['track_' + str(track.pk)]
         bulk_update(tracks)
-        return HttpResponse(
-            _( "Los tracks han sido ordenados con éxito" )
-        )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+        return HttpResponse(status=200)
+    return HttpResponse(status=403)
 
 def clip(request):
     """ Get Clip object. """
@@ -150,10 +129,7 @@ def clip(request):
             ),
             safe=False
         )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+    return HttpResponse(status=403)
 
 @csrf_protect
 def clip_create(request):
@@ -167,15 +143,14 @@ def clip_create(request):
             new_clip = form.save()
             track.clips.add(new_clip)
             track.save()
+        else:
             return HttpResponse(
-                _("El clip %s ha sido creado con éxito" % new_clip.pk )
+                clipform.errors.as_ul(),
+                content_type="text/html",
+                status=400
             )
-        print(form.errors)
-        return HttpResponse( form.errors )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+        return HttpResponse(status=200)
+    return HttpResponse(status=403)
 
 @csrf_protect
 def clip_update(request):
@@ -186,20 +161,16 @@ def clip_update(request):
         clip = models.Clip.objects.get(pk=data['pk'])
         clipform = forms.ClipUpdateFormAjax(data, files=request.FILES, instance=clip)
         if clipform.is_valid():
-            print('%s guardado' % clip.name)
             if 'image_delete' in data:
                 clip.image = None
             clipform.save()
         else:
-            return HttpResponse(clipform.errors)
-        return HttpResponse(
-            _( "El clip ha sido editado con éxito" )
-        )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
-
+            return HttpResponse(
+                clipform.errors.as_json(),
+                status=400
+            )
+        return HttpResponse(status=200)
+    return HttpResponse(status=403)
 
 @csrf_protect
 def clip_delete(request):
@@ -208,13 +179,8 @@ def clip_delete(request):
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         pk = request.POST['pk']
         models.Clip.objects.get(pk=pk).delete()
-        return HttpResponse(
-            _( "El clip %s ha sido borrado con éxito" % pk )
-        )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+        return HttpResponse(status=200)
+    return HttpResponse(status=403)
 
 @csrf_protect
 def clip_sort(request):
@@ -225,10 +191,5 @@ def clip_sort(request):
         for clip in clips:
             clip.order = request.POST['clip_' + str(clip.pk)]
         bulk_update(clips)
-        return HttpResponse(
-            _( "Los clips han sido ordenados con éxito" )
-        )
-    else:
-        return HttpResponse(
-            "Forbidden"
-        )
+        return HttpResponse(status=200)
+    return HttpResponse(status=403)
