@@ -150,6 +150,7 @@ jQuery(document).ready( function()
             // Remove previous content and add new one
             clean();
             form_container.appendChild(form_node);
+            form_container.scrollTo(0,0);
         });
     });
 
