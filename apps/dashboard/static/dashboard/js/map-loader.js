@@ -50,13 +50,17 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
                   .enter()
                   .append('circle')
                   .attr('class', 'map__clip-marker')
+                  .attr('data-id', function(d){ return d.pk })
                   .attr('r', 10)
                   .attr('fill', function(d){ return d.fields.color })
                   .attr('stroke', 'rgba(0, 0, 0, .15)')
                   .attr('stroke-width', '8')
                   .attr("transform", function(d){
                       return 'translate('+ (W/2 - d.fields.pos_x) + ',' + (H/2 - d.fields.pos_y) + ')'
-                  });
+                  })
+                  .on('click', function(d){
+                      document.querySelector('.clip-actions__edit[data-id="'+d.pk+'"]').click();
+                  })
             })
         }
     });
@@ -85,33 +89,36 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
     // Populate map with clips
 
     // Map finder
-    document.querySelector('.map__finder input').addEventListener('blur', function(e){
-        var place = e.target.value;
-        var url = "https://nominatim.openstreetmap.org/search/" + encodeURIComponent(place) + "?format=json";
-        jQuery.ajax({
-            type : 'GET',
-            url  : url,
-            success : function(response)
-            {
-                var projection_coords = projection([ response[0].lon, response[0].lat ]);
-                console.log('translate('+ projection_coords + ')');
-                svg.append("circle")
-                  .attr('class','marker')
-                  .attr('r', 10)
-                  .attr('fill', 'green')
-                  .attr('stroke', '#7ffa07')
-                  .attr('stroke-width', '8')
-                  .attr("transform", function(d){
-                      return 'translate('+ projection_coords + ')'
-                  });
-                document.querySelector('#id_pos_y').value = parseInt( H/2 - projection_coords[1] );
-                document.querySelector('#id_pos_x').value = parseInt( W/2 - projection_coords[0] );
+    document.querySelector('.map__finder').addEventListener('submit', function(e){
+        e.preventDefault();
+        var place = document.querySelector('.map__finder input[type=text]').value;
+        if(place){
+            var url = "https://nominatim.openstreetmap.org/search/" + encodeURIComponent(place) + "?format=json";
+            jQuery.ajax({
+                type : 'GET',
+                url  : url,
+                success : function(response)
+                {
+                    // TODO: handle rejections and coordinates outside of current projection bounding box
+                    var projection_coords = projection([ response[0].lon, response[0].lat ]);
+                    svg.append("circle")
+                      .attr('class','marker')
+                      .attr('r', 10)
+                      .attr('fill', 'green')
+                      .attr('stroke', '#7ffa07')
+                      .attr('stroke-width', '8')
+                      .attr("transform", function(d){
+                          return 'translate('+ projection_coords + ')'
+                      });
+                    document.querySelector('#id_pos_y').value = parseInt( H/2 - projection_coords[1] );
+                    document.querySelector('#id_pos_x').value = parseInt( W/2 - projection_coords[0] );
 
-                // var data = JSON.parse(response)[0];
-            },
-            error : function(req){
-                console.log('Error: ', req);
-            },
-        });
+                    // var data = JSON.parse(response)[0];
+                },
+                error : function(req){
+                    console.log('Error: ', req);
+                },
+            });
+        }
     });
 }

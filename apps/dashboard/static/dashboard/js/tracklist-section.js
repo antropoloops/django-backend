@@ -32,7 +32,6 @@ function clean(){
 
 function closePopup(){
     clean();
-    document.querySelector('.form-errors').classList.add( 'hidden' );
     document.querySelector('#map').classList.remove('show_finder');
 }
 
