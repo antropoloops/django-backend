@@ -123,6 +123,24 @@ class Project(Publishable):
             'Descripción corta. Se usará en vistas de contenido. '
         )
     )
+    readme = RichTextUploadingField(
+        _('Descripción'),
+        max_length=128,
+        blank=True,
+        help_text=_(
+            'Descripción larga. Se usará en la página específica '
+            'del proyecto.'
+        )
+    )
+    background = models.ImageField(
+        _('Imagen de fondo'),
+        blank=True,
+        upload_to='images/projects',
+        help_text=_(
+            'Añade opcionalmente una imagen representativa. Ésta como fondo de '
+            'la página específica del proyecto. '
+        )
+    )
     image = models.ImageField(
         _('Imagen representativa'),
         blank=True,
@@ -144,12 +162,6 @@ class Project(Publishable):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        """Populate automatically 'slug' field"""
-        if not self.id and not self.slug:
-            self.slug = slugify(self.name)
-        super(Project, self).save(*args, **kwargs)
 
 
 class Audioset(Publishable):
@@ -190,7 +202,7 @@ class Audioset(Publishable):
     project = models.ForeignKey(
         Project,
         verbose_name=_('Proyecto'),
-        related_name='audioset',
+        related_name='audiosets',
         null=True,
         on_delete=models.CASCADE,
         help_text=_(
@@ -269,13 +281,7 @@ class Audioset(Publishable):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        """Populate automatically 'slug' field"""
-        if not self.id and not self.slug:
-            self.slug = slugify(self.name)
-        super(Audioset, self).save(*args, **kwargs)
-
+        
 
 class Track(SortableMixin):
     """ Track model definition """

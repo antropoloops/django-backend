@@ -1,10 +1,13 @@
+# python
+import json
 # django
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.core import serializers
-from .serializers import PropJsonSerializer
+from django.shortcuts import get_list_or_404, get_object_or_404
+from .serializers import PropJsonSerializer, serialize_audioset, serialize_project
 # contrib
 from bulk_update.helper import bulk_update
 # app
@@ -193,3 +196,50 @@ def clip_sort(request):
         bulk_update(clips)
         return HttpResponse(status=200)
     return HttpResponse(status=403)
+
+
+def audioset(request, pk):
+    """ Gets an audioset object """
+
+    audioset = get_object_or_404(
+        models.Audioset.objects,
+        pk=pk
+    )
+
+    # Uses HttpResponse because JsonResponse doesn't pretty print is some JSON viewers
+    # change it afterwards ?
+    return HttpResponse(
+        serialize_audioset(audioset),
+        content_type="application/json",
+        status=200
+    )
+
+def projects(request):
+    """ Gets projects """
+
+    projects = models.Project.objects(published=True)
+
+    # Uses HttpResponse because JsonResponse doesn't pretty print is some JSON viewers
+    # change it afterwards ?
+    return HttpResponse(
+        serialize_project(project),
+        content_type="application/json",
+        status=200
+    )
+
+
+def project(request, pk):
+    """ Gets an project object """
+
+    project = get_object_or_404(
+        models.Project.objects,
+        pk=pk
+    )
+
+    # Uses HttpResponse because JsonResponse doesn't pretty print is some JSON viewers
+    # change it afterwards ?
+    return HttpResponse(
+        serialize_project(project),
+        content_type="application/json",
+        status=200
+    )

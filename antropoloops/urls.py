@@ -15,21 +15,42 @@ from apps.api import urls as api_urls
 
 urlpatterns = [
     # URLS related to user actions (login, password change, etc.)
-    path('', include(registration_urls)),
+    path(
+        '',
+        include(registration_urls)
+    ),
     # django default admin urls
-    path('admin/', admin.site.urls),
+    path(
+        'admin/',
+        admin.site.urls
+    ),
     # ckeditor urls
-    path(r'ckeditor/', include('ckeditor_uploader.urls')),
+    path(
+        r'ckeditor/',
+        include('ckeditor_uploader.urls')
+    ),
 
     # PAGES
     # URLS related to user dashboard (audiosets view, forms, etc.)
-    path('', include(dashboard_urls)),
+    path(
+        '',
+        include(dashboard_urls)
+    ),
     # front
-    path('', RedirectView.as_view(url='dashboard')),
+    path(
+        '',
+        RedirectView.as_view(url='dashboard')
+    ),
 
     # API
     # v1.0
-    path('api/1.0/', include(api_urls)),
+    path(
+        'api/1.0/',
+        include(
+            api_urls,
+            namespace='api',
+        )
+    ),
 ]
 
 # Add static URLS when running a standalone server through manage.py

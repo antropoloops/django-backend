@@ -30,6 +30,13 @@
                 </div>
             {% endif %}
         </li>
+        {% if request.user.is_staff %}
+        <li class="menu-audioset__item">
+            <a href="{% url 'api:audioset' audioset.pk %}" target="_blank">
+                {% icon 'eye' %} {% trans 'Ver en API' %}
+            </a>
+        </li>
+        {% endif %}
         <li class="menu-audioset__item menu-audioset__item-delete pull-right">
             <a href="{% url 'audioset_delete' audioset.project.pk audioset.pk %}">
                 {% icon 'trash-2' %} {% trans 'Borra este audioset' %}

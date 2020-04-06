@@ -5,6 +5,8 @@ from django.views.generic import TemplateView
 # app
 from . import views
 
+app_name = 'api'
+
 urlpatterns = [
     # Tracks
     path(
@@ -62,5 +64,17 @@ urlpatterns = [
         'clip/',
         views.clip,
         name='clip'
+    ),
+
+    path(
+        'audioset/<int:pk>',
+        views.audioset,
+        name='audioset'
+    ),
+    # Audiosets
+    path(
+        'project/<int:pk>',
+        views.project,
+        name='project'
     ),
 ]
