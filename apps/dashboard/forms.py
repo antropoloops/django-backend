@@ -5,11 +5,12 @@ from django import forms
 from django.forms import widgets
 from django.utils.translation import ugettext_lazy as _
 from django.forms.models import inlineformset_factory
+from django.core.exceptions import ValidationError
 # app
 from apps.models import models as antropoloops_models
 from apps.limited_textarea_widget.widgets import LimitedTextareaWidget
 from apps.image_preview_widget.widgets import ImagePreviewWidget
-
+from apps.autoslug_widget.widgets import AutoslugWidget
 
 def namedWidget(input_name, widget=forms.CharField):
     if isinstance(widget, type):
@@ -20,10 +21,28 @@ def namedWidget(input_name, widget=forms.CharField):
 
 class AudiosetCreateForm(forms.ModelForm):
 
+    slug = forms.SlugField(
+        label=_('Ruta'),
+        help_text=_(
+            'Esta campo contiene el fragmento final de la URL del proyecto'
+        ),
+        widget=AutoslugWidget(src='name')
+    )
+
+    def clean_slug(self):
+        slug = self.cleaned_data['slug']
+        if antropoloops_models.Audioset.objects.filter(slug=slug).exists():
+            raise ValidationError(_(
+                'Ya existe un audioset con esa ruta. Por favor, '
+                'cámbiala ligeramente'
+            ))
+        return slug
+
     class Meta:
         model = antropoloops_models.Audioset
         fields = [
             'name',
+            'slug',
             'description',
         ]
         widgets = {
@@ -32,17 +51,39 @@ class AudiosetCreateForm(forms.ModelForm):
 
 class ProjectForm(forms.ModelForm):
 
+    slug = forms.SlugField(
+        label=_('Ruta'),
+        help_text=_(
+            'Este campo contiene el fragmento final de la URL del proyecto'
+        ),
+        widget=AutoslugWidget(src='name')
+    )
+
     class Meta:
         model = antropoloops_models.Project
         fields = [
             'name',
+            'slug',
             'image',
             'description',
+            'readme',
+            'background',
         ]
         widgets = {
             'image' : ImagePreviewWidget(),
+            'background'  : ImagePreviewWidget(),
             'description' : LimitedTextareaWidget(limit=280),
         }
+
+    def clean_slug(self):
+        slug = self.cleaned_data['slug']
+        if antropoloops_models.Project.objects.filter(slug=slug).exists():
+            raise ValidationError(_(
+                'Ya existe un proyecto con esa ruta. Por favor, '
+                'cámbiala ligeramente. Por ejemplo: %s' % (slug+'-1',)
+            ))
+        return slug
+
 
 class AudiosetUpdateForm(forms.ModelForm):
 

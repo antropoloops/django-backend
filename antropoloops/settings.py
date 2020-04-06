@@ -63,6 +63,7 @@ PROJECT_APPS = [
     'apps.feather',
     'apps.limited_textarea_widget',
     'apps.image_preview_widget',
+    'apps.autoslug_widget',
     'apps.models',
     'apps.dashboard',
 ]

@@ -2,40 +2,42 @@
 
 @import compass/css3/appearance
 
-.form-simple
+.form--simple
   background: none
   border: 0
   margin: 0 auto
 
-.form-simple > p > label
+.form__label--simple
   font-weight: 600
   display: block
   margin: $m*1.5 0 $m/2
   text-transform: uppercase
 
-.form-simple
-  input:not([type=checkbox]), select, textarea
+.form--simple
+  input[type='text'],
+  select,
+  textarea
     width: 100%
     background-color: black
     border: 0
     min-height: $m*1.5
 
-.form-simple
+.form--simple
   input, select, textarea
     padding: $m/2 $m
 
 
-.form-simple select
+.form--simple select
   +appearance(none)
 
-.form-simple .helptext
+.form-field__helptext--simple
   display: block
   font-size: .9em
   margin-top: $m/2
   margin-left: $m
 
-.form-simple input[type=submit],
-.form__cancel
+.form__submit--simple,
+.form__cancel--simple
   line-height: $m*1.5
   color: white
   border: 0
@@ -44,54 +46,27 @@
   text-align: center
   transition: background-color .2s ease
   display: block
+  margin: $m auto
 
-.page-form-project .form-simple input[type=submit]
-  margin: $m*2 auto
+.form__submit--simple
   width: 240px
   background-color: $color_success
   &:hover
     background-color: lighten($color_success, 5%)
     outline: 2px solid darken($color_success, 10%)
 
-.page-form-audioset .form-simple input[type=submit]
-  width: 480px
-  margin: $m/2 auto
-.page-form-audioset .form-simple input[type=submit][name=add_configure]
-  margin-top: $m*2
-  background-color: $color_success
-  &:hover
-    background-color: lighten($color_success, 5%)
-    outline: 2px solid darken($color_success, 10%)
-.page-form-audioset .form-simple input[type=submit][name=add_return]
-  background-color: $color_calm
-  &:hover
-    background-color: lighten($color_calm, 5%)
-    outline: 2px solid darken($color_calm, 10%)
-
-
-.form-simple input[type=submit].submit--delete,
-.form-simple .form__cancel
-  width: 240px
-
-.form-simple input[type=submit].submit--delete,
-  margin: $m*2 auto $m/2
-  background-color: $color_danger
-  &:hover
-    background-color: lighten($color_danger, 5%)
-    outline: 2px solid darken($color_danger, 10%)
-.form-simple .form__cancel
+.form__cancel--submit
   border: 1px solid white
   margin: 0 auto
+  &:hover
+    cursor: pointer
 
-.form-simple .form__cancel:hover
-  cursor: pointer
-
-.form-simple .textarea-counter
+.form--simple .textarea-counter
   text-align: right
   font-size: .8em
   margin-bottom: $m/4
 
-.form-simple .field__widget--picture-preview
+.form--simple .field__widget--picture-preview
   .placeholder
     text-align: center
     margin: $m 0
@@ -105,3 +80,12 @@
     top: 2px
   br
     margin-bottom: $m/2
+
+.form--simple .django-ckeditor-widget
+  width: 100%
+
+.form__field-errors--simple
+  background-color: $color_danger
+  color: white
+  margin: $m/2 0
+  padding: $m/4 $m/2

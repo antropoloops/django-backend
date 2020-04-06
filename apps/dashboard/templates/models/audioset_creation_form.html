@@ -16,24 +16,15 @@
 
 {# Content #}
 {% block main %}
+
 {% include 'components/block-fake-breadcrumb.html' %}
+
 <h1 clas="page__title">
     {{ page_title }}
 </h1>
-{% include 'components/block-form-errors.html' with form=form %}
-<form class="form-audioset-create form-simple" method="post">
-    {% csrf_token %}
-    {{ form.errors }}
-    {{ form.as_p }}
-    <input type="submit"
-           name="add_configure"
-           value="{% trans 'Añadir audioset y configurarlo' %}"
-    />
-    <input type="submit"
-           name="add_return"
-           value="{% trans 'Añadir audioset y volver a la vista de proyecto' %}"
-    />
-</form>
+
+{% include 'components/form.html' with form=form modifier='simple' %}
+
 {% endblock %}
 
 {% block extra_js %}

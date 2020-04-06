@@ -17,17 +17,12 @@
 {# Content #}
 {% block main %}
 {% include 'components/block-fake-breadcrumb.html' %}
+
 <h1 clas="page__title">
     {{ page_title }}
 </h1>
 
-<form enctype="multipart/form-data" class="form-project-create form-simple" method="post">
-    {% include 'components/block-form-errors.html' with form=form %}
-    {% csrf_token %}
-    {{ form.errors }}
-    {{ form.as_p }}
-    <input type="submit" value="{{ submit_text }}" />
-</form>
+{% include 'components/form.html' with form=form modifier='simple' %}
 {% endblock %}
 
 {% block extra_js %}

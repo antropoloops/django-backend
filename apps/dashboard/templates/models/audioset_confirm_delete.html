@@ -24,16 +24,7 @@
 ¿Estás seguro que quieres borrar este audioset? Este acción no se puede deshacer.
 {% endblocktrans %}
 </p>
-{% include 'components/block-form-errors.html' with form=form %}
-<form class="form-audioset-delete form-simple" method="post">
-    {% csrf_token %}
-    {{ form.errors }}
-    {{ form.as_p }}
-    <input class="submit--delete" type="submit" value="{% trans 'Borrar audioset' %}" />
-    <span class="form__cancel" onclick="history.go(-1)">
-        {% trans 'Cancelar' %}
-    </span>
-</form>
+{% include 'components/form.html' with form=form modifier='simple' submit="Borrar este audioset" %}
 {% endblock %}
 
 {% block extra_js %}

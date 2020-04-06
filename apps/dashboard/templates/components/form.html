@@ -1,0 +1,58 @@
+{# Default form #}
+{% load i18n static %}
+
+<form action="{{ action }}" enctype="multipart/form-data" method="post" class="form {% if modifier %}form--{{ modifier }}{% endif %}">
+    {% csrf_token %}
+    {% if form.errors and not form.non_field_errors %}
+        <ul class="form__errors {% if modifier %}form__errors--{{ modifier }}{% endif %}">
+            <li class="form__error {% if modifier %}form__error--{{ modifier }}{% endif %}">
+                {% if form.errors.items|length == 1 %}
+                    {% trans "It seems there's an error in the form. Please review it." %}
+                {% else %}
+                    {% trans "It seems there're errors in the form. Please review it." %}
+                {% endif %}
+            </li>
+        </ul>
+    {% endif %}
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <ul class="form__non-field-errors {% if modifier %}form__non-field-errors--{{ modifier }}{% endif %}">
+            <li class="form__non-field-error {% if modifier %}form__non-field-error--{{ modifier }}{% endif %}">
+                {{ error }}
+            </li>
+        </ul>
+        {% endfor %}
+    {% endif %}
+    {% for field in form %}
+        <div class="form__field form-field--{{ field.name }} {% if modifier %}form__field--{{ modifier }}{% endif %}">
+            <label class="form-field__label form-field__label--{{ field.name }} {% if modifier %}form__label--{{ modifier }}{% endif %} {% if field.field.required %}required{% endif %}"
+                  for="{{ field.name }}">
+                {{ field.label }}
+            </label>
+            {{ field }}
+            <p class="form-field__helptext {% if modifier %}form-field__helptext--{{ modifier }}{% endif %}">
+                {{ field.help_text }}
+            </p>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                <ul class="form__field-errors {% if modifier %}form__field-errors--{{ modifier }}{% endif %}">
+                    <li class="form__field-error {% if modifier %}form__field-error--{{ modifier }}{% endif %}">
+                        {{ error }}
+                    </li>
+                </ul>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <input class="form__submit {% if modifier %}form__submit--{{ modifier }}{% endif %}"
+      type="submit"
+      {% if submit %}
+      value="{{ submit }}"
+      {% else %}
+      value="{% trans 'Guarda los cambios' %}"
+      {% endif %}
+    />
+    <p class="form__cancel {% if modifier %}form__cancel--{{ modifier }}{% endif %}" onclick="history.go(-1)">
+        {% trans 'Cancelar' %}
+    </p>
+</form>

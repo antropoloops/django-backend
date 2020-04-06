@@ -8,6 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 # app
 from . import forms
 
@@ -112,35 +113,32 @@ class AudiosetCreateView(CreateView):
     form_class  = forms.AudiosetCreateForm
     template_name = 'models/audioset_creation_form.html'
 
+    def dispatch(self, *args, **kwargs):
+        self.project = get_object_or_404(
+            antropoloops_models.Project,
+            pk=kwargs.get('pk')
+        )
+        return super(AudiosetCreateView, self).dispatch(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         """Pass context data to generic view."""
         context = super(AudiosetCreateView, self).get_context_data(**kwargs)
-        project = antropoloops_models.Project.objects.get(
-            pk=self.kwargs.get('pk')
-        )
-        context['page_title'] = _('Añade un audioset a «{}»'.format(project.name))
-
+        context['page_title'] = _('Añade un audioset a «{}»'.format(self.project.name))
         return context
 
     def form_valid(self, form):
-        project = antropoloops_models.Project.objects.get(
-            pk=self.kwargs.get('pk')
-        )
-        form.instance.owner  = self.request.user
-        form.instance.project = project
+        form.instance.owner   = self.request.user
+        form.instance.project = self.project
         return super(AudiosetCreateView, self).form_valid(form)
 
     def get_success_url(self):
         messages.success(self.request, _(
             'Has añadido éxitosamente el audioset'
         ))
-        if 'add_return' in self.request.POST:
-            return reverse_lazy('project_detail', kwargs={
-                'pk' : self.kwargs.get('pk')
-            })
-        return reverse_lazy('audioset_update', kwargs={
-            'pk' : self.object.pk
-        })
+        return reverse_lazy(
+            'project_detail',
+            kwargs={ 'pk' : self.project.pk }
+        )
 
 class AudiosetDeleteView(DeleteView):
     """ Audioset delete form in user dashboard """
