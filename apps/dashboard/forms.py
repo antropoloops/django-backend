@@ -19,6 +19,7 @@ def namedWidget(input_name, widget=forms.CharField):
     widget.render = lambda name, value, attrs=None, renderer=None: render(input_name, value, attrs, renderer)
     return widget
 
+
 class AudiosetCreateForm(forms.ModelForm):
 
     slug = forms.SlugField(
@@ -31,10 +32,14 @@ class AudiosetCreateForm(forms.ModelForm):
 
     def clean_slug(self):
         slug = self.cleaned_data['slug']
-        if antropoloops_models.Audioset.objects.filter(slug=slug).exists():
+        if antropoloops_models.Audioset.objects.filter(
+            slug=slug,
+        ).exclude(
+            pk=self.instance.pk
+        ).exists():
             raise ValidationError(_(
                 'Ya existe un audioset con esa ruta. Por favor, '
-                'cámbiala ligeramente'
+                'cámbiala ligeramente. Por ejemplo: %s' % (slug+'-1',)
             ))
         return slug
 
@@ -48,6 +53,7 @@ class AudiosetCreateForm(forms.ModelForm):
         widgets = {
             'description' : LimitedTextareaWidget(limit=280),
         }
+
 
 class ProjectForm(forms.ModelForm):
 
@@ -77,7 +83,11 @@ class ProjectForm(forms.ModelForm):
 
     def clean_slug(self):
         slug = self.cleaned_data['slug']
-        if antropoloops_models.Project.objects.filter(slug=slug).exists():
+        if antropoloops_models.Project.objects.filter(
+            slug=slug,
+        ).exclude(
+            pk=self.instance.pk
+        ).exists():
             raise ValidationError(_(
                 'Ya existe un proyecto con esa ruta. Por favor, '
                 'cámbiala ligeramente. Por ejemplo: %s' % (slug+'-1',)
@@ -119,6 +129,7 @@ class TrackForm(forms.ModelForm):
             'name',
             'color',
         ]
+
 
 class TrackFormAjax(forms.ModelForm):
 
@@ -175,7 +186,7 @@ class ClipUpdateFormAjax(forms.ModelForm):
     def clean_key(self):
         audioset_tracks = self.instance.track.first().audioset.tracks.all()
         current_key = self.instance.key
-        keys    = list( antropoloops_models.Clip.objects.filter(track__in=audioset_tracks).values_list('key', flat=True) )
+        keys = list( antropoloops_models.Clip.objects.filter(track__in=audioset_tracks).values_list('key', flat=True) )
         if current_key in keys:
             keys.remove(current_key)
         new_key = self.cleaned_data['key']
