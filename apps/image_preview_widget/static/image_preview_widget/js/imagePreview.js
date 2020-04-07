@@ -8,9 +8,9 @@
     {
         var placeholder = widget.querySelector('.placeholder');
         var input = widget.querySelector('input[type=file]');
-        var image = placeholder.getAttribute('data-image');
-        if(image){
-              placeholder.innerHTML = "<img src='" + image + "' />";
+        var current = document.querySelector('.widget-wrapper a');
+        if(current){
+              placeholder.innerHTML = "<img src='" + current.href + "' />";
         }
         input.addEventListener(
             'change',
