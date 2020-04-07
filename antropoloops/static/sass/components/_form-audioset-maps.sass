@@ -1,46 +1,25 @@
 #map
+  width: 100%
+  height: 75vh
+  background: transparent
   position: relative
 
 .map__fields
   visibility: hidden
-  pointer-events: none
+  pointer__events: none
   position: absolute
-
 
 // Helptext
 .map__helptext
   position: absolute
-  font-size: 1.25em
+  font-size: 1.15em
   font-weight: 700
   z-index: 11000
   left: $m
   bottom: $m
+  width: $m*10
+  text-align: left
   text-shadow: 0 0 4px rgba(black, .25)
-
-// Finder
-.map__finder
-  position: absolute
-  bottom: $m
-  left: $m
-  color: #222
-  font-size: .9em
-  display: none
-  &:before
-    font-family: sans-serif
-    content: "\1F50D"
-.map__finder input
-  line-height: $m !important
-  padding: $m/2 !important
-  border: 0
-.map__finder input[type=text]
-  width: $m*15
-.map__finder input[type=submit]
-  background-color: $color_calm
-  color: white
-  border: 0
-  transition: backgroundc-olor .2s ease
-  &:hover
-    background-color: saturate($color_calm, 15%)
 
 // Markers
 .map__clip-marker:hover

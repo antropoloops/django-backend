@@ -55,10 +55,7 @@
             ></div>
         {% else %}
             <div id="map">
-                <form class="map__finder">
-                  <input type="text" placeholder="{% trans "Busca un lugar (por ejemplo 'Sevilla' o 'India')" %}">
-                  <input type="submit" value="Localiza el clip">
-                </form>
+                {% include 'components/block-map-finder.html' with classes="hidden" submit="Localiza el clip" %}
             </div>
         {% endif %}
     </div>

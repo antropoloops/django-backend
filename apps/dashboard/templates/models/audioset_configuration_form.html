@@ -42,30 +42,36 @@
             </div>
             <div class="mode-selector__state" data-state="2">
                 <div class="mode-selector__state-fields">
-                    <div id="map"></div>
+                    <div id="map">
+                        {% include 'components/block-map-finder.html' with submit="Centrar mapa" %}
+                    </div>
                     <div class="map__fields">
                         {% include 'models/audioset_configuration_field.html' with field=form.map_scale %}
                         {% include 'models/audioset_configuration_field.html' with field=form.map_center_x %}
                         {% include 'models/audioset_configuration_field.html' with field=form.map_center_y %}
                     </div>
                     <div class="map__helptext">
-                    {% blocktrans trimmed %}
-                    Puedes desplazar el centro del mapa y ajustar su zoom usando el ratón
-                    {% endblocktrans %}
+                        {% blocktrans trimmed %}
+                        Centra el mapa buscando las coordenadas de un lugar en el buscador. Puedes usar el
+                        ratón para cambiar el zoom.
+                        {% endblocktrans %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <input class="form-audioset-configure__submit audioset-submit" type="submit"
-           value="{% trans 'Guarda los cambios' %}"
-    ></input>
+    <div class="form__actions">
+        <input class="form-audioset-configure__submit audioset-submit" type="submit"
+               value="{% trans 'Guarda los cambios' %}"
+        ></input>
+    </div>
 </form>
 
 {% endblock %}
 
 {% block extra_js %}
     {{ form.media }}
+    {# jquery #}
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/d3-geo.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>

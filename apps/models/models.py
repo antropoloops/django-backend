@@ -98,12 +98,12 @@ class Clip(models.Model):
         max_length=1,
         blank=True,
     )
-    pos_x = models.IntegerField(
+    pos_x = models.FloatField(
         _('Coordenada X'),
         default = 0,
         blank=False,
     )
-    pos_y = models.IntegerField(
+    pos_y = models.FloatField(
         _('Coordenada Y'),
         default = 0,
         blank=False,

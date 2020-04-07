@@ -1,0 +1,18 @@
+{# Map finder block #}
+{% load i18n %}
+
+<div class="map-finder {% if classes %}{{ classes }}{% endif %}">
+    <input class="map-finder__input"
+           type="text"
+           placeholder="{% trans 'Busca un lugar (por ejemplo: «Sevilla» o «India»)' %}"
+    >
+    <span class="map-finder__submit">
+        {{ submit }}
+    </span>
+    <div class="map-finder__warning hidden">
+        {% blocktrans trimmed %}
+        La búqueda no ha tenido éxito. Comprueba si has escrito bien el lugar y/o
+        prueba con un lugar cercano una búsqueda más general.
+        {% endblocktrans %}
+    </div>
+</div>

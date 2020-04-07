@@ -32,7 +32,8 @@ function clean(){
 
 function closePopup(){
     clean();
-    document.querySelector('#map').classList.remove('show_finder');
+    document.querySelector('.map-finder').classList.add('hidden');
+    document.querySelector('.map-finder__input').value = '';
 }
 
 
@@ -152,7 +153,7 @@ jQuery(document).ready( function()
             });
 
             if(d.model == 'clip'){
-                document.querySelector('#map').classList.add('show_finder');
+                document.querySelector('.map-finder').classList.remove('hidden');
             }
 
 

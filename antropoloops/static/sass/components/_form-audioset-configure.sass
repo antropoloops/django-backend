@@ -130,30 +130,6 @@ $states: 1 2
 .mode-selector .placeholder__text
   padding-top: 20%
 
-#map
-  width: 100%
-  height: 75vh
-  background: transparent
-  position: relative
-
-.page--audioset-configuration-form #map
-  &:before
-    content: ""
-    border-left: 1px dashed rgba(white, .1)
-    top: 0
-    left: 50%
-    height: 100%
-    width: 1px
-    position: absolute
-  &:after
-    content: ""
-    border-bottom: 1px dashed rgba(white, .1)
-    top: 50%
-    left: 0
-    height: 1px
-    width: 100%
-    position: absolute
-
 .form-audioset-configure .django-ckeditor-widget
   width: 100%
   position: relative
@@ -174,3 +150,9 @@ $states: 1 2
   background: rgba(black, .1)
   a.cke_path_item, span.cke_path_empty
     color: white !important
+
+.form__actions--audioset-configure
+  margin: 0
+  padding: 0
+.form__action--audioset-configure
+  display: inline

@@ -3,23 +3,24 @@
  *  Configuration screen
  */
 
-function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
+function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
 {
     // Map container and main elements
     var container = document.querySelector('.layout-form-audioset__right').getBoundingClientRect();
     var W = container.width;
     var H = container.height;
+    var scale_factor = 200;
 
     var svg = d3.select('#map')
       .append("svg")
       .attr("width",  W)
       .attr("height", H);
 
-    // Map projection
-    var projection  = d3.geoRobinson().translate([
-        W/2 + map_center_x,
-        H/2 + map_center_y
-    ]).scale(map_scale);
+    // Create default map projection
+    var projection  = d3.geoRobinson()
+      .center([ map_center_x, map_center_y ])
+      .scale(map_scale * scale_factor)
+      .translate([ W/2, H/2 ]);
     var path = d3.geoPath().projection(projection);
 
     // Load map
@@ -31,6 +32,8 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
           data.objects.countries,
         ).features;
 
+        // Create paths for countries in the map
+        //
         svg.selectAll('.countries')
           .data(countries)
           .enter()
@@ -42,7 +45,10 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
           .style("stroke-width", 0.5)
           .style("fill", "#888888");
 
-        if(audioset){
+        // If in tracklist section
+        // load clip markers
+        //
+        if(!is_map_conf && audioset){
             d3.json('/api/1.0/track/clips/'+audioset, function(error, data)
             {
                 svg.selectAll(".map__clip-marker")
@@ -55,8 +61,9 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
                   .attr('fill', function(d){ return d.track[0].color })
                   .attr('stroke', 'rgba(0, 0, 0, .15)')
                   .attr('stroke-width', '8')
-                  .attr("transform", function(d){
-                      return 'translate('+ (W/2 - d.pos_x) + ',' + (H/2 - d.pos_y) + ')'
+                  .attr("transform", function(d)
+                  {
+                      return 'translate('+ projection([d.pos_x, d.pos_y]) + ')'
                   })
                   .on('click', function(d){
                       document.querySelector('.clip-actions__edit[data-id="'+d.pk+'"]').click();
@@ -65,42 +72,66 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
         }
     });
 
-    // Map drag options
+    // If in map configuration section
+    // allow to zoom to set desired scale
+    //
     var zoom = null;
-    if(draggable){
+    if(is_map_conf){
         zoom = d3.behavior.zoom()
-          .translate([ W/2 + map_center_x, H/2 + map_center_y ])
-          .scale(map_scale)
+          .translate([ W/2, H/2 ])
+          .scale(map_scale * scale_factor)
           .scaleExtent([250, 2000])
           .on("zoom", zoomed);
         svg.call(zoom).call(zoom.event);
     }
     function zoomed()
     {
-        var translation = zoom.translate();
         var scalation   = zoom.scale();
-        projection.translate( translation ).scale( scalation );
-        svg.selectAll('.countries').attr("d", path)
-        document.querySelector('#id_map_scale').value = scalation;
-        document.querySelector('#id_map_center_x').value = translation[0] - W/2;
-        document.querySelector('#id_map_center_y').value = translation[1] - H/2;
+        projection.scale( scalation );
+        svg.selectAll('.countries').attr("d", path);
+        document.querySelector('#id_map_scale').value = parseInt(scalation / scale_factor);
     }
 
-    // Populate map with clips
-
-    // Map finder
-    document.querySelector('.map__finder').addEventListener('submit', function(e){
-        e.preventDefault();
-        var place = document.querySelector('.map__finder input[type=text]').value;
+    // Map finder behavior
+    //
+    var map_finder = document.querySelector('.map-finder__submit');
+    map_finder.addEventListener('click', function(e)
+    {
+        var place = document.querySelector('.map-finder__input').value;
         if(place){
+            // makes a lookup in nominatim database
             var url = "https://nominatim.openstreetmap.org/search/" + encodeURIComponent(place) + "?format=json";
-            jQuery.ajax({
-                type : 'GET',
-                url  : url,
-                success : function(response)
-                {
-                    // TODO: handle rejections and coordinates outside of current projection bounding box
-                    var projection_coords = projection([ response[0].lon, response[0].lat ]);
+            d3.json(url, function(error, data)
+            {
+                // If lookup was succesful use first —most relevant— finding
+                // else display a warning
+                var place = null;
+                if(data.length > 0){
+                    place = data[0];
+                    document.querySelector('.map-finder__warning').classList.add('hidden');
+                } else {
+                    document.querySelector('.map-finder__warning').classList.remove('hidden');
+                }
+                // TODO: handle rejections and coordinates outside of current projection bounding box
+                if(is_map_conf){
+                    // If in map configuration section
+                    // use data to center the map
+                    projection.center([
+                        place.lon,
+                        place.lat
+                    ]).scale( zoom.scale() ).translate( zoom.translate() );
+                    // Shift shapes
+                    svg.selectAll('.countries').attr("d", path);
+                    // Update inputs
+                    document.querySelector('#id_map_center_x').value = place.lon;
+                    document.querySelector('#id_map_center_y').value = place.lat;
+                } else {
+                    // If in tracklist section
+                    // use data to append a marker and update current clip
+                    var coords = projection([
+                        place.lon,
+                        place.lat
+                    ]);
                     svg.append("circle")
                       .attr('class','marker')
                       .attr('r', 10)
@@ -108,16 +139,11 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
                       .attr('stroke', '#7ffa07')
                       .attr('stroke-width', '8')
                       .attr("transform", function(d){
-                          return 'translate('+ projection_coords + ')'
+                          return 'translate('+ coords + ')'
                       });
-                    document.querySelector('#id_pos_y').value = parseInt( H/2 - projection_coords[1] );
-                    document.querySelector('#id_pos_x').value = parseInt( W/2 - projection_coords[0] );
-
-                    // var data = JSON.parse(response)[0];
-                },
-                error : function(req){
-                    console.log('Error: ', req);
-                },
+                    document.querySelector('#id_pos_x').value = place.lon;
+                    document.querySelector('#id_pos_y').value = place.lat;
+                }
             });
         }
     });
