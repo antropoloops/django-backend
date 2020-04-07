@@ -22,3 +22,18 @@ def description(set):
         _('Este elemento no aporta descripción')
     )
     return set.description if set.description else mark_safe(blank_description)
+
+
+@register.filter
+def themes(item):
+    if hasattr(item, 'set_units'):
+        return item.set_units.all().values_list(
+            'theme__name',
+            flat=True
+        ).distinct()
+    elif hasattr(item, 'project_units'):
+        return item.project_units.all().values_list(
+            'theme__name',
+            flat=True
+        ).distinct()
+    return None

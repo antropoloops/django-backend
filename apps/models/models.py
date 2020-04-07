@@ -369,3 +369,93 @@ class Track(SortableMixin):
 
     def __str__(self):
         return self.name
+
+class Theme(models.Model):
+
+    name = models.CharField(
+        _('Nombre del tema'),
+        max_length=128,
+        blank=False,
+    )
+    description = RichTextUploadingField(
+        _('Descripción'),
+        max_length=128,
+        blank=True,
+        help_text=_(
+            'Descripción larga. Se usará en la página específica '
+            'del audioset.'
+        )
+    )
+    slug = models.SlugField(
+        _('Ruta'),
+        blank=True,
+        help_text=_(
+            'Ruta del tema. Si se deja vacío este campo '
+            'se creará de manera automática a partir del nombre del set.'
+        )
+    )
+    order = models.PositiveSmallIntegerField(
+        _('Orden'),
+        default=0,
+        blank=False,
+        editable=False,
+        db_index=True,
+    )
+
+    class Meta:
+        verbose_name = _('tema didáctico')
+        verbose_name_plural = _('temas didácticos')
+        ordering = ('order',)
+
+    def __str__(self):
+        return self.name
+
+
+class ThemeUnit(SortableMixin):
+
+    project = models.ForeignKey(
+        Project,
+        verbose_name = _(
+            'Proyecto que compone la unidad'
+        ),
+        related_name = 'project_units',
+        on_delete = models.SET_NULL,
+        null = True,
+        blank = True
+    )
+    set = models.ForeignKey(
+        Audioset,
+        verbose_name=_(
+            'Set que compone la unidad'
+        ),
+        related_name = 'set_units',
+        on_delete = models.SET_NULL,
+        blank = True,
+        null = True,
+    )
+
+    theme = models.ForeignKey(
+        Theme,
+        verbose_name=_(
+            'Tema'
+        ),
+        related_name='units',
+        on_delete = models.CASCADE,
+        null=True,
+        blank=False
+    )
+    order = models.PositiveSmallIntegerField(
+        _('Orden'),
+        default=0,
+        blank=False,
+        editable=False,
+        db_index=True,
+    )
+
+    class Meta:
+        verbose_name = _('unidad didáctica')
+        verbose_name_plural = _('unidades didácticas')
+        ordering = ('order',)
+
+    def __str__(self):
+        return 'Unidad %s' % self.order

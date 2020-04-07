@@ -37,7 +37,6 @@ class ClipSerializer(serializers.ModelSerializer):
         model = models.Clip
         exclude = [ 'id', ]
 
-
 class MapClipSerializer(serializers.ModelSerializer):
 
     track = TrackColorSerializer(
@@ -54,6 +53,39 @@ class MapClipSerializer(serializers.ModelSerializer):
             'track'
         ]
 
+class ThemeUnitSerializer(serializers.ModelSerializer):
+
+    content = serializers.SerializerMethodField('get_content')
+
+    def get_content(self, obj):
+        content = obj.project if obj.project else obj.set
+        return {
+            'name'    : content.name,
+            'slug'    : content.slug,
+            'summary' : content.description,
+            'image'   : content.image.url if content.image else None
+        }
+
+    class Meta:
+        model = models.ThemeUnit
+        fields = [
+            'content',
+            'order'
+        ]
+
+class ThemeSerializer(serializers.ModelSerializer):
+
+    units = ThemeUnitSerializer(
+        many = True
+    )
+
+    class Meta:
+        model = models.Theme
+        fields = [
+            'name',
+            'description',
+            'units'
+        ]
 
 def serialize_project(project):
     """ Custom serializer for audioset objects """

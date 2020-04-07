@@ -3,6 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib import admin
 # contrib
 from adminsortable import admin as sortable
+from django.core.exceptions import ValidationError
+from django import forms
 # project
 from . import models
 
@@ -87,9 +89,38 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
     class Media:
         js = ('models/js/modeladmin_audioset.js',)
 
+class ThemeUnitForm(forms.ModelForm):
+    model  = models.ThemeUnit
+    fields = (('set', 'project'),)
+
+    def clean(self):
+        if not self.cleaned_data['set'] and not self.cleaned_data['project']:
+            raise ValidationError(_(
+                'Tiene que haber una referencia a un elemento, sea un Audioset o un Proyecto'
+            ))
+        if self.cleaned_data['set'] and self.cleaned_data['project']:
+            raise ValidationError(_(
+                'Una unidad se compone de un único elemento, quita una de las referencias'
+            ))
+        return self.cleaned_data
+
+
+class ThemeUnitAdmin(sortable.SortableStackedInline):
+    model  = models.ThemeUnit
+    extra  = 0
+    form = ThemeUnitForm
+    fields = (('set', 'project'),)
+
+
+class ThemeAdmin(sortable.NonSortableParentAdmin):
+    model   = models.Theme
+    inlines = [ ThemeUnitAdmin ]
+
 # Register model admins
 
 admin.site.register(models.Clip, ClipAdmin)
 admin.site.register(models.Track, TrackAdmin)
 admin.site.register(models.Project, ProjectAdmin)
 admin.site.register(models.Audioset, AudiosetAdmin)
+admin.site.register(models.ThemeUnit, admin.ModelAdmin)
+admin.site.register(models.Theme, ThemeAdmin)

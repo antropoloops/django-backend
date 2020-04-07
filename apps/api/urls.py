@@ -66,15 +66,22 @@ urlpatterns = [
         name='clip'
     ),
 
+    # Audioset
     path(
         'audioset/<int:pk>',
         views.audioset,
         name='audioset'
     ),
-    # Audiosets
+    # Project
     path(
         'project/<int:pk>',
         views.project,
         name='project'
+    ),
+    # Project
+    path(
+        'themes/',
+        views.themes,
+        name='themes'
     ),
 ]

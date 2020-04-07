@@ -11,7 +11,7 @@ from django.conf import settings
 # contrib
 from bulk_update.helper import bulk_update
 # app
-from .serializers import serialize_audioset, serialize_project, ClipSerializer, TrackSerializer, MapClipSerializer
+from . import serializers
 from apps.dashboard import forms
 from apps.models import models
 
@@ -21,7 +21,7 @@ def track(request, pk):
 
     if request.is_ajax and request.user.is_authenticated:
         track = models.Track.objects.get(pk=pk)
-        data = TrackSerializer(track).data
+        data = serializers.TrackSerializer(track).data
         return JsonResponse(
             data,
             safe=False
@@ -34,7 +34,7 @@ def track_clips(request, pk):
 
     if request.is_ajax and request.user.is_authenticated:
         clips = models.Clip.objects.filter(track__audioset=pk)
-        data = MapClipSerializer(clips, many=True).data
+        data = serializers.MapClipSerializer(clips, many=True).data
         return JsonResponse(
             data,
             safe=False
@@ -114,7 +114,7 @@ def clip(request, pk):
 
     if request.is_ajax and request.user.is_authenticated:
         clip = models.Clip.objects.get(pk=pk)
-        data = ClipSerializer(clip).data
+        data = serializers.ClipSerializer(clip).data
         return JsonResponse(
             data,
             safe=False
@@ -200,8 +200,6 @@ def audioset(request, pk):
         pk=pk
     )
 
-    # Uses HttpResponse because JsonResponse doesn't pretty print is some JSON viewers
-    # change it afterwards ?
     return HttpResponse(
         serialize_audioset(audioset),
         content_type="application/json",
@@ -213,8 +211,6 @@ def projects(request):
 
     projects = models.Project.objects(published=True)
 
-    # Uses HttpResponse because JsonResponse doesn't pretty print is some JSON viewers
-    # change it afterwards ?
     return HttpResponse(
         serialize_project(project),
         content_type="application/json",
@@ -230,10 +226,23 @@ def project(request, pk):
         pk=pk
     )
 
-    # Uses HttpResponse because JsonResponse doesn't pretty print is some JSON viewers
-    # change it afterwards ?
     return HttpResponse(
         serialize_project(project),
         content_type="application/json",
         status=200
     )
+
+def themes(request):
+    """ Gets Themes """
+
+    if request.is_ajax:
+        themes = models.Theme.objects.all()
+
+        return JsonResponse(
+            serializers.ThemeSerializer(
+                themes,
+                many=True
+            ).data,
+            safe=False
+        )
+    return HttpResponse(status=403)
