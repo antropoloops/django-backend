@@ -2,41 +2,57 @@
 import json
 import time
 # django
-from django.core import serializers
 from django.utils.text import slugify
+# contrib
+from rest_framework import serializers
 # project
 from apps.models import models
 
-class PropBaseSerializer(serializers.base.Serializer):
-    """
-    Custom serializer class which enables us to specify a subset
-    of model class properties (as well as fields)
-    @see https://bonidjukic.github.io/2019/02/04/serialize-django-model-class-properties.html
-    """
-    def serialize(self, queryset, **options):
-        self.selected_props = options.pop('props')
-        return super().serialize(queryset, **options)
 
-    def serialize_property(self, obj):
-        model = type(obj)
-        for prop in self.selected_props:
-            if hasattr(model, prop) and type(getattr(model, prop)) == property:
-                self.handle_prop(obj, prop)
+class TrackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Track
+        fields = [
+            'pk',
+            'name',
+            'color',
+        ]
 
-    def handle_prop(self, obj, prop):
-        self._current[prop] = getattr(obj, prop)
-
-    def end_object(self, obj):
-        self.serialize_property(obj)
-        super().end_object(obj)
+class TrackColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Track
+        fields = [ 'color', ]
 
 
-class PropPythonSerializer(PropBaseSerializer, serializers.python.Serializer):
-    pass
+class ClipSerializer(serializers.ModelSerializer):
+
+    pk = serializers.IntegerField(
+        source='id'
+    )
+    country = serializers.ReadOnlyField(
+        source='country.code'
+    )
+
+    class Meta:
+        model = models.Clip
+        exclude = [ 'id', ]
 
 
-class PropJsonSerializer(PropPythonSerializer, serializers.json.Serializer):
-    pass
+class MapClipSerializer(serializers.ModelSerializer):
+
+    track = TrackColorSerializer(
+        many = True
+    )
+
+    class Meta:
+        model = models.Clip
+        fields = [
+            'pk',
+            'name',
+            'pos_x',
+            'pos_y',
+            'track'
+        ]
 
 
 def serialize_project(project):

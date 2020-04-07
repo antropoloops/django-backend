@@ -8,6 +8,8 @@ from colorful.fields import RGBColorField
 from django_countries.fields import CountryField
 from adminsortable.models import SortableMixin
 from ckeditor_uploader.fields import RichTextUploadingField
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 # project
 from .abstract.publishable import Publishable
 from . import categories
@@ -69,6 +71,16 @@ class Clip(models.Model):
         _('Imagen representativa'),
         blank=True,
         upload_to='images/clips'
+    )
+    image_thumbnail = ImageSpecField(
+        source='image',
+        processors=[
+            ResizeToFill(100, 50)
+        ],
+        format='JPEG',
+        options={
+            'quality': 60
+        }
     )
     #TODO: audio_mp3
     #TODO: audio_ogg
@@ -281,7 +293,7 @@ class Audioset(Publishable):
 
     def __str__(self):
         return self.name
-        
+
 
 class Track(SortableMixin):
     """ Track model definition """

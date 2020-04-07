@@ -43,20 +43,20 @@ function loadMap(map_scale, map_center_x, map_center_y, draggable, audioset)
           .style("fill", "#888888");
 
         if(audioset){
-            d3.json('/api/1.0/track/clips?pk='+audioset, function(error, data)
+            d3.json('/api/1.0/track/clips/'+audioset, function(error, data)
             {
                 svg.selectAll(".map__clip-marker")
-                  .data(JSON.parse(data))
+                  .data(data)
                   .enter()
                   .append('circle')
                   .attr('class', 'map__clip-marker')
                   .attr('data-id', function(d){ return d.pk })
                   .attr('r', 10)
-                  .attr('fill', function(d){ return d.fields.color })
+                  .attr('fill', function(d){ return d.track[0].color })
                   .attr('stroke', 'rgba(0, 0, 0, .15)')
                   .attr('stroke-width', '8')
                   .attr("transform", function(d){
-                      return 'translate('+ (W/2 - d.fields.pos_x) + ',' + (H/2 - d.fields.pos_y) + ')'
+                      return 'translate('+ (W/2 - d.pos_x) + ',' + (H/2 - d.pos_y) + ')'
                   })
                   .on('click', function(d){
                       document.querySelector('.clip-actions__edit[data-id="'+d.pk+'"]').click();

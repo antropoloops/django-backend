@@ -7,54 +7,40 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.core import serializers
 from django.shortcuts import get_list_or_404, get_object_or_404
-from .serializers import PropJsonSerializer, serialize_audioset, serialize_project
+from django.conf import settings
 # contrib
 from bulk_update.helper import bulk_update
 # app
+from .serializers import serialize_audioset, serialize_project, ClipSerializer, TrackSerializer, MapClipSerializer
 from apps.dashboard import forms
 from apps.models import models
 
 
-def track(request):
+def track(request, pk):
     """ Get Track object. """
 
     if request.is_ajax and request.user.is_authenticated:
-        pk = request.GET['pk']
         track = models.Track.objects.get(pk=pk)
+        data = TrackSerializer(track).data
         return JsonResponse(
-            serializers.serialize(
-                'json',
-                [track],
-                fields=(
-                    'name',
-                    'color',
-                )
-            ),
+            data,
             safe=False
         )
     return HttpResponse(status=403)
 
-def track_clips(request):
+
+def track_clips(request, pk):
     """ Get Track clips. """
 
     if request.is_ajax and request.user.is_authenticated:
-        pk = request.GET['pk']
         clips = models.Clip.objects.filter(track__audioset=pk)
+        data = MapClipSerializer(clips, many=True).data
         return JsonResponse(
-            PropJsonSerializer().serialize(
-                clips,
-                fields=(
-                    'name',
-                    'pos_x',
-                    'pos_y',
-                ),
-                props=(
-                    'color',
-                )
-            ),
+            data,
             safe=False
         )
     return HttpResponse(status=403)
+
 
 @csrf_protect
 def track_create(request):
@@ -75,6 +61,7 @@ def track_create(request):
             )
         return HttpResponse(status=200)
     return HttpResponse(status=403)
+
 
 @csrf_protect
 def track_update(request):
@@ -97,15 +84,17 @@ def track_update(request):
         return HttpResponse(status=200)
     return HttpResponse(status=403)
 
+
 @csrf_protect
 def track_delete(request):
     """ Creates a Track object. """
 
+    data = request.POST
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
-        pk = request.POST['pk']
-        models.Track.objects.get(pk=pk).delete()
+        models.Track.objects.get(pk=data['pk']).delete()
         return HttpResponse(status=200)
     return HttpResponse(status=403)
+
 
 @csrf_protect
 def track_sort(request):
@@ -119,20 +108,19 @@ def track_sort(request):
         return HttpResponse(status=200)
     return HttpResponse(status=403)
 
-def clip(request):
+
+def clip(request, pk):
     """ Get Clip object. """
 
     if request.is_ajax and request.user.is_authenticated:
-        pk = request.GET['pk']
         clip = models.Clip.objects.get(pk=pk)
+        data = ClipSerializer(clip).data
         return JsonResponse(
-            serializers.serialize(
-                'json',
-                [clip],
-            ),
+            data,
             safe=False
         )
     return HttpResponse(status=403)
+
 
 @csrf_protect
 def clip_create(request):
@@ -155,6 +143,7 @@ def clip_create(request):
         return HttpResponse(status=200)
     return HttpResponse(status=403)
 
+
 @csrf_protect
 def clip_update(request):
     """ Creates a Clip object. """
@@ -162,7 +151,11 @@ def clip_update(request):
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
         clip = models.Clip.objects.get(pk=data['pk'])
-        clipform = forms.ClipUpdateFormAjax(data, files=request.FILES, instance=clip)
+        clipform = forms.ClipUpdateFormAjax(
+            data,
+            files=request.FILES,
+            instance=clip
+        )
         if clipform.is_valid():
             if 'image_delete' in data:
                 clip.image = None
@@ -175,15 +168,16 @@ def clip_update(request):
         return HttpResponse(status=200)
     return HttpResponse(status=403)
 
+
 @csrf_protect
 def clip_delete(request):
     """ Creates a Clip object. """
-
+    data = request.POST
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
-        pk = request.POST['pk']
-        models.Clip.objects.get(pk=pk).delete()
+        models.Clip.objects.get(pk=data['pk']).delete()
         return HttpResponse(status=200)
     return HttpResponse(status=403)
+
 
 @csrf_protect
 def clip_sort(request):

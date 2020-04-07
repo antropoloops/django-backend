@@ -11,7 +11,7 @@
 </div>
 <figure class="field-thumbnail--item-dashboard">
     {% if item.image %}
-        {% thumbnail '480x480' item.image %}
+        <img src="{{ item.image.url }}" />
     {% else %}
         {% blank_image %}
     {% endif %}

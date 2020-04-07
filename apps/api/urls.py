@@ -30,12 +30,12 @@ urlpatterns = [
         name='track_delete'
     ),
     path(
-        'track/clips',
+        'track/clips/<int:pk>',
         views.track_clips,
         name='track_clips'
     ),
     path(
-        'track/',
+        'track/<int:pk>',
         views.track,
         name='track'
     ),
@@ -61,7 +61,7 @@ urlpatterns = [
         name='clip_delete'
     ),
     path(
-        'clip/',
+        'clip/<int:pk>',
         views.clip,
         name='clip'
     ),

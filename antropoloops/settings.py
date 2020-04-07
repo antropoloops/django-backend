@@ -22,12 +22,11 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets/static')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'assets/media')
-MEDIA_URL = '/media/'
-
-# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ENV_PATH, '..', 'assets/media')
+
+DEFAULT_FILE_STORAGE = 'antropoloops.storage_backends.MediaStorage'
+S3_MEDIA_FOLDER = 'media'
 
 # Registration
 
@@ -57,6 +56,8 @@ CONTRIB_APPS = [
     'ckeditor_uploader',
     'imagekit',
     'colorful',
+    'storages',
+    'rest_framework',
 ]
 
 PROJECT_APPS = [

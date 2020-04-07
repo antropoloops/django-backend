@@ -72,25 +72,24 @@ jQuery(document).ready( function()
                 case 'update':
                     jQuery.ajax({
                         type : 'GET',
-                        url  : endpoints[model]['get'] + '?pk=' + id,
-                        success : function(response)
+                        url  : endpoints[model]['get'] + id,
+                        success : function(data)
                         {
-                            var data = JSON.parse(response)[0];
-                            Object.keys(data.fields).forEach(function(field)
+                            Object.keys(data).forEach(function(field)
                             {
                                 var widget = form.querySelector('[name='+field+']');
                                 // Image and color field values cannot be set directly
-                                if(field != 'image' && field != 'order'){
-                                    widget.value = data.fields[field];
+                                if( field != 'image' && field != 'order' ){
+                                    widget.value = data[field];
                                 }
-                                if( field == 'image' && data.fields[field] )
+                                if( field == 'image' && data[field] )
                                 {
                                     // As we cannot set image src via ajax we mock the image input
                                     // using JS
                                     var widget_container = document.querySelector('.form-field--image');
                                     // Placeholder
                                     var thumbnail = document.createElement('img');
-                                    thumbnail.src = '/media/' + data.fields['image'];
+                                    thumbnail.src = '/media/' + data['image'];
                                     thumbnail.classList.add('form-field--image-preview');
                                     widget_container.appendChild(thumbnail);
                                     // Checkbox to delete the image

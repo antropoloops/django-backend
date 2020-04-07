@@ -24,7 +24,7 @@
     </h1>
     <figure class="page__image page__image--project">
         {% if object.image %}
-            {% thumbnail '480x480' object.image %}
+            <img src="{{ object.image.url }}" />
         {% else %}
             {% blank_image %}
         {% endif %}
