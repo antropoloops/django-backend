@@ -15,6 +15,9 @@ from .abstract.publishable import Publishable
 from . import categories
 from . import validators
 
+validator_mp3 = validators.AudioTypeValidator(["audio/mpeg"])
+validator_ogg = validators.AudioTypeValidator(["audio/ogg"])
+validator_wav = validators.AudioTypeValidator(["audio/wav"])
 
 class Clip(models.Model):
     """ Clip model definition """
@@ -31,40 +34,13 @@ class Clip(models.Model):
         max_length=128,
         blank=False,
     )
-    audio_name = models.CharField(
-        _('Nombre del audio'),
-        max_length=128,
-        blank=False,
-        null=True,
-    )
-    artist = models.CharField(
-        _('Nombre del artista'),
-        max_length=128,
-        blank=True,
-    )
-    album_name = models.CharField(
-        _('Nombre del álbum'),
-        max_length=128,
-        blank=True,
-    )
-    country = CountryField(
-        _('País'),
-        blank=True,
-        blank_label=_('Escoge un pais')
-    )
-    place = models.CharField(
-        _('Lugar'),
-        max_length=128,
-        blank=True,
-    )
-    year = models.PositiveSmallIntegerField(
-        _('Año'),
-        blank=True,
-        null=True,
-        # validators=[ validators.album_year_validator ]
-    )
     readme = models.TextField(
         _('Notas adicionales'),
+        blank=True,
+    )
+    key = models.CharField(
+        _('Tecla'),
+        max_length=1,
         blank=True,
     )
     image = models.ImageField(
@@ -82,9 +58,81 @@ class Clip(models.Model):
             'quality': 60
         }
     )
-    #TODO: audio_mp3
-    #TODO: audio_ogg
-    #TODO: audio_wav
+    audio_name = models.CharField(
+        _('Nombre del audio'),
+        max_length=128,
+        blank=False,
+        null=True,
+    )
+    audio_mp3 = models.FileField(
+        _('Archivo de audio MP3'),
+        blank=True,
+        validators=[ validator_mp3 ],
+        upload_to='audio/mp3',
+        help_text=_(
+            'Archivo de audio del sample en formato MP3'
+        )
+    )
+    audio_ogg = models.FileField(
+        _('Archivo de audio OGG'),
+        blank=True,
+        validators=[ validator_ogg ],
+        upload_to='audio/ogg',
+        help_text=_(
+            'Archivo de audio del sample en formato OGG'
+        )
+    )
+    audio_wav = models.FileField(
+        _('Archivo de audio MP3'),
+        blank=True,
+        validators=[ validator_wav ],
+        upload_to='audio/wav',
+        help_text=_(
+            'Archivo de audio del sample en formato WAV'
+        )
+    )
+    artist = models.CharField(
+        _('Nombre del artista'),
+        max_length=128,
+        blank=True,
+    )
+    year = models.PositiveSmallIntegerField(
+        _('Año'),
+        blank=True,
+        null=True,
+        validators=[ validators.album_year_validator ]
+    )
+    album_name = models.CharField(
+        _('Nombre del álbum'),
+        max_length=128,
+        blank=True,
+    )
+    country = CountryField(
+        _('País'),
+        blank=True,
+        blank_label=_('Escoge un pais')
+    )
+    place = models.CharField(
+        _('Lugar'),
+        max_length=128,
+        blank=True,
+    )
+    pos_x = models.FloatField(
+        _('Posición X'),
+        default = 0,
+        blank=False,
+        help_text=_(
+            'Coordinada horizontal de la posición del clip en la imagen'
+        )
+    )
+    pos_y = models.FloatField(
+        _('Posición Y'),
+        default = 0,
+        blank=False,
+        help_text=_(
+            'Coordinada vertical de la posición del clip en la imagen'
+        )
+    )
     beats = models.PositiveSmallIntegerField(
         _('Beats'),
         default=0
@@ -92,21 +140,6 @@ class Clip(models.Model):
     volume = models.PositiveSmallIntegerField(
         _('Volumen'),
         default=0,
-    )
-    key = models.CharField(
-        _('Tecla'),
-        max_length=1,
-        blank=True,
-    )
-    pos_x = models.FloatField(
-        _('Coordenada X'),
-        default = 0,
-        blank=False,
-    )
-    pos_y = models.FloatField(
-        _('Coordenada Y'),
-        default = 0,
-        blank=False,
     )
 
     def __str__(self):

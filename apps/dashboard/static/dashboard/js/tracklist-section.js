@@ -90,7 +90,7 @@ jQuery(document).ready( function()
                                     var widget_container = document.querySelector('.form-field--image');
                                     // Placeholder
                                     var thumbnail = document.createElement('img');
-                                    thumbnail.src = '/media/' + data['image'];
+                                    thumbnail.src = data['image'];
                                     thumbnail.classList.add('form-field--image-preview');
                                     widget_container.appendChild(thumbnail);
                                     // Checkbox to delete the image

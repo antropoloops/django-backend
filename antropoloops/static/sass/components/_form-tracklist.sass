@@ -26,15 +26,14 @@
   margin-top: 0
 .form-tracklist__label
   margin: 0
-.form-field,
-.form-tracklist__fields > p
+
+.form-field
   margin-bottom: $m
   padding-bottom: $m
   border-bottom: 1px solid rgba(black, .25)
 .form-field--pk
   display: none
-.form-field__label,
-.form-tracklist__fields > p label
+.form-field__label
   font-weight: 600
   display: block
   margin-bottom: $m/2
@@ -60,15 +59,14 @@
   border: 0 !important
   padding: 0
   min-width: $m*2
-
 .form-tracklist__fields textarea
-  background-color: rgba(black, .75)
+  color: #333
   padding: $m/2
   border: 0
 .form-tracklist__fields select
-  background-color: rgba(black, .75)
   padding: $m/2
   border: 0
+  color: #333
   +appearance(none)
 .form-tracklist__fields .helptext
   display: block
@@ -145,3 +143,7 @@ $actions: create update delete
     content: attr(data-error)
     font-size: .9em
     padding: $m/4
+
+.form-tracklist .form-field__helptext
+  font-size: .8em
+  margin-top: $m/2

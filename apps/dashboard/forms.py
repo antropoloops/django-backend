@@ -162,26 +162,45 @@ class TrackUpdateFormAjax(forms.ModelForm):
             'audioset' : widgets.HiddenInput()
         }
 
+class Fieldset(object):
+  def __init__(self, form, title, fields, classes):
+    self.form = form
+    self.title = title
+    self.fields = fields
+    self.classes = classes
+
+  def __iter__(self):
+    for field in self.fields:
+      yield field
 
 
 class ClipForm(forms.ModelForm):
-    class Meta:
-        model = antropoloops_models.Clip
-        fields = '__all__'
-
-
-class ClipFormAjax(forms.ModelForm):
 
     class Meta:
         model = antropoloops_models.Clip
         fields = '__all__'
+        widgets = {
+            'image' : ImagePreviewWidget(),
+        }
 
-
-class ClipUpdateFormAjax(forms.ModelForm):
-
-    pk = forms.IntegerField(
-        widget=widgets.HiddenInput()
-    )
+    def __init__(self, *args, **kwargs):
+        super(ClipForm,self).__init__(*args, **kwargs)
+        if 'initial' in kwargs:
+            audioset_pk = kwargs['initial'].pop('audioset')
+            audioset = antropoloops_models.Audioset.objects.get(pk=audioset_pk)
+            if audioset.mode_display == '2':
+                self.fields['pos_x'].label = _('Longitud')
+                self.fields['pos_x'].help_text = _(
+                    'Longitud geográfica donde situar el clip. '
+                    'Puedes usar el localizador situado en la parte superior del mapa '
+                    'para rellenar automáticamente este campo'
+                )
+                self.fields['pos_y'].label = _('Latitud')
+                self.fields['pos_y'].help_text = _(
+                    'Latitud geográfica donde situar el clip. '
+                    'Puedes usar el localizador situado en la parte superior del mapa '
+                    'para rellenar automáticamente este campo'
+                )
 
     def clean_key(self):
         audioset_tracks = self.instance.track.first().audioset.tracks.all()
@@ -197,6 +216,9 @@ class ClipUpdateFormAjax(forms.ModelForm):
             )
         return new_key
 
-    class Meta:
-        model = antropoloops_models.Clip
-        fields = '__all__'
+
+class ClipUpdateFormAjax(ClipForm):
+
+    pk = forms.IntegerField(
+        widget=widgets.HiddenInput()
+    )

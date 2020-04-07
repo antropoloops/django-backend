@@ -22,6 +22,9 @@
                     <div class="form-field form-field--{{ field.name }}">
                         <label class="form-field__label {% if field.field.required %}required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
                         {{ field }}
+                        <p class="form-field__helptext">
+                            {{ field.help_text }}
+                        </p>
                     </div>
                     {% endfor %}
                     <input type="hidden" name="track" />
