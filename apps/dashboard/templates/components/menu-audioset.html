@@ -2,36 +2,24 @@
 {% load i18n %}
 
 <nav class="menu-audioset">
-    <p class="menu-audioset__back">
-        <a href="{% url 'project_detail' audioset.project.pk %}">
-            {% icon 'arrow-left' %} {% trans 'Volver a proyecto' %}
-        </a>
-    </p>
     <ul class="menu-audioset__items">
+        <li class="menu-audioset__item">
+            <a href="{% url 'project_detail' audioset.project.pk %}">
+                {{ audioset.project.name }}
+            </a>
+        </li>
         <li class="menu-audioset__item {% if active_item == 'configuration' %}active{% endif %}">
-            <a href="{% url 'audioset_update' audioset.pk %}">
+            » <a href="{% url 'audioset_update' audioset.pk %}">
                 {% trans 'Configuración' %}
             </a>
-            {% if active_item == 'configuration' %}
-                {% icon 'help-circle' %}
-                <div class="menu-audioset__helptext">
-                    {% lorem %}
-                </div>
-            {% endif %}
         </li>
         <li class="menu-audioset__item {% if active_item == 'tracklist' %}active{% endif %}">
-            <a href="{% url 'audioset_tracklist' audioset.pk %}">
+            » <a href="{% url 'audioset_tracklist' audioset.pk %}">
                 {% trans 'Añade track y clips' %}
             </a>
-            {% if active_item == 'tracklist' %}
-                {% icon 'help-circle' %}
-                <div class="menu-audioset__helptext">
-                    {% lorem %}
-                </div>
-            {% endif %}
         </li>
         {% if request.user.is_staff %}
-        <li class="menu-audioset__item">
+        <li class="menu-audioset__item pull-right">
             <a href="{% url 'api:audioset' audioset.pk %}" target="_blank">
                 {% icon 'eye' %} {% trans 'Ver en API' %}
             </a>
