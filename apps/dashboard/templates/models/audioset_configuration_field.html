@@ -1,14 +1,12 @@
 {# audioset configuration form fields #}
 
-{% with field.label|slugify as name %}
-<div class="field-{{ name }}--audioset-configuration-form">
-    <p class="field-{{ name }}__widget--audioset-configuration-form">
+<div class="field-{{ field.name }}--audioset-configuration-form">
+    <p class="field-{{ field.name }}__widget--audioset-configuration-form">
         {{ field }}
     </p>
     {% if field.errors %}
-    <div class="field-{{ name }}__errors--audioset-configuration-form">
+    <div class="field-{{ field.name }}__errors--audioset-configuration-form">
         {{ field.errors }}
     </div>
     {% endif %}
 </div>
-{% endwith %}
