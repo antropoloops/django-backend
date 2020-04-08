@@ -8,7 +8,7 @@
     {
         var placeholder = widget.querySelector('.placeholder');
         var input = widget.querySelector('input[type=file]');
-        var current = document.querySelector('.widget-wrapper a');
+        var current = widget.querySelector('.widget-wrapper a');
         if(current){
               placeholder.innerHTML = "<img src='" + current.href + "' />";
         }
