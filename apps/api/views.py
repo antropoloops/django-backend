@@ -128,7 +128,7 @@ def clip_create(request):
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
-        form = forms.ClipFormAjax(data)
+        form = forms.ClipForm(data)
         if form.is_valid():
             track = models.Track.objects.get(pk=data['track'])
             new_clip = form.save()
@@ -136,8 +136,8 @@ def clip_create(request):
             track.save()
         else:
             return HttpResponse(
-                clipform.errors.as_ul(),
-                content_type="text/html",
+                form.errors.as_json(),
+                content_type="application/json",
                 status=400
             )
         return HttpResponse(status=200)
@@ -146,12 +146,12 @@ def clip_create(request):
 
 @csrf_protect
 def clip_update(request):
-    """ Creates a Clip object. """
+    """ Updates a Clip object. """
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
         clip = models.Clip.objects.get(pk=data['pk'])
-        clipform = forms.ClipUpdateFormAjax(
+        clipform = forms.ClipUpdateForm(
             data,
             files=request.FILES,
             instance=clip
@@ -163,6 +163,7 @@ def clip_update(request):
         else:
             return HttpResponse(
                 clipform.errors.as_json(),
+                content_type="application/json",
                 status=400
             )
         return HttpResponse(status=200)

@@ -140,6 +140,7 @@ jQuery(document).ready( function()
                         {
                             var form_errors = document.querySelector('.form-errors');
                             form_errors.classList.remove('hidden');
+                            console.log(response.responseText);
                             var errors_msg = JSON.parse(response.responseText);
                             Object.keys(errors_msg).forEach( function(fieldname) {
                                   console.log(fieldname);

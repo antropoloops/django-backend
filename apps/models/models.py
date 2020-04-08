@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 # contrib
 from colorful.fields import RGBColorField
 from django_countries.fields import CountryField
@@ -143,7 +144,7 @@ class Clip(models.Model):
     )
 
     def __str__(self):
-        return self.name if self.name else self.audio.name
+        return self.name if self.name else self.audio_name
 
     @property
     def color(self):

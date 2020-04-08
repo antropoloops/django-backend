@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import ValidationError
 # app
-from apps.models import models as antropoloops_models
+from apps.models import models
 from apps.limited_textarea_widget.widgets import LimitedTextareaWidget
 from apps.image_preview_widget.widgets import ImagePreviewWidget
 from apps.autoslug_widget.widgets import AutoslugWidget
@@ -32,7 +32,7 @@ class AudiosetCreateForm(forms.ModelForm):
 
     def clean_slug(self):
         slug = self.cleaned_data['slug']
-        if antropoloops_models.Audioset.objects.filter(
+        if models.Audioset.objects.filter(
             slug=slug,
         ).exclude(
             pk=self.instance.pk
@@ -44,7 +44,7 @@ class AudiosetCreateForm(forms.ModelForm):
         return slug
 
     class Meta:
-        model = antropoloops_models.Audioset
+        model = models.Audioset
         fields = [
             'name',
             'slug',
@@ -66,7 +66,7 @@ class ProjectForm(forms.ModelForm):
     )
 
     class Meta:
-        model = antropoloops_models.Project
+        model = models.Project
         fields = [
             'name',
             'slug',
@@ -83,7 +83,7 @@ class ProjectForm(forms.ModelForm):
 
     def clean_slug(self):
         slug = self.cleaned_data['slug']
-        if antropoloops_models.Project.objects.filter(
+        if models.Project.objects.filter(
             slug=slug,
         ).exclude(
             pk=self.instance.pk
@@ -98,7 +98,7 @@ class ProjectForm(forms.ModelForm):
 class AudiosetUpdateForm(forms.ModelForm):
 
     class Meta:
-        model = antropoloops_models.Audioset
+        model = models.Audioset
         fields = [
             'image',
             'readme',
@@ -124,7 +124,7 @@ class AudiosetUpdateForm(forms.ModelForm):
 
 class TrackForm(forms.ModelForm):
     class Meta:
-        model = antropoloops_models.Track
+        model = models.Track
         fields = [
             'name',
             'color',
@@ -134,7 +134,7 @@ class TrackForm(forms.ModelForm):
 class TrackFormAjax(forms.ModelForm):
 
     class Meta:
-        model = antropoloops_models.Track
+        model = models.Track
         fields = [
             'name',
             'color',
@@ -152,7 +152,7 @@ class TrackUpdateFormAjax(forms.ModelForm):
     )
 
     class Meta:
-        model = antropoloops_models.Track
+        model = models.Track
         fields = [
             'name',
             'color',
@@ -177,7 +177,7 @@ class Fieldset(object):
 class ClipForm(forms.ModelForm):
 
     class Meta:
-        model = antropoloops_models.Clip
+        model = models.Clip
         fields = '__all__'
         widgets = {
             'image' : ImagePreviewWidget(),
@@ -185,9 +185,11 @@ class ClipForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ClipForm,self).__init__(*args, **kwargs)
+        if len(args) > 0:
+            self.track_pk = args[0].get('track')
         if 'initial' in kwargs:
-            audioset_pk = kwargs['initial'].pop('audioset')
-            audioset = antropoloops_models.Audioset.objects.get(pk=audioset_pk)
+            audioset_pk = kwargs['initial'].get('audioset')
+            audioset = models.Audioset.objects.get(pk=audioset_pk)
             if audioset.mode_display == '2':
                 self.fields['pos_x'].label = _('Longitud')
                 self.fields['pos_x'].help_text = _(
@@ -203,22 +205,48 @@ class ClipForm(forms.ModelForm):
                 )
 
     def clean_key(self):
-        audioset_tracks = self.instance.track.first().audioset.tracks.all()
-        current_key = self.instance.key
-        keys = list( antropoloops_models.Clip.objects.filter(track__in=audioset_tracks).values_list('key', flat=True) )
-        if current_key in keys:
-            keys.remove(current_key)
         new_key = self.cleaned_data['key']
-        if new_key and new_key in keys:
-            current_keys = reduce(lambda a, b : ("'%s' '%s'")%(a, b), keys)
-            raise forms.ValidationError(
-                _("La tecla '%s' ya está seleccionada. Teclas seleccionadas actualmente: %s" % ( new_key, current_keys ))
-            )
+        if new_key:
+            audioset = models.Track.objects.get(
+                pk=self.track_pk
+            ).audioset
+            audioset_tracks = audioset.tracks.all()
+            keys = list( models.Clip.objects.filter(
+                track__in=audioset_tracks
+            ).values_list(
+                'key',
+                flat=True
+            ))
+            if new_key in keys:
+                current_keys = reduce(lambda a, b : ("'%s' '%s'")%(a, b), keys)
+                raise forms.ValidationError(
+                    _("La tecla '%s' ya está seleccionada. Teclas seleccionadas actualmente: %s" % ( new_key, current_keys ))
+                )
         return new_key
 
 
-class ClipUpdateFormAjax(ClipForm):
+class ClipUpdateForm(ClipForm):
 
     pk = forms.IntegerField(
         widget=widgets.HiddenInput()
     )
+
+    def clean_key(self):
+        new_key = self.cleaned_data['key']
+        if new_key:
+            audioset_tracks = self.instance.track.first().audioset.tracks.all()
+            keys = list( models.Clip.objects.filter(
+                track__in=audioset_tracks
+            ).values_list(
+                'key',
+                flat=True
+            ))
+            current_key = self.instance.key
+            if current_key and current_key in keys:
+                keys.remove(current_key)
+            if new_key in keys:
+                current_keys = reduce(lambda a, b : ("'%s' '%s'")%(a, b), keys)
+                raise forms.ValidationError(
+                    _("La tecla '%s' ya está seleccionada. Teclas seleccionadas actualmente: %s" % ( new_key, current_keys ))
+                )
+        return new_key
