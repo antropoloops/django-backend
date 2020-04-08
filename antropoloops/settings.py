@@ -26,6 +26,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(ENV_PATH, '..', 'assets/media')
 
 DEFAULT_FILE_STORAGE = 'antropoloops.storage_backends.MediaStorage'
+IMAGEKIT_DEFAULT_FILE_STORAGE = 'antropoloops.storage_backends.MediaStorage'
 S3_MEDIA_FOLDER = 'media'
 
 # Registration

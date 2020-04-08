@@ -16,6 +16,7 @@ from .abstract.publishable import Publishable
 from . import categories
 from . import validators
 
+
 validator_mp3 = validators.AudioTypeValidator(["audio/mpeg"])
 validator_ogg = validators.AudioTypeValidator(["audio/ogg"])
 validator_wav = validators.AudioTypeValidator(["audio/wav"])
@@ -45,18 +46,28 @@ class Clip(models.Model):
         blank=True,
     )
     image = models.ImageField(
-        _('Imagen representativa'),
+        _('Imagen'),
         blank=True,
-        upload_to='images/clips'
+        upload_to='images/clips/',
     )
-    image_thumbnail = ImageSpecField(
+    image_small = ImageSpecField(
         source='image',
         processors=[
-            ResizeToFill(100, 50)
+            ResizeToFill(400, 400)
         ],
         format='JPEG',
         options={
-            'quality': 60
+            'quality': 90
+        }
+    )
+    image_thumb = ImageSpecField(
+        source='image',
+        processors=[
+            ResizeToFill(100, 100)
+        ],
+        format='JPEG',
+        options={
+            'quality': 90
         }
     )
     audio_name = models.CharField(
@@ -173,7 +184,6 @@ class Project(Publishable):
     )
     readme = RichTextUploadingField(
         _('Descripción'),
-        max_length=128,
         blank=True,
         help_text=_(
             'Descripción larga. Se usará en la página específica '
@@ -190,13 +200,33 @@ class Project(Publishable):
         )
     )
     image = models.ImageField(
-        _('Imagen representativa'),
+        _('Imagen'),
         blank=True,
         upload_to='images/projects',
         help_text=_(
             'Añade opcionalmente una imagen representativa. Ésta se usará en la '
             ' vista de proyectos. '
         )
+    )
+    image_small = ImageSpecField(
+        source='image',
+        processors=[
+            ResizeToFill(400, 400)
+        ],
+        format='JPEG',
+        options={
+            'quality': 90
+        }
+    )
+    image_thumb = ImageSpecField(
+        source='image',
+        processors=[
+            ResizeToFill(100, 100)
+        ],
+        format='JPEG',
+        options={
+            'quality': 90
+        }
     )
     users = models.ManyToManyField(
         User,
@@ -240,7 +270,6 @@ class Audioset(Publishable):
     )
     readme = RichTextUploadingField(
         _('Descripción'),
-        max_length=128,
         blank=True,
         help_text=_(
             'Descripción larga. Se usará en la página específica '
@@ -258,9 +287,29 @@ class Audioset(Publishable):
         )
     )
     image = models.ImageField(
-        _('Logo'),
+        _('Imagen'),
         blank=True,
         upload_to='images/audiosets'
+    )
+    image_small = ImageSpecField(
+        source='image',
+        processors=[
+            ResizeToFill(400, 400)
+        ],
+        format='JPEG',
+        options={
+            'quality': 90
+        }
+    )
+    image_thumb = ImageSpecField(
+        source='image',
+        processors=[
+            ResizeToFill(100, 100)
+        ],
+        format='JPEG',
+        options={
+            'quality': 90
+        }
     )
 
     # Visual fieldset
@@ -276,11 +325,6 @@ class Audioset(Publishable):
             'si quieres mostrar los distintos clips sobre una imagen de fondo. '
             'Elige <em>mapa</em> si quieres localizarlos sobre un mapa. '
         )
-    )
-    background = models.ImageField(
-        _('Background'),
-        blank=True,
-        upload_to='images/backgrounds'
     )
     map_url = models.URLField(
         _('URL del mapa'),

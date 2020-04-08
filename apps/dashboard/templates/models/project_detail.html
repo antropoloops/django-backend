@@ -23,8 +23,8 @@
         {{ object.name }}
     </h1>
     <figure class="page__image page__image--project">
-        {% if object.image %}
-            <img src="{{ object.image.url }}" />
+        {% if object.image_small %}
+            <img src="{{ object.image_small.url }}" />
         {% else %}
             {% blank_image %}
         {% endif %}

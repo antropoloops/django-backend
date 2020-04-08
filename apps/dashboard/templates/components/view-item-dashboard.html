@@ -11,8 +11,8 @@
     </span>
 </div>
 <figure class="field-thumbnail--item-dashboard">
-    {% if item.image %}
-        <img src="{{ item.image.url }}" />
+    {% if item.image_small %}
+        <img src="{{ item.image_small.url }}" />
     {% else %}
         {% blank_image %}
     {% endif %}
