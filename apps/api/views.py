@@ -201,7 +201,7 @@ def audioset(request, pk):
     )
 
     return HttpResponse(
-        serialize_audioset(audioset),
+        serializers.serialize_audioset(audioset),
         content_type="application/json",
         status=200
     )
@@ -212,7 +212,7 @@ def projects(request):
     projects = models.Project.objects(published=True)
 
     return HttpResponse(
-        serialize_project(project),
+        serializers.serialize_project(project),
         content_type="application/json",
         status=200
     )
@@ -227,7 +227,7 @@ def project(request, pk):
     )
 
     return HttpResponse(
-        serialize_project(project),
+        serializers.serialize_project(project),
         content_type="application/json",
         status=200
     )
