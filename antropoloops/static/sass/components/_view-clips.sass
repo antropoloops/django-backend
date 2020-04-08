@@ -4,26 +4,31 @@
   border-bottom: 4px solid rgba(black, .5)
 .clip-actions
   position: absolute
-  left: 135px
+  right: 12px
   top: $m/3
+  background-color: rgba(black, .15)
+  padding: 4px
 [class*='clip-actions__']
   display: inline
   cursor: pointer
   margin-left: $m/4
 .clip__thumbnail
   display: inline-block
-  width: 120px
   float: left
   background-color: rgba(black, .15)
   img
     max-height: 100%
     width: auto
+    vertical-align: top
 .clip__name
   display: inline-block
-  width: calc(100% - 120px)
-  line-height: 120px
+  line-height: 100px
   padding-left: $m
   position: relative
+  color: #222
+  max-width: 280px
+  overflow: hidden
+  text-overflow: ellipsis
 .clip__key
   position: absolute
   right: $m
@@ -33,6 +38,6 @@
   border-radius: 50%
   width: $m
   background-color: rgba(black, .25)
-  top: calc(60px - #{$m/2})
+  top: calc(70px - #{$m/2})
 .track__clips .empty
   padding: $m

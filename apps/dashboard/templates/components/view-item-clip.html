@@ -3,8 +3,8 @@
 
 <div class="clip" data-id="{{ clip.pk }}">
     <figure class="clip__thumbnail">
-        {% if clip.image %}
-            <img src="{{ clip.image.url }}" />
+        {% if clip.image_thumb %}
+            <img src="{{ clip.image_thumb.url }}" />
         {% else %}
         <img src="{% static 'dashboard/img/blank-image.svg' %}" />
         {% endif %}
