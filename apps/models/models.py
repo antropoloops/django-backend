@@ -123,7 +123,8 @@ class Clip(models.Model):
         default = 0,
         blank=False,
         help_text=_(
-            'Coordinada horizontal de la posición del clip en la imagen'
+            'Coordinada horizontal de la posición del clip en la imagen. '
+            'Haz click en un punto de la imagen para rellenar este campo automáticamente.'
         )
     )
     pos_y = models.FloatField(
@@ -132,6 +133,7 @@ class Clip(models.Model):
         blank=False,
         help_text=_(
             'Coordinada vertical de la posición del clip en la imagen'
+            'Haz click en un punto de la imagen para rellenar este campo automáticamente.'
         )
     )
     beats = models.PositiveSmallIntegerField(

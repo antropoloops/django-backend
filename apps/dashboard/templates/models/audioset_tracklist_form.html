@@ -50,9 +50,11 @@
     </div>
     <div class="layout-form-audioset__right">
         {% if audioset.is_panel and audioset.background %}
-            <div class="audioset-background"
-                  style="background-image: url('{{ audioset.background.url }}') "
-            ></div>
+            <img class="audioset-background"
+                 width="{{ audioset.background.width }}"
+                 height="{{ audioset.background.height }}" 
+                 src="{{ audioset.background.url }}"
+            />
         {% else %}
             <div id="map">
                 {% include 'components/block-map-finder.html' with classes="hidden" submit="Localiza el clip" %}
@@ -67,20 +69,24 @@
     <script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     {# d3 #}
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-    <script src="//d3js.org/topojson.v1.min.js"></script>
-    <script type="text/javascript" src="{% static 'dashboard/js/map-loader.js' %}"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', loadMap(
-        {{ object.map_scale }},
-        {{ object.map_center_x }},
-        {{ object.map_center_y }},
-        false,
-        {{ audioset.id }}
-    ));
-    </script>
+    {% if not audioset.is_panel %}
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+        <script src="//d3js.org/topojson.v1.min.js"></script>
+        <script type="text/javascript" src="{% static 'dashboard/js/map-loader.js' %}"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', loadMap(
+            {{ object.map_scale }},
+            {{ object.map_center_x }},
+            {{ object.map_center_y }},
+            false,
+            {{ audioset.id }}
+        ));
+        </script>
+    {% else %}
+        <script src="{% static 'dashboard/js/panel-loader.js' %}"></script>
+    {% endif %}
     {# forms #}
     <script src="{% static 'dashboard/js/tracklist-section.js' %}"></script>
     {{ clipform.media }}

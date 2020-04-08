@@ -24,7 +24,7 @@
 
 // Container node to hold forms in the view
 var form_container  = document.querySelector('#form-tracklist-container');
-
+var map_finder      = document.querySelector('.map-finder');
 function clean(){
     while(form_container.firstChild)
         form_container.removeChild(form_container.firstChild);
@@ -32,8 +32,14 @@ function clean(){
 
 function closePopup(){
     clean();
-    document.querySelector('.map-finder').classList.add('hidden');
-    document.querySelector('.map-finder__input').value = '';
+    document.querySelector('.layout-form-audioset').dataset.active = '';
+    if(map_finder){
+        document.querySelector('.map-finder').classList.add('hidden');
+        document.querySelector('.map-finder__input').value = '';
+    }
+    var map_marker = document.querySelector('.layout-form-audioset .map__clip-marker');
+    var panel_marker = document.querySelector('.layout-form-audioset .panel-marker');
+    document.querySelector('.clip-marker.active').classList.remove('active');
 }
 
 
@@ -154,7 +160,16 @@ jQuery(document).ready( function()
             });
 
             if(d.model == 'clip'){
-                document.querySelector('.map-finder').classList.remove('hidden');
+                var active = document.querySelector('.clip-marker.active');
+                if(active)
+                  active.classList.remove('active');
+                document.querySelector('.layout-form-audioset').dataset.active='clip';
+                if(map_finder){
+                    document.querySelector('.map-finder').classList.remove('hidden');
+                }
+                var active_marker = document.querySelector('.clip-marker[data-id="'+id+'"]');
+                if(active_marker)
+                    active_marker.classList.add('active');
             }
 
 

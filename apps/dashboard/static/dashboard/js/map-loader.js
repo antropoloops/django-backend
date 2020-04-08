@@ -51,11 +51,11 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
         if(!is_map_conf && audioset){
             d3.json('/api/1.0/track/clips/'+audioset, function(error, data)
             {
-                svg.selectAll(".map__clip-marker")
+                svg.selectAll(".clip-marker")
                   .data(data)
                   .enter()
                   .append('circle')
-                  .attr('class', 'map__clip-marker')
+                  .attr('class', 'clip-marker clip-marker--map')
                   .attr('data-id', function(d){ return d.pk })
                   .attr('r', 10)
                   .attr('fill', function(d){ return d.track[0].color })
@@ -133,7 +133,7 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
                         place.lat
                     ]);
                     svg.append("circle")
-                      .attr('class','marker')
+                      .attr('class','clip-marker')
                       .attr('r', 10)
                       .attr('fill', 'green')
                       .attr('stroke', '#7ffa07')
