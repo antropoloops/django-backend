@@ -47,6 +47,7 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
         (None, {
             'fields' : (
                 'name',
+                'image',
                 'project',
                 'slug'
             )
