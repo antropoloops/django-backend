@@ -89,10 +89,12 @@ jQuery(document).ready( function()
                             Object.keys(data).forEach(function(field)
                             {
                                 var widget = form.querySelector('[name='+field+']');
+                                var audio_fields = [ 'audio_mp3', 'audio_wav', 'audio_ogg' ];
                                 // Image and color field values cannot be set directly
-                                if( field != 'image' && field != 'order' ){
+                                if( field != 'image' && field != 'order' && audio_fields.indexOf(field) == -1){
                                     widget.value = data[field];
                                 }
+                                // Create a proper image field
                                 if( field == 'image' && data[field] )
                                 {
                                     // As we cannot set image src via ajax we mock the image input
@@ -113,6 +115,32 @@ jQuery(document).ready( function()
                                     widget_container.appendChild(delete_input);
                                     widget_container.appendChild(delete_input_label);
                                 }
+                                // Create proper audio fields
+                                audio_fields.forEach(function(audio_field)
+                                {
+                                    if( field == audio_field && data[field] )
+                                    {
+                                        // As we cannot set audio src via ajax we mock the image input
+                                        // using JS
+                                        var widget_container = document.querySelector('.form-field--' + audio_field);
+                                        // Placeholder
+                                        var placeholder = document.createElement('a');
+                                        placeholder.href= data[field];
+                                        placeholder.target = '_blank';
+                                        placeholder.innerHTML = data[field];
+                                        placeholder.classList.add('form-field__placeholder--audio');
+                                        widget_container.appendChild(placeholder);
+                                        // Checkbox to delete the image
+                                        var delete_input = document.createElement('input');
+                                        delete_input.type = 'checkbox';
+                                        delete_input.name = 'audio_delete';
+                                        delete_input.classList.add('form-field__delete--audio');
+                                        var delete_input_label = document.createElement('label');
+                                        delete_input_label.innerHTML = 'Borrar el audio';
+                                        widget_container.appendChild(delete_input);
+                                        widget_container.appendChild(delete_input_label);
+                                    }
+                                });
                                 form.querySelector('[name=pk]').value = data.pk;
                             });
                         },

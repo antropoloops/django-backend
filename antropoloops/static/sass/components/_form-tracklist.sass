@@ -133,6 +133,21 @@ $actions: create update delete
 .form-field--image-delete + label
   font-size: .9em
 
+// Mocked audio inputs
+.form-field__placeholder--audio
+  display: block
+  margin: $m/2
+  text-decoration: underline
+  text-decoration: dotted
+  &:link, &:visited, &:hover, &:active
+    color: $green
+.form-field__delete--audio
+  margin-right: $m/4
+  position: relative
+  top: 3px
+.form-field__delete--audio + label
+  font-size: .9em
+
 // Errors
 .form-tracklist .form-errors
   padding: $m
