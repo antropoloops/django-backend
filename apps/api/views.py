@@ -157,8 +157,14 @@ def clip_update(request):
             instance=clip
         )
         if clipform.is_valid():
-            if 'image_delete' in data:
-                clip.image = None
+            for field in [
+                'image',
+                'audio_mp3',
+                'audio_wav',
+                'audio_ogg'
+            ]:
+                if '%s_delete'%field in data:
+                    setattr(clip, field, None)
             clipform.save()
         else:
             return HttpResponse(

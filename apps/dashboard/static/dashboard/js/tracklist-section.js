@@ -133,7 +133,7 @@ jQuery(document).ready( function()
                                         // Checkbox to delete the image
                                         var delete_input = document.createElement('input');
                                         delete_input.type = 'checkbox';
-                                        delete_input.name = 'audio_delete';
+                                        delete_input.name = audio_field + '_delete';
                                         delete_input.classList.add('form-field__delete--audio');
                                         var delete_input_label = document.createElement('label');
                                         delete_input_label.innerHTML = 'Borrar el audio';
