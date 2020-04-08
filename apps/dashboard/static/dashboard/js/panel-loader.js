@@ -13,13 +13,25 @@ document.addEventListener('DOMContentLoaded', function(){
     var source_h = panel.getAttribute('height');
     var source_fw = source_w / panel.width;
     var source_fh = source_h / panel.height;
+    
     panel.addEventListener('click', function(e){
         var clip_is_active = document.querySelector('.layout-form-audioset').dataset.active == 'clip';
+        var placeholder =  document.querySelector('.clip-marker--placeholder');
         if(clip_is_active){
             var origin = e.target.getBoundingClientRect();
             var x = e.clientX - origin.left;
             var y = e.clientY - origin.top;
-
+            if(!placeholder){
+                placeholder = document.createElement('div');
+                placeholder.classList.add(
+                    'clip-marker',
+                    'clip-marker--panel',
+                    'clip-marker--placeholder'
+                );
+                panel_parent.appendChild(placeholder);
+            }
+            placeholder.style.left = (x - 20) + "px";
+            placeholder.style.top  = (y - 20) + "px";
             var new_x = x * source_fw;
             var new_y = y * source_fh;
             document.querySelector('#id_pos_x').value = parseInt(new_x);
@@ -31,8 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
             var pos_x = item.pos_x;
             var pos_y = item.pos_y;
             var marker = document.createElement('div');
-            marker.classList.add('clip-marker');
-            marker.classList.add('clip-marker--panel');
+            marker.classList.add('clip-marker', 'clip-marker--panel');
             marker.style.left = (pos_x / source_fw - 20) + "px";
             marker.style.top  = (pos_y / source_fh - 20) + "px";
             marker.style.backgroundColor = item.track[0].color;

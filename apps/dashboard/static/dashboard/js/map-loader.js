@@ -89,6 +89,7 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
         var scalation   = zoom.scale();
         projection.scale( scalation );
         svg.selectAll('.countries').attr("d", path);
+        console.log(parseInt(scalation / scale_factor));
         document.querySelector('#id_map_scale').value = parseInt(scalation / scale_factor);
     }
 
