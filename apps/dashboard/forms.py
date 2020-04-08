@@ -103,6 +103,7 @@ class AudiosetUpdateForm(forms.ModelForm):
             'image',
             'readme',
             'mode_display',
+            'background',
             'map_scale',
             'map_center_x',
             'map_center_y'

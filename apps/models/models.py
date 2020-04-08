@@ -143,7 +143,7 @@ class Clip(models.Model):
         default = 0,
         blank=False,
         help_text=_(
-            'Coordinada vertical de la posición del clip en la imagen'
+            'Coordinada vertical de la posición del clip en la imagen. '
             'Haz click en un punto de la imagen para rellenar este campo automáticamente.'
         )
     )
@@ -326,6 +326,11 @@ class Audioset(Publishable):
             'Elige <em>mapa</em> si quieres localizarlos sobre un mapa. '
         )
     )
+    background = models.ImageField(
+        _('Background'),
+        blank=True,
+        upload_to='images/backgrounds'
+    )
     map_url = models.URLField(
         _('URL del mapa'),
         blank=True,
@@ -342,7 +347,7 @@ class Audioset(Publishable):
     )
     map_scale = models.FloatField(
         _('Escala del mapa'),
-        default=250,
+        default=1,
         blank=True,
     )
     map_center_x = models.FloatField(
