@@ -203,5 +203,5 @@ class AudiosetAudioConfigurationView(UpdateView):
     """ Audioset detail view/ajax update form """
 
     model = antropoloops_models.Audioset
-    form_class  = forms.AudiosetAudioUpdateForm
-    template_name = 'models/audioset_audio_update_form.html'
+    form_class  = forms.AudiosetDetailsUpdateForm
+    template_name = 'models/audioset_details_update_form.html'

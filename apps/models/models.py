@@ -149,11 +149,17 @@ class Clip(models.Model):
     )
     beats = models.PositiveSmallIntegerField(
         _('Beats'),
-        default=0
-    )
-    volume = models.PositiveSmallIntegerField(
-        _('Volumen'),
         default=0,
+        help_text=_(
+            'Número de beats de los samples del clip'
+        )
+    )
+    volume = models.FloatField(
+        _('Volumen'),
+        default=1,
+        help_text=_(
+            'Ajuste de volumen para los samples del clip'
+        )
     )
 
     def __str__(self):
@@ -333,17 +339,27 @@ class Audioset(Publishable):
     )
     map_url = models.URLField(
         _('URL del mapa'),
-        blank=True,
+        blank=False,
+        default='https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json',
+        help_text=_(
+            'Faltaría un texto que explique esto'
+        )
     )
     map_lambda = models.IntegerField(
-        _('Lambda'),
+        _('Lambda del mapa'),
         default=0,
         blank=True,
+        help_text=_(
+            'Faltaría un texto que explique esto'
+        )
     )
     map_shift_vertical = models.IntegerField(
         _('Desplazamiento vertical del mapa'),
         default=0,
         blank=True,
+        help_text=_(
+            'Faltaría un texto que explique esto'
+        )
     )
     map_scale = models.FloatField(
         _('Escala del mapa'),
@@ -362,7 +378,7 @@ class Audioset(Publishable):
     )
 
     playmode = models.CharField(
-        _('Playmode'),
+        _('Playmode de audio'),
         max_length=128,
         blank=True,
         null=True,
@@ -372,7 +388,7 @@ class Audioset(Publishable):
     )
 
     audio_bpm = models.PositiveSmallIntegerField(
-        _('BPM'),
+        _('BPM del audio'),
         default=120,
         help_text=_(
             'Faltaría un texto que explique esto'
@@ -411,11 +427,17 @@ class Track(SortableMixin):
     )
     volume = models.PositiveSmallIntegerField(
         _('Volumen'),
-        default=0
+        default=1,
+        help_text=_(
+            'Faltaría un texto que explique esto'
+        )
     )
     color = RGBColorField(
         _('Color'),
-        blank=True
+        blank=True,
+        help_text=_(
+            'Escoge el color de fondo del track'
+        )
     )
     clips = models.ManyToManyField(
         Clip,

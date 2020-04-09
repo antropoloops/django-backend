@@ -199,12 +199,12 @@ def clip_sort(request):
     return HttpResponse(status=403)
 
 
-def audioset(request, pk):
+def audioset(request, slug):
     """ Gets an audioset object """
 
     audioset = get_object_or_404(
         models.Audioset.objects,
-        pk=pk
+        slug=slug
     )
 
     return HttpResponse(
@@ -225,12 +225,12 @@ def projects(request):
     )
 
 
-def project(request, pk):
+def project(request, slug):
     """ Gets an project object """
 
     project = get_object_or_404(
         models.Project.objects,
-        pk=pk
+        slug=slug
     )
 
     return HttpResponse(

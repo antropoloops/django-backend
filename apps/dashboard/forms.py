@@ -122,11 +122,14 @@ class AudiosetUpdateForm(forms.ModelForm):
             ),
         }
 
-class AudiosetAudioUpdateForm(forms.ModelForm):
+class AudiosetDetailsUpdateForm(forms.ModelForm):
 
     class Meta:
         model = models.Audioset
         fields = [
+            'map_url',
+            'map_lambda',
+            'map_shift_vertical',
             'playmode',
             'audio_bpm',
             'audio_quantize',
@@ -138,6 +141,7 @@ class TrackForm(forms.ModelForm):
         model = models.Track
         fields = [
             'name',
+            'volume',
             'color',
         ]
 
@@ -148,6 +152,7 @@ class TrackFormAjax(forms.ModelForm):
         model = models.Track
         fields = [
             'name',
+            'volume',
             'color',
             'audioset'
         ]
@@ -166,6 +171,7 @@ class TrackUpdateFormAjax(forms.ModelForm):
         model = models.Track
         fields = [
             'name',
+            'volume',
             'color',
             'audioset'
         ]

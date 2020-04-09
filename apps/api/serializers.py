@@ -1,6 +1,7 @@
 # python
 import json
 import time
+from collections import OrderedDict
 # django
 from django.utils.text import slugify
 # contrib
@@ -87,6 +88,37 @@ class ThemeSerializer(serializers.ModelSerializer):
             'units'
         ]
 
+# TODO: sorted output
+
+# class ProjectSerializer(serializers.ModelSerializer):
+#
+#     format  =  serializers.ReadOnlyField(default='atpls-audioset')
+#     version = serializers.ReadOnlyField(default='2.0.0')
+#     id = serializers.ReadOnlyField(source='slug')
+#     type = serializers.ReadOnlyField(default='project')
+#     last_updated_at = SerializerMethodField('get_date')
+#     meta = serializers.ReadOnlyField(default='question')
+#
+#     def get_date(self, obj):
+#         return {
+#             'name'    : content.name,
+#             'slug'    : content.slug,
+#             'summary' : content.description,
+#             'image'   : content.image.url if content.image else None
+#         }
+#
+#     class Meta:
+#         model = models.Project
+#         fields = [
+#             'format',
+#             'version',
+#             'id',
+#             'type',
+#             'last_updated_at',
+#             'meta',
+#             'audiosets'
+#         ]
+
 def serialize_project(project):
     """ Custom serializer for audioset objects """
 
@@ -161,14 +193,14 @@ def serialize_audioset(audioset):
         # clips
         'clips'  : [],
     }
-    if audioset.mode_display is 1:
+    if audioset.mode_display is '2':
         audioset_data['visuals']['mode'] = 'map'
         audioset_data['visuals']['geomap'] = {
-            'url' : '',
-            'scaleFactor' : '',
+            'url' : audioset.map_url,
+            'scaleFactor' : audioset.map_scale,
             'center' : {
-                'x' : 0,
-                'y' : 0,
+                'x' : audioset.map_center_x,
+                'y' : audioset.map_center_y,
             }
         }
     else:
@@ -183,22 +215,22 @@ def serialize_audioset(audioset):
                 },
             }
 
-    for track in tracks:
+    for index, track in enumerate(tracks):
         track_data = {
-            'id'       : '', # TODO: review if ID is important
+            'id'       : track.id,
             'name'     : track.name,
             'color'    : track.color,
-            'volume'   : None,
+            'volume'   : track.volume,
             'position' : track.order,
             'clipIds'  : []
         }
         for clip in track.clips.all():
             track_data['clipIds'].append( slugify(clip.name) )
             audioset_data['clips'].append({
-                'id'       : slugify(clip.name),
+                'id'       : clip.id,
                 'name'     : clip.name,
-                'trackId'  : "",
-                'trackNum' : 0,
+                'trackId'  : track.id,
+                'trackNum' : index,
                 'position' : [
                     clip.pos_x,
                     clip.pos_y
@@ -210,17 +242,32 @@ def serialize_audioset(audioset):
                 'place'     : clip.place,
                 'year'      : clip.year,
                 'readme'    : clip.readme,
-                'key'       : clip.key,
-                'beats'     : 16,
-                'volume'    : None,
+                'keyboard'  : clip.key,
+                'beats'     : clip.beats,
+                'volume'    : clip.volume,
                 'keyMap'    : clip.key,
-                'color'     : '',
+                'color'     : track.color,
                 'coverUrl'  : clip.image.url if clip.image else None,
                 'audioUrl'  : '',
-                'resources' : '',
+                'resources' : {
+                    'cover' : {
+                        'small' : clip.image_small.url if clip.image_small else None,
+                        'thumb' : clip.image_thumb.url if clip.image_thumb else None,
+                    },
+                    'cover2' : {
+                        'small' : '',
+                        'thumb' : '',
+                    },
+                    'audio' : {
+                        'mp3' : clip.audio_mp3.url if clip.audio_mp3 else None,
+                        'wav' : clip.audio_wav.url if clip.audio_wav else None,
+                        'ogg' : clip.audio_ogg.url if clip.audio_ogg else None,
+                    }
+
+                },
                 'audio'     : {
-                    'beats'  : 16,
-                    'volume' : None,
+                    'beats'  : clip.beats,
+                    'volume' : clip.volume,
                 },
             })
 
@@ -230,3 +277,108 @@ def serialize_audioset(audioset):
         audioset_data,
         indent=4,
     )
+
+# TODO: sorted output
+
+# def serialize_audioset_sorted(audioset):
+#     """ Custom serializer for audioset objects """
+#
+#     tracks = models.Track.objects.filter(audioset=audioset)
+#
+#     audioset_data = OrderedDict((
+#         ('format', 'atpls-audioset'),
+#         ('version', '2.0.0'),
+#         ('id', audioset.slug),
+#         ('type', 'audioset'),
+#         ('last_updated_at', time.mktime(audioset.update_date.timetuple())),
+#         # meta
+#         ('meta', {
+#             'title' : audioset.name,
+#             'path' : audioset.slug,
+#             'parent_path' : '',
+#             'description' : audioset.description,
+#             'readme' : audioset.readme,
+#             'logo_url' : audioset.image.url if audioset.image else '',
+#         }),
+#         # audio
+#         ('audio', OrderedDict((
+#             ('bpm', 120),
+#             ('defaults', {
+#                 'loop': True,
+#             }),
+#             ('signature', (4, 4)),
+#             ('trackMaxVoices', 1),
+#             ('quantize', 1),
+#         ))),
+#     ))
+#     if audioset.mode_display is 1:
+#         audioset_data['visuals'] = OrderedDict((
+#             ('mode', 'map'),
+#             ('geomap', {
+#                 'url' : '',
+#                 'scaleFactor' : '',
+#                 'center' : {
+#                     'x' : 0,
+#                     'y' : 0,
+#                 }
+#             })
+#         ))
+#     else:
+#         audioset_data['visuals'] = OrderedDict((
+#             ('mode', 'panel'),
+#             ('image', {
+#                 'url' : audioset.background.url,
+#                 'size' : {
+#                     'width'  : audioset.background.width,
+#                     'height' :  audioset.background.height
+#                 },
+#             })
+#          ))
+#
+#     for track in tracks:
+#         track_data = {
+#             'id'       : '', # TODO: review if ID is important
+#             'name'     : track.name,
+#             'color'    : track.color,
+#             'volume'   : None,
+#             'position' : track.order,
+#             'clipIds'  : (]
+#         }
+#         for clip in track.clips.all():
+#             track_data['clipIds'].append( slugify(clip.name) )
+#             audioset_data['clips'].append({
+#                 'id'       : slugify(clip.name),
+#                 'name'     : clip.name,
+#                 'trackId'  : "",
+#                 'trackNum' : 0,
+#                 'position' : [
+#                     clip.pos_x,
+#                     clip.pos_y
+#                 ],
+#                 'title'     : clip.name,
+#                 'album'     : clip.album_name,
+#                 'artist'    : clip.artist,
+#                 'country'   : clip.country.code,
+#                 'place'     : clip.place,
+#                 'year'      : clip.year,
+#                 'readme'    : clip.readme,
+#                 'key'       : clip.key,
+#                 'beats'     : 16,
+#                 'volume'    : None,
+#                 'keyMap'    : clip.key,
+#                 'color'     : '',
+#                 'coverUrl'  : clip.image.url if clip.image else None,
+#                 'audioUrl'  : '',
+#                 'resources' : '',
+#                 'audio'     : {
+#                     'beats'  : 16,
+#                     'volume' : None,
+#                 },
+#             })
+#
+#         audioset_data['tracks'].append(track_data)
+#     print(audioset_data)
+#     return json.dumps(
+#         OrderedDict(audioset_data),
+#         indent=4,
+#     )

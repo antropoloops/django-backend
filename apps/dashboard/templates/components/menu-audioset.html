@@ -20,12 +20,12 @@
         </li>
         <li class="menu-audioset__item {% if active_item == 'audio' %}active{% endif %}">
             » <a href="{% url 'audioset_update_audio' audioset.pk %}">
-                {% trans 'Configuración de audio' %}
+                {% trans 'Ajustes' %}
             </a>
         </li>
         {% if request.user.is_staff %}
         <li class="menu-audioset__item pull-right">
-            <a href="{% url 'api:audioset' audioset.pk %}" target="_blank">
+            <a href="{% url 'api:audioset' audioset.slug %}" target="_blank">
                 {% icon 'eye' %} {% trans 'Ver en API' %}
             </a>
         </li>

@@ -68,13 +68,13 @@ urlpatterns = [
 
     # Audioset
     path(
-        'audioset/<int:pk>',
+        'audioset/<slug:slug>',
         views.audioset,
         name='audioset'
     ),
     # Project
     path(
-        'project/<int:pk>',
+        'project/<slug:slug>',
         views.project,
         name='project'
     ),

@@ -29,7 +29,7 @@
             {% blank_image %}
         {% endif %}
     </figure>
-    {% include 'components/menu-actions.html' with section='project-detail' section_id=view.kwargs.pk %}
+    {% include 'components/menu-actions.html' with section='project-detail' section_id=project.pk section_slug=project.slug %}
 {% endblock %}
 
 {# Content #}
