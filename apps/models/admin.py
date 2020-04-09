@@ -49,7 +49,8 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
                 'name',
                 'image',
                 'project',
-                'slug'
+                'slug',
+                'owner'
             )
         }),
         (_('Metadatos'), {

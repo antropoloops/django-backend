@@ -7,6 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.core import serializers
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 # contrib
 from bulk_update.helper import bulk_update
@@ -43,6 +44,7 @@ def track_clips(request, pk):
 
 
 @csrf_protect
+@login_required
 def track_create(request):
     """ Creates a Track object. """
 
@@ -64,6 +66,7 @@ def track_create(request):
 
 
 @csrf_protect
+@login_required
 def track_update(request):
     """ Creates a Track object. """
 
@@ -86,6 +89,7 @@ def track_update(request):
 
 
 @csrf_protect
+@login_required
 def track_delete(request):
     """ Creates a Track object. """
 
@@ -97,6 +101,7 @@ def track_delete(request):
 
 
 @csrf_protect
+@login_required
 def track_sort(request):
     """ Sorts Tracks related to a specific audioset. """
 
@@ -108,7 +113,7 @@ def track_sort(request):
         return HttpResponse(status=200)
     return HttpResponse(status=403)
 
-
+@login_required
 def clip(request, pk):
     """ Get Clip object. """
 
@@ -123,6 +128,7 @@ def clip(request, pk):
 
 
 @csrf_protect
+@login_required
 def clip_create(request):
     """ Creates a Clip object. """
 
@@ -145,6 +151,7 @@ def clip_create(request):
 
 
 @csrf_protect
+@login_required
 def clip_update(request):
     """ Updates a Clip object. """
 
@@ -177,6 +184,7 @@ def clip_update(request):
 
 
 @csrf_protect
+@login_required
 def clip_delete(request):
     """ Creates a Clip object. """
     data = request.POST
@@ -187,6 +195,7 @@ def clip_delete(request):
 
 
 @csrf_protect
+@login_required
 def clip_sort(request):
     """ Sorts Clips related to a specific track. """
 

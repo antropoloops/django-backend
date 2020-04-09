@@ -244,6 +244,9 @@ class Project(Publishable):
         )
     )
 
+    def is_owned_by(self, user):
+        return user.is_staff or user == self.owner
+
     def __str__(self):
         return self.name
 
@@ -401,6 +404,9 @@ class Audioset(Publishable):
             'Faltaría un texto que explique esto'
         )
     )
+
+    def is_owned_by(self, user):
+        return user.is_staff or user == self.owner
 
     @property
     def is_panel(self):

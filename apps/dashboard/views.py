@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 # app
 from . import forms
 
@@ -21,11 +22,11 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         current_user = self.request.user
-        queryset = antropoloops_models.Project.objects.filter(
-            owner=current_user
-        ).order_by(
+        queryset = antropoloops_models.Project.objects.all().order_by(
             '-update_date'
         )
+        if not current_user.is_staff:
+            queryset = queryset.filter(owner=current_user)
         return queryset
 
 
@@ -34,6 +35,12 @@ class ProjectDetailView(LoginRequiredMixin, DetailView):
 
     model = antropoloops_models.Project
     login_url = 'login'
+
+    def get_object(self, *args, **kwargs):
+        obj = super(ProjectDetailView, self).get_object(*args, **kwargs)
+        if not obj.is_owned_by(self.request.user):
+            raise Http404
+        return obj
 
     def get_context_data(self, **kwargs):
         """Pass context data to generic view."""
@@ -46,7 +53,7 @@ class ProjectDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     """ Project creation form in user dashboard. """
 
     model = antropoloops_models.Project
@@ -71,11 +78,17 @@ class ProjectCreateView(CreateView):
         return reverse_lazy('project_detail', kwargs={'pk' : self.object.pk })
 
 
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     """ Project update form in user dashboard. """
 
     model = antropoloops_models.Project
     form_class  = forms.ProjectForm
+
+    def get_object(self, *args, **kwargs):
+        obj = super(ProjectUpdateView, self).get_object(*args, **kwargs)
+        if not obj.is_owned_by(self.request.user):
+            raise Http404
+        return obj
 
     def get_context_data(self, **kwargs):
         """Pass context data to generic view."""
@@ -92,11 +105,17 @@ class ProjectUpdateView(UpdateView):
         return reverse_lazy('project_detail', kwargs={'pk' : self.object.pk })
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     """ Project delete form in user dashboard """
 
     model = antropoloops_models.Project
     success_url = reverse_lazy('project_list')
+
+    def get_object(self, *args, **kwargs):
+        obj = super(ProjectDeleteView, self).get_object(*args, **kwargs)
+        if not obj.is_owned_by(self.request.user):
+            raise Http404
+        return obj
 
     def delete(self, request, *args, **kwargs):
         messages.success(
@@ -106,7 +125,7 @@ class ProjectDeleteView(DeleteView):
         return super(ProjectDeleteView, self).delete(request, *args, **kwargs)
 
 
-class AudiosetCreateView(CreateView):
+class AudiosetCreateView(LoginRequiredMixin, CreateView):
     """ Audioset creation form in user dashboard. """
 
     model = antropoloops_models.Audioset
@@ -140,10 +159,16 @@ class AudiosetCreateView(CreateView):
             kwargs={ 'pk' : self.project.pk }
         )
 
-class AudiosetDeleteView(DeleteView):
+class AudiosetDeleteView(LoginRequiredMixin, DeleteView):
     """ Audioset delete form in user dashboard """
 
     model = antropoloops_models.Audioset
+
+    def get_object(self, *args, **kwargs):
+        obj = super(AudiosetDeleteView, self).get_object(*args, **kwargs)
+        if not obj.is_owned_by(self.request.user):
+            raise Http404
+        return obj
 
     def get_success_url(self):
         return reverse_lazy(
@@ -161,12 +186,18 @@ class AudiosetDeleteView(DeleteView):
         return super(AudiosetDeleteView, self).delete(self, request, *args, **kwargs)
 
 
-class AudiosetUpdateView(UpdateView):
+class AudiosetUpdateView(LoginRequiredMixin, UpdateView):
     """ Audioset update form in user dashboard """
 
     model = antropoloops_models.Audioset
     form_class  = forms.AudiosetUpdateForm
     template_name = 'models/audioset_configuration_form.html'
+
+    def get_object(self, *args, **kwargs):
+        obj = super(AudiosetUpdateView, self).get_object(*args, **kwargs)
+        if not obj.is_owned_by(self.request.user):
+            raise Http404
+        return obj
 
     def get_context_data(self, **kwargs):
         """Pass context data to generic view."""
@@ -183,11 +214,17 @@ class AudiosetUpdateView(UpdateView):
         return reverse_lazy('audioset_tracklist', kwargs={'pk' : self.object.pk })
 
 
-class AudiosetTracklistView(DetailView):
+class AudiosetTracklistView(LoginRequiredMixin, DetailView):
     """ Audioset detail view/ajax update form """
 
     model = antropoloops_models.Audioset
     template_name = 'models/audioset_tracklist_form.html'
+
+    def get_object(self, *args, **kwargs):
+        obj = super(AudiosetTracklistView, self).get_object(*args, **kwargs)
+        if not obj.is_owned_by(self.request.user):
+            raise Http404
+        return obj
 
     def get_context_data(self, **kwargs):
         context = super(AudiosetTracklistView, self).get_context_data(**kwargs)
@@ -199,8 +236,14 @@ class AudiosetTracklistView(DetailView):
         return context
 
 
-class AudiosetAudioConfigurationView(UpdateView):
+class AudiosetAudioConfigurationView(LoginRequiredMixin, UpdateView):
     """ Audioset detail view/ajax update form """
+
+    def get_object(self, *args, **kwargs):
+        obj = super(AudiosetAudioConfigurationView, self).get_object(*args, **kwargs)
+        if not obj.is_owned_by(self.request.user):
+            raise Http404
+        return obj
 
     model = antropoloops_models.Audioset
     form_class  = forms.AudiosetDetailsUpdateForm
