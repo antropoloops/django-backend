@@ -1,0 +1,21 @@
+{# Dashboard page #}
+{% extends 'layouts/single-column-fixed.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--dashboard toppadded page--form-audioset-audio
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {% trans 'Configura audio' %}
+{% endblock %}
+
+{# Content #}
+{% block main %}
+{% include 'components/menu-audioset.html' with slug=audioset_slug active_item='audio' %}
+{% include 'components/form.html' with form=form modifier='simple' %}
+{% endblock %}

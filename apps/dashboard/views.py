@@ -197,3 +197,11 @@ class AudiosetTracklistView(DetailView):
         context['trackform'] = forms.TrackUpdateFormAjax(initial={'audioset' : self.kwargs['pk']})
         context['clipform']  = forms.ClipUpdateForm(initial={'audioset' : self.kwargs['pk']})
         return context
+
+
+class AudiosetAudioConfigurationView(UpdateView):
+    """ Audioset detail view/ajax update form """
+
+    model = antropoloops_models.Audioset
+    form_class  = forms.AudiosetAudioUpdateForm
+    template_name = 'models/audioset_audio_update_form.html'
