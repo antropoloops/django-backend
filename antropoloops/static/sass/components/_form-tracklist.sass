@@ -61,9 +61,11 @@
     color: #333
 .form-tracklist__fields input[type=color]
   margin: $m/4 $m/2
+  outline: 0 !important
   border: 0 !important
   padding: 0
-  min-width: $m*2
+  height: $m*1.5
+  min-width: 230px
 .form-tracklist__fields textarea
   color: #333
   padding: $m/2
@@ -174,7 +176,7 @@ $actions: create update delete
 .layout-form-audioset[data-active=clip]
   .clip-marker:not(.active)
     opacity: .25
-    
+
 .layout-form-audioset.saving:before
   content: ""
   position: absolute
