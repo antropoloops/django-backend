@@ -99,9 +99,12 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
     map_finder.addEventListener('click', function(e)
     {
         var place = document.querySelector('.map-finder__input').value;
-        if(place){
+        if(place)
+        {
+            document.querySelector('.layout-form-audioset').classList.add('saving');
             // makes a lookup in nominatim database
             var url = "https://nominatim.openstreetmap.org/search/" + encodeURIComponent(place) + "?format=json";
+            var placeholder =  document.querySelector('.clip-marker--placeholder');
             d3.json(url, function(error, data)
             {
                 // If lookup was succesful use first —most relevant— finding
@@ -133,18 +136,27 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
                         place.lon,
                         place.lat
                     ]);
-                    svg.append("circle")
-                      .attr('class','clip-marker')
-                      .attr('r', 10)
-                      .attr('fill', 'green')
-                      .attr('stroke', '#7ffa07')
-                      .attr('stroke-width', '8')
-                      .attr("transform", function(d){
-                          return 'translate('+ coords + ')'
-                      });
+                    if(!placeholder){
+                        svg.append("circle")
+                          .attr('class','clip-marker clip-marker--placeholder')
+                          .attr('r', 10)
+                          .attr('fill', 'green')
+                          .attr('stroke', '#7ffa07')
+                          .attr('stroke-width', '8')
+                          .attr("transform", function(d){
+                              return 'translate('+ coords + ')'
+                          });
+                    } else {
+                        d3.select('.clip-marker--placeholder')
+                        .attr("transform", function(d){
+                            return 'translate('+ coords + ')'
+                        });
+                    }
+
                     document.querySelector('#id_pos_x').value = place.lon;
                     document.querySelector('#id_pos_y').value = place.lat;
                 }
+                  document.querySelector('.layout-form-audioset').classList.remove('saving');
             });
         }
     });

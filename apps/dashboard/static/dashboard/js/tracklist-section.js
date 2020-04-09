@@ -38,11 +38,8 @@ function closePopup(){
         document.querySelector('.map-finder__input').value = '';
     }
     var placeholder = document.querySelector('.clip-marker--placeholder');
-    if(placeholder){
-        document.querySelector('.layout-form-audioset__right').removeChild(placeholder);
-    }
-    var map_marker = document.querySelector('.layout-form-audioset .map__clip-marker');
-    var panel_marker = document.querySelector('.layout-form-audioset .panel-marker');
+    if(placeholder)
+        placeholder.remove();
     document.querySelector('.clip-marker.active').classList.remove('active');
 }
 
@@ -202,7 +199,7 @@ jQuery(document).ready( function()
                 }
                 var placeholder = document.querySelector('.clip-marker--placeholder');
                 if(placeholder){
-                    document.querySelector('.layout-form-audioset__right').removeChild(placeholder);
+                    placeholder.remove();
                 }
                 var active_marker = document.querySelector('.clip-marker[data-id="'+id+'"]');
                 if(active_marker)
