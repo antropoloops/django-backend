@@ -154,6 +154,7 @@ jQuery(document).ready( function()
             // Update submit
             form.addEventListener('submit', function(e){
                 e.preventDefault();
+                document.querySelector('.layout-form-audioset').classList.add('saving');
                 var endpoint = endpoints[model][action];
                 // Serialize form data but delete pks to
                 // avoid breaking creation forms

@@ -174,3 +174,16 @@ $actions: create update delete
 .layout-form-audioset[data-active=clip]
   .clip-marker:not(.active)
     opacity: .25
+    
+.layout-form-audioset.saving:before
+  content: ""
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  z-index: 100000
+  background-image: url('../img/spinner.svg')
+  background-repeat: no-repeat
+  background-position: center center
+  background-color: rgba(black, .75)
