@@ -17,18 +17,18 @@
         {% blank_image %}
     {% endif %}
 </figure>
-<h3 class="field-name--item-dashboard">
+<h4 class="field-name--item-dashboard">
     {{ item.name }}
-</h3>
+</h4>
 <div class="field-description--item-dashboard">
     {{ item|description }}
 </div>
 <div class="field-theme--item-dashboards">
 {% with item|themes as themes %}
     {% if themes %}
-        <h5 class="field-theme___label--item-dashboards">
+        <h6 class="field-theme___label--item-dashboards">
             {% trans 'Pertenece a los siguientes temas didácticos' %}
-        </h5>
+        </h6>
         {% for theme in themes %}
             {{ theme }}
         {% endfor %}

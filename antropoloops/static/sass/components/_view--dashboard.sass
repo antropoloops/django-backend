@@ -1,16 +1,14 @@
 // Dashboard view
 
-+breakpoint('sm')
-  .view-dashboard__item
-    width: 33%
-    display: inline-block
-    vertical-align: top
+.view-dashboard
+  margin-top: $m
 
 .view-dashboard__item
   position: relative
-  padding: 0 $m $m
-  margin: 0 0 $m
+  padding: $m 0
   opacity: 0
+  display: block
+  border-bottom: 2px solid black
   animation: fadeup 1s 1 forwards
   animation-timing-function: ease-out
   &:link, &:visited, &:hover, &:active
@@ -31,6 +29,20 @@
     height: 100%
     animation: fadein .5s 1
 
++breakpoint('sm')
+  .view-dashboard
+    margin-top: 0
+  .view-dashboard__item
+    width: 33%
+    display: inline-block
+    vertical-align: top
+    padding: 0 $m $m $m
+
+
+.field-name--item-dashboard
+  font-weight: 900
+  margin-top: $m/2
+
 .field-thumbnail--item-dashboard
   text-align: center
 
@@ -39,7 +51,7 @@
 
 .field-date--item-dashboard
   font-size: .8em
-  margin-bottom: $m/4
+  margin-bottom: $m/2
 
 .field-date--item-dashboard .field__value
   font-weight: bold

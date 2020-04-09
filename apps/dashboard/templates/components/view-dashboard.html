@@ -5,7 +5,7 @@
     {% for item in item_list %}
         <a href="{% url item_url item.pk %}"
            class="view-dashboard__item"
-           data-hover="{% trans 'Edita este' %} {{ item_label }}"
+           data-hover="{% trans 'Ir a' %} {{ item_label }}"
         >
             {% include 'components/view-item-dashboard.html' %}
         </a>

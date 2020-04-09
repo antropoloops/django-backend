@@ -1,7 +1,7 @@
 // Navigation menu in audioset configuration
 
 .menu-audioset
-  margin: $m 0
+  margin: $m*3 0 $m
 
 // Icons
 .menu-audioset .feather
@@ -23,10 +23,10 @@
 
 // Items
 .menu-audioset__item
-  display: inline
   opacity: .75
-  margin-right: 0 $m/4
+  margin: $m/4
   position: relative
+  line-height: $m
 
 .menu-audioset__item.active
   font-weight: 600
@@ -34,5 +34,10 @@
 .menu-audioset__item.pull-right
   +breakpoint('sm')
     font-size: .9em
-    float: right
-    margin-left: $m/2
+    margin-left: $m
+
++breakpoint('sm')
+  .menu-audioset__item
+    display: inline
+  .menu-audioset
+    margin: $m 0 $m/2

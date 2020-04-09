@@ -160,3 +160,18 @@ $states: 1 2
   padding: 0
 .form__action--audioset-configure
   display: inline
+
+.audioset-submit
+  font-weight: 600
+  padding: 0 $m/2
+  height: $m*2
+  line-height: $m*2
+  float: right
+  margin: $m/2 $m/3 0 0
+  background-color: $color_success
+  color: white
+  border: 0
+  cursor: pointer
+  transition: background-color .2s ease
+  &:hover
+    background-color: darken($color_success, 10%)

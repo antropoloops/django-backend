@@ -95,7 +95,7 @@ class Clip(models.Model):
         )
     )
     audio_wav = models.FileField(
-        _('Archivo de audio MP3'),
+        _('Archivo de audio WAV'),
         blank=True,
         validators=[ validator_wav ],
         upload_to='audio/wav',
@@ -365,16 +365,25 @@ class Audioset(Publishable):
         _('Playmode'),
         max_length=128,
         blank=True,
-        null=True
+        null=True,
+        help_text=_(
+            'Faltaría un texto que explique esto'
+        )
     )
 
     audio_bpm = models.PositiveSmallIntegerField(
         _('BPM'),
         default=120,
+        help_text=_(
+            'Faltaría un texto que explique esto'
+        )
     )
     audio_quantize = models.PositiveSmallIntegerField(
         _('Quantize'),
         default=0,
+        help_text=_(
+            'Faltaría un texto que explique esto'
+        )
     )
 
     @property

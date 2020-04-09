@@ -8,6 +8,20 @@
   padding: $padding_footer
   height: $height_footer
 
+// Header -- responsiveness
+.menu-user,
+.site-brand
+  text-align: center
+  margin-top: $m/4
++breakpoint('sm')
+  .site-brand
+    display: inline-block
+  .menu-user
+    position: fixed
+    top: $m/2
+    right: $m
+    margin-top: 0
+
 .pad
   padding-left: $m/2
   padding-right: $m/2
@@ -25,11 +39,35 @@
   .layout-two-col__left-col
     display: inline-block
     width: 25%
+    padding-right: $m*2
     float: left
   .layout-two-col__right-col
     display: inline-block
+    padding-left: $m*2
     width: 75%
 
 // Classes
 body.toppadded .region-content
   padding-top: $m*3
+
+
+// Audioset form common settings
+
+.layout-form-audioset
+  background-color: #333
+.layout-form-audioset__left
+  background-color: #393939
+  position: relative
+  max-height: 100%
+  overflow-y: scroll
+.layout-form-audioset__left,
+.layout-form-audioset__right
+  max-height: 80vh
++breakpoint('sm')
+  .layout-form-audioset__left
+    display: inline-block
+    width: 25%
+    float: left
+  .layout-form-audioset__right
+    display: inline-block
+    width: 75%
