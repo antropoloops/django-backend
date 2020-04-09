@@ -49,6 +49,7 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
         // load clip markers
         //
         if(!is_map_conf && audioset){
+            document.querySelector('.layout-form-audioset').classList.add('saving');
             d3.json('/api/1.0/track/clips/'+audioset, function(error, data)
             {
                 svg.selectAll(".clip-marker")
@@ -68,6 +69,7 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
                   .on('click', function(d){
                       document.querySelector('.clip-actions__edit[data-id="'+d.pk+'"]').click();
                   })
+                  document.querySelector('.layout-form-audioset').classList.remove('saving');
             })
         }
     });
