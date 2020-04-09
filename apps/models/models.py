@@ -361,8 +361,13 @@ class Audioset(Publishable):
         blank=True,
     )
 
-    # Audio fieldset
-    #TODO: playmode
+    playmode = models.CharField(
+        _('Playmode'),
+        max_length=128,
+        blank=True,
+        null=True
+    )
+
     audio_bpm = models.PositiveSmallIntegerField(
         _('BPM'),
         default=120,
