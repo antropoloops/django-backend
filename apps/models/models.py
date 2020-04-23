@@ -245,6 +245,11 @@ class Project(Publishable):
             'Usuarias con permisos dentro de este proyecto'
         )
     )
+    in_home = models.BooleanField(
+        _('Mostrar en la home'),
+        blank=True,
+        default=False
+    )
 
     def is_owned_by(self, user):
         return user.is_staff or user == self.owner
@@ -405,6 +410,11 @@ class Audioset(Publishable):
         help_text=_(
             'Faltaría un texto que explique esto'
         )
+    )
+    in_home = models.BooleanField(
+        _('Mostrar en la home'),
+        blank=True,
+        default=False
     )
 
     def is_owned_by(self, user):
