@@ -4,6 +4,8 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
 # contrib
 from colorful.fields import RGBColorField
 from django_countries.fields import CountryField
@@ -510,7 +512,7 @@ class ThemeUnit(SortableMixin):
     project = models.ForeignKey(
         Project,
         verbose_name = _(
-            'Proyecto que compone la unidad'
+            'Proyecto relacionado'
         ),
         related_name = 'project_units',
         on_delete = models.SET_NULL,
@@ -520,14 +522,13 @@ class ThemeUnit(SortableMixin):
     set = models.ForeignKey(
         Audioset,
         verbose_name=_(
-            'Set que compone la unidad'
+            'Set relacionado'
         ),
         related_name = 'set_units',
         on_delete = models.SET_NULL,
         blank = True,
         null = True,
     )
-
     theme = models.ForeignKey(
         Theme,
         verbose_name=_(
@@ -547,9 +548,9 @@ class ThemeUnit(SortableMixin):
     )
 
     class Meta:
-        verbose_name = _('unidad didáctica')
-        verbose_name_plural = _('unidades didácticas')
+        verbose_name = _('contenido relacionado')
+        verbose_name_plural = _('contenidos relacionados')
         ordering = ('order',)
 
     def __str__(self):
-        return 'Unidad %s' % self.order
+        return 'Contenido ' + str(self.order)

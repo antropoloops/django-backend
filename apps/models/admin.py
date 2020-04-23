@@ -108,11 +108,11 @@ class ThemeUnitForm(forms.ModelForm):
 
 
 class ThemeUnitAdmin(sortable.SortableStackedInline):
+
     model  = models.ThemeUnit
     extra  = 0
     form = ThemeUnitForm
     fields = (('set', 'project'),)
-
 
 class ThemeAdmin(sortable.NonSortableParentAdmin):
     model   = models.Theme
@@ -124,5 +124,5 @@ admin.site.register(models.Clip, ClipAdmin)
 admin.site.register(models.Track, TrackAdmin)
 admin.site.register(models.Project, ProjectAdmin)
 admin.site.register(models.Audioset, AudiosetAdmin)
-admin.site.register(models.ThemeUnit, admin.ModelAdmin)
+# admin.site.register(models.ThemeUnit, admin.ModelAdmin)
 admin.site.register(models.Theme, ThemeAdmin)
