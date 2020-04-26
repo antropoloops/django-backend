@@ -120,6 +120,7 @@ class Clip(models.Model):
         _('Nombre del álbum'),
         max_length=128,
         blank=True,
+        null=True,
     )
     country = CountryField(
         _('País'),
@@ -159,6 +160,8 @@ class Clip(models.Model):
     volume = models.FloatField(
         _('Volumen'),
         default=1,
+        null=True,
+        blank=True,
         help_text=_(
             'Ajuste de volumen para los samples del clip'
         )
@@ -349,7 +352,8 @@ class Audioset(Publishable):
     )
     map_url = models.URLField(
         _('URL del mapa'),
-        blank=False,
+        blank=True,
+        null=True,
         default='https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json',
         help_text=_(
             'Faltaría un texto que explique esto'
@@ -407,14 +411,11 @@ class Audioset(Publishable):
     audio_quantize = models.PositiveSmallIntegerField(
         _('Quantize'),
         default=0,
+        blank=True,
+        null=True,
         help_text=_(
             'Faltaría un texto que explique esto'
         )
-    )
-    in_home = models.BooleanField(
-        _('Mostrar en la home'),
-        blank=True,
-        default=False
     )
 
     def is_owned_by(self, user):
@@ -446,6 +447,7 @@ class Track(SortableMixin):
     volume = models.PositiveSmallIntegerField(
         _('Volumen'),
         default=1,
+        null=True,
         help_text=_(
             'Faltaría un texto que explique esto'
         )
@@ -473,8 +475,13 @@ class Track(SortableMixin):
     class Meta:
         ordering = ('order',)
 
+    def delete(self, *args, **kwargs):
+        self.clips.all().delete()
+        super().delete()
+
     def __str__(self):
         return self.name
+
 
 class Theme(models.Model):
 
@@ -491,6 +498,11 @@ class Theme(models.Model):
             'Descripción larga. Se usará en la página específica '
             'del audioset.'
         )
+    )
+    image = models.ImageField(
+        _('Imagen'),
+        blank=True,
+        upload_to='images/themes'
     )
     slug = models.SlugField(
         _('Ruta'),

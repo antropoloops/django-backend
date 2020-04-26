@@ -24,7 +24,7 @@ class TrackInlineAdmin(sortable.SortableStackedInline):
 class ProjectAdmin(admin.ModelAdmin):
     model = models.Project
     fields = (
-        ('name', 'slug', 'in_home'),
+        ('name', 'slug',),
         'owner',
         'users',
         'image',
@@ -51,7 +51,6 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
                 'project',
                 'slug',
                 'owner',
-                'in_home'
             )
         }),
         (_('Metadatos'), {
