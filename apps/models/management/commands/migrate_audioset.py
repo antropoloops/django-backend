@@ -68,7 +68,7 @@ def migrate_audioset(audioset_data, project):
         for format in audio:
             if format in clip_data['resources']['audio']:
                 set_file_from_remote(
-                    clip.audio_mp3,
+                    getattr(clip, 'audio_%s' % format),
                     clip_data['resources']['audio'][format]
                 )
         clip.save()
