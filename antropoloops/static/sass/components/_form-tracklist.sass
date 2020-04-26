@@ -15,11 +15,6 @@
   // height from layout-form-audioset
   min-height: 75vh
 
-.layout-form-audioset__right
-  position: relative
-  overflow-x: hidden
-  overflow-y: scroll
-
 .form-tracklist__label,
 .form-tracklist__fields
   padding: $m
@@ -189,3 +184,9 @@ $actions: create update delete
   background-repeat: no-repeat
   background-position: center center
   background-color: rgba(black, .75)
+
+#form-tracklist-container
+  overflow-x: hidden
+.layout-form-audioset[data-active='clip'] .tracklist,
+.layout-form-audioset[data-active='track'] .tracklist
+  display: none

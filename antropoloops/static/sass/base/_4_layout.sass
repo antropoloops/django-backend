@@ -38,13 +38,13 @@
 +breakpoint('sm')
   .layout-two-col__left-col
     display: inline-block
-    width: 25%
+    width: 400px
     padding-right: $m*2
     float: left
   .layout-two-col__right-col
     display: inline-block
     padding-left: $m*2
-    width: 75%
+    width: calc(100% - 400px)
 
 // Classes
 body.toppadded .region-content
@@ -67,8 +67,11 @@ body.toppadded .region-content
 +breakpoint('sm')
   .layout-form-audioset__left
     display: inline-block
-    width: 25%
+    width: 400px
     float: left
+    overflow-x: hidden
   .layout-form-audioset__right
     display: inline-block
-    width: 75%
+    width: calc(100% - 400px)
+    // position: relative
+    // overflow: hidden

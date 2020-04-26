@@ -204,6 +204,8 @@ jQuery(document).ready( function()
                 var active_marker = document.querySelector('.clip-marker[data-id="'+id+'"]');
                 if(active_marker)
                     active_marker.classList.add('active');
+            } else if(d.model == 'track'){
+                document.querySelector('.layout-form-audioset').dataset.active='track';
             }
 
 
