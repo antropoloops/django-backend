@@ -157,7 +157,6 @@ USE_TZ = True
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
-        'width'  : '100%',
         'extraPlugins': 'videodetector,',
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],

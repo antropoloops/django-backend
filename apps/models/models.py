@@ -497,7 +497,6 @@ class Theme(models.Model):
     )
     description = RichTextUploadingField(
         _('Descripción'),
-        max_length=128,
         blank=True,
         help_text=_(
             'Descripción larga. Se usará en la página específica '
@@ -526,8 +525,8 @@ class Theme(models.Model):
     )
 
     class Meta:
-        verbose_name = _('tema didáctico')
-        verbose_name_plural = _('temas didácticos')
+        verbose_name = _('tema')
+        verbose_name_plural = _('temas')
         ordering = ('order',)
 
     def __str__(self):
