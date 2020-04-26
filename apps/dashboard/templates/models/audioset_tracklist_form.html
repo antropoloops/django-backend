@@ -19,9 +19,6 @@
 {% include 'components/menu-audioset.html' with slug=audioset_slug active_item='tracklist' %}
 <div class="layout-form-audioset">
     <div class="layout-form-audioset__left modal-anchor">
-        <div class="field-name--form-audioset-configure">
-            {{ audioset.name }}
-        </div>
         <p class="tracklist__add-item"
            data-show-template="template-form-track"
            data-action="create"
@@ -52,7 +49,7 @@
         {% if audioset.is_panel and audioset.background %}
             <img class="audioset-background"
                  width="{{ audioset.background.width }}"
-                 height="{{ audioset.background.height }}" 
+                 height="{{ audioset.background.height }}"
                  src="{{ audioset.background.url }}"
             />
         {% else %}
