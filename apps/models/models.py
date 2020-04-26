@@ -174,6 +174,11 @@ class Clip(models.Model):
     def color(self):
         return self.track.first().color
 
+    @property
+    def audioset(self):
+        track = self.track.first()
+        return track.audioset.name if track else ''
+
     class Meta:
         ordering = ('track', 'order',)
 

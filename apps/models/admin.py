@@ -12,6 +12,16 @@ from . import models
 
 class ClipAdmin(admin.ModelAdmin):
     model = models.Clip
+    list_display = (
+        'name',
+        'audioset',
+        'audio_name',
+    )
+    list_filter  = ('track__audioset',)
+
+    def audioset(self, obj):
+        return obj.audioset
+
 
 class TrackAdmin(admin.ModelAdmin):
     model = models.Track
