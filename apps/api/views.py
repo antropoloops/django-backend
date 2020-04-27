@@ -276,3 +276,34 @@ def theme(request, slug):
         content_type="application/json",
         status=200
     )
+
+def home(request):
+    """ Gets Home """
+    theme = get_object_or_404(
+        models.Theme.objects,
+        slug='home'
+    )
+    return HttpResponse(
+        serializers.serialize_theme(theme),
+        content_type="application/json",
+        status=200
+    )
+
+def resource(request, slug):
+    """ Gets a resource """
+
+    resource = models.Audioset.objects.get(slug=slug)
+    if resource:
+        data = serializers.serialize_audioset(resource),
+    else:
+        resource = models.Project.objects.get(slug=slug)
+        if not resource:
+            return HttpResponse(
+                status=404
+            )
+        data = serializers.serialize_project(resource)
+    return HttpResponse(
+        data,
+        content_type="application/json",
+        status=200
+    )

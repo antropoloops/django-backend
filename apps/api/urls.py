@@ -89,4 +89,18 @@ urlpatterns = [
         views.themes,
         name='themes'
     ),
+
+    # Custom paths
+    # Project
+    path(
+        'index/<slug:slug>',
+        views.resource,
+        name='resource'
+    ),
+    # Home
+    path(
+    'index',
+    views.home,
+    name='home'
+    ),
 ]
