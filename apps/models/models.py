@@ -495,12 +495,11 @@ class Theme(models.Model):
         max_length=128,
         blank=False,
     )
-    description = RichTextUploadingField(
-        _('Descripción'),
+    description = models.TextField(
+        _('Descripción corta'),
         blank=True,
         help_text=_(
-            'Descripción larga. Se usará en la página específica '
-            'del tema.'
+            'Descripción corta. Se usará en vistas de contenido.'
         )
     )
     readme = RichTextUploadingField(
@@ -508,7 +507,7 @@ class Theme(models.Model):
         blank=True,
         help_text=_(
             'Descripción larga. Se usará en la página específica '
-            'del audioset.'
+            'del tema.'
         )
     )
     update_date = models.DateField(
