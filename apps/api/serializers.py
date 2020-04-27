@@ -122,7 +122,10 @@ def serialize_theme(theme):
         theme_data['audiosets'].append({
             'id'             : content.id,
             'title'          : content.name,
-            'publish_path'   : content.slug,
+            'publish_path'   : '%s/%s' % (
+                content.__class__.__name__.lower() ,
+                content.slug
+            ),
             'description'    : content.description,
             'logo_url'       : content.image.url if content.image else '',
         })
@@ -158,7 +161,7 @@ def serialize_project(project):
         project_data['audiosets'].append({
             'id'             : audioset.id,
             'title'          : audioset.name,
-            'publish_path'   : audioset.slug,
+            'publish_path'   : 'audioset/%s' % audioset.slug,
             'description'    : audioset.description,
             'logo_url'       : audioset.image.url if audioset.image else '',
             'background_url' : audioset.background.url if audioset.image else '',
