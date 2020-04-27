@@ -292,16 +292,17 @@ def home(request):
 def resource(request, slug):
     """ Gets a resource """
 
-    resource = models.Audioset.objects.get(slug=slug)
-    if resource:
+    try:
+        resource = models.Audioset.objects.get(slug=slug)
         data = serializers.serialize_audioset(resource),
-    else:
-        resource = models.Project.objects.get(slug=slug)
-        if not resource:
+    except models.Audioset.DoesNotExist:
+        try:
+            resource = models.Project.objects.get(slug=slug)
+            data = serializers.serialize_project(resource)
+        except models.Project.DoesNotExist:
             return HttpResponse(
                 status=404
             )
-        data = serializers.serialize_project(resource)
     return HttpResponse(
         data,
         content_type="application/json",
