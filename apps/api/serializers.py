@@ -2,6 +2,7 @@
 import json
 import time
 from collections import OrderedDict
+from itertools import chain
 # django
 from django.utils.text import slugify
 # contrib
@@ -88,36 +89,49 @@ class ThemeSerializer(serializers.ModelSerializer):
             'units'
         ]
 
-# TODO: sorted output
 
-# class ProjectSerializer(serializers.ModelSerializer):
-#
-#     format  =  serializers.ReadOnlyField(default='atpls-audioset')
-#     version = serializers.ReadOnlyField(default='2.0.0')
-#     id = serializers.ReadOnlyField(source='slug')
-#     type = serializers.ReadOnlyField(default='project')
-#     last_updated_at = SerializerMethodField('get_date')
-#     meta = serializers.ReadOnlyField(default='question')
-#
-#     def get_date(self, obj):
-#         return {
-#             'name'    : content.name,
-#             'slug'    : content.slug,
-#             'summary' : content.description,
-#             'image'   : content.image.url if content.image else None
-#         }
-#
-#     class Meta:
-#         model = models.Project
-#         fields = [
-#             'format',
-#             'version',
-#             'id',
-#             'type',
-#             'last_updated_at',
-#             'meta',
-#             'audiosets'
-#         ]
+def serialize_theme(theme):
+    """ Custom serializer for audioset objects """
+
+    theme_data = {
+        'format'          : 'atpls-audioset',
+        'version'         : '2.0.0',
+        'id'              : theme.slug,
+        'type'            : 'project',
+        'last_updated_at' : time.mktime(
+            theme.update_date.timetuple()
+        ),
+        # meta
+        'meta' : {
+            'title'       : theme.name,
+            'path'        : theme.slug,
+            'parent_path' : '',
+            'description' : theme.description,
+            'readme'      : theme.readme,
+            'logo_url'    : theme.image.url if theme.image else '',
+        },
+        'audiosets' : [],
+    }
+
+    items = models.ThemeUnit.objects.filter(
+        theme=theme
+    )
+
+    for item in items:
+        content = item.set or item.project
+        theme_data['audiosets'].append({
+            'id'             : content.id,
+            'title'          : content.name,
+            'publish_path'   : content.slug,
+            'description'    : content.description,
+            'logo_url'       : content.image.url if content.image else '',
+        })
+
+    return json.dumps(
+        theme_data,
+        indent=4,
+    )
+
 
 def serialize_project(project):
     """ Custom serializer for audioset objects """

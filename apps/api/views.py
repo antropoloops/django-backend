@@ -253,7 +253,6 @@ def themes(request):
 
     if request.is_ajax:
         themes = models.Theme.objects.all()
-
         return JsonResponse(
             serializers.ThemeSerializer(
                 themes,
@@ -262,3 +261,18 @@ def themes(request):
             safe=False
         )
     return HttpResponse(status=403)
+
+
+def theme(request, slug):
+    """ Gets Theme by slug """
+
+    theme = get_object_or_404(
+        models.Theme.objects,
+        slug=slug
+    )
+
+    return HttpResponse(
+        serializers.serialize_theme(theme),
+        content_type="application/json",
+        status=200
+    )

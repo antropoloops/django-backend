@@ -78,9 +78,14 @@ urlpatterns = [
         views.project,
         name='project'
     ),
-    # Project
+    # Themes
     path(
-        'themes/',
+        'theme/<slug:slug>',
+        views.theme,
+        name='theme'
+    ),
+    path(
+        'theme/',
         views.themes,
         name='themes'
     ),

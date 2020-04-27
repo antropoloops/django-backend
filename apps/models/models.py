@@ -500,8 +500,20 @@ class Theme(models.Model):
         blank=True,
         help_text=_(
             'Descripción larga. Se usará en la página específica '
+            'del tema.'
+        )
+    )
+    readme = RichTextUploadingField(
+        _('Descripción'),
+        blank=True,
+        help_text=_(
+            'Descripción larga. Se usará en la página específica '
             'del audioset.'
         )
+    )
+    update_date = models.DateField(
+        _('Última modificación'),
+        auto_now=True,
     )
     image = models.ImageField(
         _('Imagen'),
