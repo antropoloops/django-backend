@@ -158,10 +158,10 @@ def serialize_project(project):
         project_data['audiosets'].append({
             'id'             : audioset.id,
             'title'          : audioset.name,
-            'publish_path'   : 'audioset/%s' % audioset.slug,
+            'publish_path'   : audioset.slug,
             'description'    : audioset.description,
             'logo_url'       : audioset.image.url if audioset.image else '',
-            'background_url' : audioset.background.url if audioset.image else '',
+            'background_url' : audioset.background.url if audioset.background else '',
         })
 
     return json.dumps(
