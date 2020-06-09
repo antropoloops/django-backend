@@ -21,7 +21,12 @@ from . import validators
 
 validator_mp3 = validators.AudioTypeValidator(["audio/mpeg"])
 validator_ogg = validators.AudioTypeValidator(["audio/ogg"])
-validator_wav = validators.AudioTypeValidator(["audio/wav"])
+validator_wav = validators.AudioTypeValidator([
+    "audio/wav",
+    "audio/x-wav",
+    "audio/x-wave",
+    "audio/vnd.wave"
+])
 
 class Clip(models.Model):
     """ Clip model definition """
