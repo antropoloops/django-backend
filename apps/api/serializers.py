@@ -120,7 +120,7 @@ def serialize_theme(theme):
     for item in items:
         content = item.set or item.project
         theme_data['audiosets'].append({
-            'id'             : content.id,
+            'id'             : content.play_id,
             'title'          : content.name,
             'publish_path'   : content.slug,
             'description'    : content.description,
@@ -156,7 +156,7 @@ def serialize_project(project):
 
     for audioset in project.audiosets.all():
         project_data['audiosets'].append({
-            'id'             : audioset.id,
+            'id'             : audioset.play_id,
             'title'          : audioset.name,
             'publish_path'   : audioset.slug,
             'description'    : audioset.description,
@@ -241,7 +241,7 @@ def serialize_audioset(audioset):
         for clip in track.clips.all():
             track_data['clipIds'].append( slugify(clip.name) )
             audioset_data['clips'].append({
-                'id'       : clip.id,
+                'id'       : slugify(clip.name),
                 'name'     : clip.name,
                 'trackId'  : track.id,
                 'trackNum' : index,
