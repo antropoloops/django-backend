@@ -21,7 +21,12 @@ from . import validators
 
 validator_mp3 = validators.AudioTypeValidator(["audio/mpeg"])
 validator_ogg = validators.AudioTypeValidator(["audio/ogg"])
-validator_wav = validators.AudioTypeValidator(["audio/wav"])
+validator_wav = validators.AudioTypeValidator([
+    "audio/wav",
+    "audio/x-wav",
+    "audio/x-wave",
+    "audio/vnd.wave"
+])
 
 class Clip(models.Model):
     """ Clip model definition """
@@ -265,6 +270,10 @@ class Project(Publishable):
     def __str__(self):
         return self.name
 
+    @property
+    def play_id(self):
+        return 'p-%s' % self.pk
+
 
 class Audioset(Publishable):
     """ Audioset model definition """
@@ -429,6 +438,10 @@ class Audioset(Publishable):
     @property
     def is_panel(self):
         return self.mode_display=='1'
+
+    @property
+    def play_id(self):
+        return 'a-%s' % self.pk
 
     def __str__(self):
         return self.name
