@@ -138,7 +138,7 @@ def clip_create(request):
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
-        form = forms.ClipForm(data)
+        form = forms.ClipForm(data, files=request.FILES)
         if form.is_valid():
             track = models.Track.objects.get(pk=data['track'])
             new_clip = form.save()
