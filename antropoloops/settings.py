@@ -165,6 +165,7 @@ CKEDITOR_CONFIGS = {
             ['Link', 'Unlink', 'Image', 'VideoDetector'],
             ['RemoveFormat', 'Source'],
         ],
+        'allowedContent' : True,
     },
 }
 
