@@ -77,6 +77,31 @@ class Clip(models.Model):
             'quality': 90
         }
     )
+    image_alt = models.ImageField(
+        _('Imagen secundaria'),
+        blank=True,
+        upload_to='images/clips/',
+    )
+    image_alt_small = ImageSpecField(
+        source='image_alt',
+        processors=[
+            ResizeToFill(400, 400)
+        ],
+        format='JPEG',
+        options={
+            'quality': 90
+        }
+    )
+    image_alt_thumb = ImageSpecField(
+        source='image_alt',
+        processors=[
+            ResizeToFill(100, 100)
+        ],
+        format='JPEG',
+        options={
+            'quality': 90
+        }
+    )
     audio_name = models.CharField(
         _('Nombre del audio'),
         max_length=128,
