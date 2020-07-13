@@ -20,7 +20,45 @@ def namedWidget(input_name, widget=forms.CharField):
     return widget
 
 
-class AudiosetCreateForm(forms.ModelForm):
+class ProjectForm(forms.ModelForm):
+
+    slug = forms.SlugField(
+        label=_('Ruta'),
+        help_text=_(
+            'Este campo contiene el fragmento final de la URL del proyecto'
+        ),
+        widget=AutoslugWidget(src='name')
+    )
+
+    class Meta:
+        model = models.Project
+        fields = [
+            'name',
+            'description',
+            'image',
+            'readme',
+            'slug',
+        ]
+        widgets = {
+            'image' : ImagePreviewWidget(),
+            'description' : LimitedTextareaWidget(limit=280),
+        }
+
+    def clean_slug(self):
+        slug = self.cleaned_data['slug']
+        if models.Project.objects.filter(
+            slug=slug,
+        ).exclude(
+            pk=self.instance.pk
+        ).exists():
+            raise ValidationError(_(
+                'Ya existe un proyecto con esa ruta. Por favor, '
+                'cámbiala ligeramente. Por ejemplo: %s' % (slug+'-1',)
+            ))
+        return slug
+
+
+class AudiosetForm(forms.ModelForm):
 
     slug = forms.SlugField(
         label=_('Ruta'),
@@ -47,68 +85,24 @@ class AudiosetCreateForm(forms.ModelForm):
         model = models.Audioset
         fields = [
             'name',
-            'slug',
             'description',
-        ]
-        widgets = {
-            'description' : LimitedTextareaWidget(limit=280),
-        }
-
-
-class ProjectForm(forms.ModelForm):
-
-    slug = forms.SlugField(
-        label=_('Ruta'),
-        help_text=_(
-            'Este campo contiene el fragmento final de la URL del proyecto'
-        ),
-        widget=AutoslugWidget(src='name')
-    )
-
-    class Meta:
-        model = models.Project
-        fields = [
-            'name',
             'slug',
-            'image',
-            'description',
-            'readme',
-            'background',
-        ]
-        widgets = {
-            'image' : ImagePreviewWidget(),
-            'background'  : ImagePreviewWidget(),
-            'description' : LimitedTextareaWidget(limit=280),
-        }
-
-    def clean_slug(self):
-        slug = self.cleaned_data['slug']
-        if models.Project.objects.filter(
-            slug=slug,
-        ).exclude(
-            pk=self.instance.pk
-        ).exists():
-            raise ValidationError(_(
-                'Ya existe un proyecto con esa ruta. Por favor, '
-                'cámbiala ligeramente. Por ejemplo: %s' % (slug+'-1',)
-            ))
-        return slug
-
-
-class AudiosetUpdateForm(forms.ModelForm):
-
-    class Meta:
-        model = models.Audioset
-        fields = [
             'image',
             'readme',
             'mode_display',
             'background',
             'map_scale',
             'map_center_x',
-            'map_center_y'
+            'map_center_y',
+            'playmode',
+            'audio_bpm',
+            'audio_quantize',
+            'map_url',
+            'map_lambda',
+            'map_shift_vertical',
         ]
         widgets = {
+            'description' : LimitedTextareaWidget(limit=280),
             'image' : ImagePreviewWidget(
                 placeholder=_(
                     "Añade aquí una imagen de cabecera"
@@ -121,20 +115,6 @@ class AudiosetUpdateForm(forms.ModelForm):
                 )
             ),
         }
-
-class AudiosetDetailsUpdateForm(forms.ModelForm):
-
-    class Meta:
-        model = models.Audioset
-        fields = [
-            'map_url',
-            'map_lambda',
-            'map_shift_vertical',
-            'playmode',
-            'audio_bpm',
-            'audio_quantize',
-        ]
-
 
 class TrackForm(forms.ModelForm):
     class Meta:

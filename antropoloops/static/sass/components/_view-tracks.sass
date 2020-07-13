@@ -1,39 +1,35 @@
+.tracklist
+  max-height: calc(100vh - #{$height_header * 4})
+
 .tracklist__item .field-name
   margin: 0
   padding: $m/2 $m/4
   position: relative
   text-transform: uppercase
   background-color: rgba(black, .25)
-.tracklist__add-item
-  background-color: #222
-  text-align: center
-  cursor: pointer
-  line-height: $m*1.5
-  transition: background-color .2s ease
-  &:hover
-    background-color: #111
-  .feather
-    position: relative
-    top: 4px
 .track__name
   margin: 0
   padding: $m/2 $m/4
 .track-header
   background: rgba(black, .5)
   position: relative
-.track-actions
-  position: absolute
-  right: $m/2
-  top: $m/3
 
+.track-actions
+  color: white
+  padding-bottom: $m/2
+  .feather
+    color: #222
+    position: relative
+    top: 5px
+.track-actions__edit
+  position: absolute
+  right: $m/3
+  top: $m/3
 [class*='track-actions__']
-  display: inline
   cursor: pointer
   margin-left: $m/4
-
 .tracklist__item--audioset:hover
   cursor: grab
-
 .tracklist__help
   padding: $m/2
   font-size: .8em

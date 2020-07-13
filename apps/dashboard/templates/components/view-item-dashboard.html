@@ -1,15 +1,6 @@
 {# Renders a publishable item in the dashboard view #}
 {% load i18n dashboard_tags imagekit %}
 
-
-<div class="field-date--item-dashboard">
-    <span class="field__label">
-        {% trans 'Última actualización' %}
-    </span>
-    <span class="field__value">
-        {{ item.update_date | date:"d/m/Y" }}
-    </span>
-</div>
 <figure class="field-thumbnail--item-dashboard">
     {% if item.image_small %}
         <img src="{{ item.image_small.url }}" />
@@ -17,21 +8,11 @@
         {% blank_image %}
     {% endif %}
 </figure>
-<h4 class="field-name--item-dashboard">
-    {{ item.name }}
-</h4>
-<div class="field-description--item-dashboard">
-    {{ item|description }}
-</div>
-<div class="field-theme--item-dashboards">
-{% with item|themes as themes %}
-    {% if themes %}
-        <h6 class="field-theme___label--item-dashboards">
-            {% trans 'Pertenece a los siguientes temas didácticos' %}
-        </h6>
-        {% for theme in themes %}
-            {{ theme }}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+<div class="fieldset-info--item-dashboard">
+    <h4 class="field-name--item-dashboard">
+        {{ item.name }}
+    </h4>
+    <div class="field-description--item-dashboard">
+        {{ item|description }}
+    </div>
 </div>

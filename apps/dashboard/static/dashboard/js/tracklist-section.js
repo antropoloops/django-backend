@@ -40,7 +40,9 @@ function closePopup(){
     var placeholder = document.querySelector('.clip-marker--placeholder');
     if(placeholder)
         placeholder.remove();
-    document.querySelector('.clip-marker.active').classList.remove('active');
+    var marker_active = document.querySelector('.clip-marker.active');
+    if(marker_active)
+        marker_active.classList.remove('active');
 }
 
 
@@ -50,13 +52,13 @@ jQuery(document).ready( function()
     document.querySelectorAll("[data-show-template]").forEach( function(button)
     {
         // Add action to build related template
-        button.addEventListener("click", function(e)
+        var show_template = function(e, dataset)
         {
             // Prevent 'bubbling'
             e.stopPropagation();
 
             // Get dataset attributes from the 'builder'
-            var d           = button.dataset;
+            var d           = dataset ? dataset : button.dataset;
             var template_id = '#' + d.showTemplate;
             var model       = d.model;
             var action      = d.action;
@@ -140,6 +142,11 @@ jQuery(document).ready( function()
                                 });
                                 form.querySelector('[name=pk]').value = data.pk;
                             });
+                            // Create delete button
+                            var delete_link = document.querySelector('.default-actions__item--delete');
+                            delete_link.dataset.id = id;
+                            delete_link.addEventListener("click", (e)=>{  show_template(e, delete_link.dataset) });
+                            delete_link.classList.add('visible');
                         },
                         error : function(req){
                             console.log('Error: ', req);
@@ -176,10 +183,8 @@ jQuery(document).ready( function()
                         {
                             var form_errors = document.querySelector('.form-errors');
                             form_errors.classList.remove('hidden');
-                            console.log(response.responseText);
                             var errors_msg = JSON.parse(response.responseText);
                             Object.keys(errors_msg).forEach( function(fieldname) {
-                                  console.log(fieldname);
                                   var field = document.querySelector('.form-field--' + fieldname);
                                   field.classList.add('not-validated');
                                   field.dataset.error = errors_msg[fieldname][0].message;
@@ -213,7 +218,8 @@ jQuery(document).ready( function()
             clean();
             form_container.appendChild(form_node);
             form_container.scrollTo(0,0);
-        });
+        };
+        button.addEventListener("click", show_template);
     });
 
 

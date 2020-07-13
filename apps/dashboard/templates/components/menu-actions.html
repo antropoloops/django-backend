@@ -23,18 +23,6 @@
                   {% trans 'Edita este proyecto' %}
             </a>
         </li>
-        <li class="menu-actions__item">
-            <a href="{% url 'project_delete' section_id %}">
-                  {% icon 'trash-2' %}
-                  {% trans 'Borra este proyecto' %}
-            </a>
-        </li>
-        <li class="menu-actions__item">
-            <a href="{% url 'api:project' section_slug %}" target="_blank">
-                  {% icon 'eye' %}
-                  {% trans 'Ver en API' %}
-            </a>
-        </li>
         {% endif %}
     </ul>
 </div>

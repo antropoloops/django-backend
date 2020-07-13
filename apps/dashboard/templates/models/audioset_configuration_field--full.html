@@ -1,0 +1,14 @@
+{# audioset configuration form fields #}
+
+<div class="form-field form-field--{{ field.name }}">
+    <label class="form-field__label {% if field.field.required %}required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
+    {{ field }}
+    <p class="form-field__helptext">
+        {{ field.help_text }}
+    </p>
+    {% if field.errors %}
+    <div class="field-{{ field.name }}__errors--audioset-configuration-form">
+        {{ field.errors }}
+    </div>
+    {% endif %}
+</div>

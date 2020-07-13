@@ -2,8 +2,9 @@
 .region-header
   padding: $padding_header
   height: $height_header
+  background: white
 .region-content
-  min-height: calc(100vh - #{$height_header} - #{$height_footer})
+  min-height: calc(100vh - #{$height_header})
 .region-footer
   padding: $padding_footer
   height: $height_footer
@@ -34,36 +35,46 @@
   margin: 0 auto
 
 // Two column layout
+.layout-two-col__left-col
+  background-color: #e9e9e9
+.page--project-detail,
+.page-form-project,
+.page-form-audioset,
+  .layout-two-col__left-col
+    background-color: #acacac
 
 +breakpoint('sm')
   .layout-two-col__left-col
     display: inline-block
     width: 400px
-    padding-right: $m*2
     float: left
+    height: calc(100vh - #{$height_header})
+    overflow-y: auto
   .layout-two-col__right-col
     display: inline-block
-    padding-left: $m*2
+    padding: $m*2
     width: calc(100% - 400px)
+    min-height: calc(100vh - #{$height_header})
 
 // Classes
 body.toppadded .region-content
   padding-top: $m*3
 
-
 // Audioset form common settings
 
 .layout-form-audioset
+  +clearfix
   background-color: #333
-  height: 80vh
 .layout-form-audioset__left
-  background-color: #393939
+  background-color: #acacac
   position: relative
-  height: 100%
-  overflow-y: scroll
-.layout-form-audioset__left,
+
+.layout-form-audioset__left
+  height: calc(100vh - #{$height_header })
+  overflow-y: auto
 .layout-form-audioset__right
-  max-height: 80vh
+  max-height: calc(100vh - #{$height_header })
+  overflow-y: auto
 +breakpoint('sm')
   .layout-form-audioset__left
     display: inline-block
@@ -72,6 +83,17 @@ body.toppadded .region-content
     overflow-x: hidden
   .layout-form-audioset__right
     display: inline-block
+    float: right
     width: calc(100% - 400px)
-    // position: relative
-    // overflow: hidden
+
+.region-content
+  background-color: #d5d5d5
+
+.page--audioset,
+.page--audioset-configuration-form
+  .layout-one-col-fluid__col
+    padding: 0
+
+.page--login .region-content
+  background-color: #f5f5f5
+  padding-top: $m*3

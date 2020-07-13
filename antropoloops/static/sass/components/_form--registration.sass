@@ -4,10 +4,8 @@
 // -> app registration
 
 .form-registration
-  background: rgba(black, .75)
+  background: #f5f5f5
   padding: $m*2 $m*2 $m*2 $m*3
-  border: 8px solid black
-  border-width: 8px 0
   +animation(fadeup 1.25s 1)
 
 // labels
@@ -21,7 +19,7 @@
     content: "*"
     color: #e73f26
   .feather
-    stroke: #e3660b
+    stroke: #555
     height: $m
     position: absolute
     left: -38px
@@ -47,9 +45,8 @@
   margin: $m/2 auto
   display: block
   width: 33%
-  border-radius: 4px
   transition: background-color .2s ease
-  text-shadow: 0 0 10px rgba(black, .5)
+  color: white
   &:hover
     background-color: darken($color_success, 10%)
 
@@ -65,7 +62,7 @@
 
 // instructions
 
-.form-registration__instructions
+.form-instructions--registration
   margin-bottom: $m*1.5
   padding: 0 $m
 
@@ -76,15 +73,17 @@
   a
     transition: color .2s ease
   a:link, a:visited
-    color: white
+    color: #222
   a:hover
-    color: $orange
+    color: #555
   a:active
-    color: white
+    color: #222
 
-.form-registration .form__actions .feather
-  max-width: $m*.75
-  position: relative
-  top: 6px
-  margin-right: $m/2
-  stroke: $orange
+.form-registration__actions
+  color: #222
+  .feather
+    max-width: $m*.75
+    position: relative
+    top: $m/3
+    margin-right: $m/2
+    stroke: #555

@@ -47,11 +47,6 @@ urlpatterns = [
         name='audioset_update'
     ),
     path(
-        'audioset/<int:pk>/configura-audio',
-        views.AudiosetAudioConfigurationView.as_view(),
-        name='audioset_update_audio'
-    ),
-    path(
         'audioset/<int:pk>/gestiona-clips',
         views.AudiosetTracklistView.as_view(),
         name='audioset_tracklist'

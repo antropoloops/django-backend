@@ -13,4 +13,8 @@ document.addEventListener("DOMContentLoaded", function()
             mode_selector.dataset.currentState = value;
         });
     });
+
+    document.querySelector('.form-audioset-configure__fieldset-label').addEventListener('click', function(e){
+        document.querySelector('.form-audioset-configure__fieldset-fields').classList.toggle('hidden');
+    })
 });

@@ -59,6 +59,21 @@ function wb_hide(trigger)
   trigger.classList.add('active');
 }
 
+/**
+ *  calls
+ *  Makes an asynchornous GET call to an url
+ */
+function wb_get(url)
+{
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function(response){
+      console.log(response)
+  };
+  xhr.open('GET', url);
+  xhr.send()
+}
+
+
 
 /**
  *  Add event listeners when DOM is completely loaded
@@ -79,6 +94,13 @@ document.addEventListener("DOMContentLoaded", function()
     document.querySelectorAll('[data-show]').forEach(function(t){
         t.addEventListener('click', function(){
             wb_show(t)
+        });
+    });
+    document.querySelectorAll('[data-get]').forEach(function(t){
+        t.addEventListener('click', function(e){
+            e.preventDefault();
+            var url = e.target.dataset.get;
+            wb_get(url)
         });
     });
 });

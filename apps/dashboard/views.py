@@ -128,9 +128,9 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView):
 class AudiosetCreateView(LoginRequiredMixin, CreateView):
     """ Audioset creation form in user dashboard. """
 
-    model = antropoloops_models.Audioset
-    form_class  = forms.AudiosetCreateForm
-    template_name = 'models/audioset_creation_form.html'
+    model         = antropoloops_models.Audioset
+    form_class    = forms.AudiosetForm
+    template_name = 'models/audioset_form.html'
 
     def dispatch(self, *args, **kwargs):
         self.project = get_object_or_404(
@@ -142,7 +142,7 @@ class AudiosetCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         """Pass context data to generic view."""
         context = super(AudiosetCreateView, self).get_context_data(**kwargs)
-        context['page_title'] = _('Añade un audioset a «{}»'.format(self.project.name))
+        context['project']  = self.project
         return context
 
     def form_valid(self, form):
@@ -158,6 +158,34 @@ class AudiosetCreateView(LoginRequiredMixin, CreateView):
             'project_detail',
             kwargs={ 'pk' : self.project.pk }
         )
+
+class AudiosetUpdateView(LoginRequiredMixin, UpdateView):
+    """ Audioset update form in user dashboard """
+
+    model = antropoloops_models.Audioset
+    form_class  = forms.AudiosetForm
+    template_name = 'models/audioset_form.html'
+
+    def get_object(self, *args, **kwargs):
+        obj = super(AudiosetUpdateView, self).get_object(*args, **kwargs)
+        if not obj.is_owned_by(self.request.user):
+            raise Http404
+        return obj
+
+    def get_context_data(self, **kwargs):
+        """Pass context data to generic view."""
+        context = super(AudiosetUpdateView, self).get_context_data(**kwargs)
+        context['project']  = self.object.project
+        context['audioset_name'] = self.object.name
+        context['audioset_slug'] = self.object.slug
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _(
+            'Has configurado el audioset con éxito. Ahora puedes añadirle '
+            'tracks y clips'
+        ))
+        return reverse_lazy('audioset_tracklist', kwargs={'pk' : self.object.pk })
 
 class AudiosetDeleteView(LoginRequiredMixin, DeleteView):
     """ Audioset delete form in user dashboard """
@@ -186,34 +214,6 @@ class AudiosetDeleteView(LoginRequiredMixin, DeleteView):
         return super(AudiosetDeleteView, self).delete(self, request, *args, **kwargs)
 
 
-class AudiosetUpdateView(LoginRequiredMixin, UpdateView):
-    """ Audioset update form in user dashboard """
-
-    model = antropoloops_models.Audioset
-    form_class  = forms.AudiosetUpdateForm
-    template_name = 'models/audioset_configuration_form.html'
-
-    def get_object(self, *args, **kwargs):
-        obj = super(AudiosetUpdateView, self).get_object(*args, **kwargs)
-        if not obj.is_owned_by(self.request.user):
-            raise Http404
-        return obj
-
-    def get_context_data(self, **kwargs):
-        """Pass context data to generic view."""
-        context = super(AudiosetUpdateView, self).get_context_data(**kwargs)
-        context['audioset_name'] = self.object.name
-        context['audioset_slug'] = self.object.slug
-        return context
-
-    def get_success_url(self):
-        messages.success(self.request, _(
-            'Has configurado el audioset con éxito. Ahora puedes añadirle '
-            'tracks y clips'
-        ))
-        return reverse_lazy('audioset_tracklist', kwargs={'pk' : self.object.pk })
-
-
 class AudiosetTracklistView(LoginRequiredMixin, DetailView):
     """ Audioset detail view/ajax update form """
 
@@ -234,17 +234,3 @@ class AudiosetTracklistView(LoginRequiredMixin, DetailView):
         context['trackform'] = forms.TrackUpdateFormAjax(initial={'audioset' : self.kwargs['pk']})
         context['clipform']  = forms.ClipUpdateForm(initial={'audioset' : self.kwargs['pk']})
         return context
-
-
-class AudiosetAudioConfigurationView(LoginRequiredMixin, UpdateView):
-    """ Audioset detail view/ajax update form """
-
-    def get_object(self, *args, **kwargs):
-        obj = super(AudiosetAudioConfigurationView, self).get_object(*args, **kwargs)
-        if not obj.is_owned_by(self.request.user):
-            raise Http404
-        return obj
-
-    model = antropoloops_models.Audioset
-    form_class  = forms.AudiosetDetailsUpdateForm
-    template_name = 'models/audioset_details_update_form.html'

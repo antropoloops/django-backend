@@ -6,7 +6,7 @@
 
 {# body's css classes #}
 {% block body_css_classes %}
-    page--dashboard page--project-list toppadded
+    page--dashboard page--project-list
 {% endblock %}
 
 {# html title #}
@@ -14,18 +14,25 @@
     {% trans 'Tus proyectos' %}
 {% endblock %}
 
+{# breadcrumb #}
+{% block breadcrumb %}
+    <p class="page__breadcrumb">
+        » {% trans 'Proyectos' %}
+    </p>
+{% endblock %}
+
 {# Sidebar #}
 {% block sidebar %}
-    <p class="page__breadcrumb">
-        {% trans 'Proyectos' %}
+    <p class="dashboard-action">
+        <a href="{% url 'project_create' %}">
+              {% icon 'plus' %}
+              {% trans 'Crear nuevo proyecto' %}
+        </a>
     </p>
-    <h1 class="page__title">
-        {% trans 'Tus proyectos' %}
-    </h1>
-    {% include 'components/menu-actions.html' with section='project-list' %}
+    {% include 'components/view-dashboard.html' with item_list=project_list item_label='proyecto' item_url='project_detail' %}
 {% endblock %}
 
 {# Content #}
 {% block main %}
-    {% include 'components/view-dashboard.html' with item_list=project_list item_label='proyecto' item_url='project_detail' %}
+    {% lorem %}
 {% endblock %}

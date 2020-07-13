@@ -1,12 +1,12 @@
 {# Dashboard page #}
-{% extends 'layouts/single-column-fixed.html' %}
+{% extends 'layouts/two-column.html' %}
 
 {# tags not defined as built-ins in settings.py #}
 {% load i18n static %}
 
 {# body's css classes #}
 {% block body_css_classes %}
-    page--dashboard toppadded page-form-project
+    page--dashboard page-form-project
 {% endblock %}
 
 {# html title #}
@@ -14,15 +14,22 @@
     {{ page_title }}
 {% endblock %}
 
+{# breadcrumb #}
+{% block breadcrumb %}
+    <p class="page__breadcrumb">
+        <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a> » {% if not form.instance.pk %}Crear{% else %}Editar{% endif %} proyecto
+    </p>
+{% endblock %}
+
+
+{# Sidebar #}
+{% block sidebar %}
+    {% include 'components/form.html' with form=form modifier='simple' delete_url='project_delete' api_url='api:project' submit='Guardar' %}
+{% endblock %}
+
 {# Content #}
 {% block main %}
-{% include 'components/block-fake-breadcrumb.html' %}
-
-<h1 clas="page__title">
-    {{ page_title }}
-</h1>
-
-{% include 'components/form.html' with form=form modifier='simple' %}
+    {% lorem %}
 {% endblock %}
 
 {% block extra_js %}

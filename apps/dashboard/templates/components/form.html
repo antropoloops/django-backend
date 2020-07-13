@@ -44,15 +44,43 @@
             {% endif %}
         </div>
     {% endfor %}
-    <input class="form__submit {% if modifier %}form__submit--{{ modifier }}{% endif %}"
-      type="submit"
-      {% if submit %}
-      value="{{ submit }}"
-      {% else %}
-      value="{% trans 'Guarda los cambios' %}"
-      {% endif %}
-    />
-    <p class="form__cancel {% if modifier %}form__cancel--{{ modifier }}{% endif %}" onclick="history.go(-1)">
-        {% trans 'Cancelar' %}
-    </p>
+    <div class="form__actions">
+        {% if form.instance.pk %}
+        <ul class="optional-actions">
+            {% if delete_url %}
+            <li class="optional-actions__item">
+                <a href="{% url delete_url form.instance.id %}">
+                      {% icon 'trash-2' %}
+                      {% trans 'Borra este proyecto' %}
+                </a>
+            </li>
+            {% endif %}
+            {% if api_url %}
+            <li class="optional-actions__item">
+                <a href="{% url api_url form.instance.slug %}" target="_blank">
+                      {% icon 'eye' %}
+                      {% trans 'Ver en API' %}
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+        {% endif %}
+        <ul class="default-actions">
+            <li class="default-actions__item">
+                <input class="form__submit {% if modifier %}form__submit--{{ modifier }}{% endif %}"
+                  type="submit"
+                  {% if submit %}
+                  value="{{ submit }}"
+                  {% else %}
+                  value="{% trans 'Guarda los cambios' %}"
+                  {% endif %}
+                />
+            </li>
+            <li class="default-actions__item">
+                <span class="form__cancel {% if modifier %}form__cancel--{{ modifier }}{% endif %}" onclick="history.go(-1)">
+                    {% trans 'Cancelar' %}
+                </span>
+            </li>
+        </ul>
+    </div>
 </form>

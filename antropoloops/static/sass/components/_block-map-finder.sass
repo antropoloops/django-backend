@@ -1,11 +1,11 @@
 // Map inder
 
 .map-finder
-  position: absolute
-  top: $m
-  left: $m
   color: #222
+  z-index: 100
   font-size: .9em
+  display: inline
+  line-height: $height_header
   &:before
     font-family: sans-serif
     content: "\1F50D"
@@ -14,7 +14,7 @@
     display: none
 .map-finder__input,
 .map-finder__submit
-  line-height: $m !important
+  line-height: $m/2 !important
   padding: $m/2 !important
   border: 0
   outline: 0

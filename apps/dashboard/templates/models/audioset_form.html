@@ -1,0 +1,119 @@
+{# Dashboard page #}
+{% extends 'layouts/single-column-fluid.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--audioset-configuration-form
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {% trans 'Configura: ' %} {{ object.name }}
+{% endblock %}
+
+{# Content #}
+{% block main %}
+<form enctype="multipart/form-data" class="layout-form-audioset form-audioset-configure" method="post">
+    {% csrf_token %}
+    {% include 'registration/forms/form-errors.html' with name="audioset-configure" %}
+    <div class="layout-form-audioset__left">
+        <p class="page__title">
+          {% if object.instance.pk %}
+          {% trans 'Editar audioset' %}
+          {% else %}
+          {% trans 'Crear audioset' %}
+          {% endif %}
+        </p>
+        <div class="form--simple">
+            {% include 'models/audioset_configuration_field--full.html' with field=form.name %}
+            {% include 'models/audioset_configuration_field--full.html' with field=form.description %}
+            {% include 'models/audioset_configuration_field--full.html' with field=form.image %}
+            {% include 'models/audioset_configuration_field--full.html' with field=form.readme %}
+            {% include 'models/audioset_configuration_field--full.html' with field=form.slug %}
+            <div class="form-audioset-configure__fieldset">
+                <h5 class="form-audioset-configure__fieldset-label">
+                    {% trans 'Propiedades avanzadas' %}
+                </h5>
+                <div class="form-audioset-configure__fieldset-fields hidden">
+                    {% include 'models/audioset_configuration_field--full.html' with field=form.audio_bpm %}
+                    {% include 'models/audioset_configuration_field--full.html' with field=form.playmode %}
+                    {% include 'models/audioset_configuration_field--full.html' with field=form.audio_quantize %}
+                    {% include 'models/audioset_configuration_field--full.html' with field=form.map_url %}
+                    {% include 'models/audioset_configuration_field--full.html' with field=form.map_lambda %}
+                    {% include 'models/audioset_configuration_field--full.html' with field=form.map_shift_vertical %}
+                </div>
+            </div>
+        </div>
+        <ul class="default-actions default-actions--fixed-bottom">
+            <li class="default-actions__item default-actions__item--submit">
+                <input class="form-tracklist__submit" type="submit" value="{% trans 'Guardar' %}" />
+            </li>
+            {% if form.instance.pk %}
+            <li class="default-actions__item default-actions__item--delete">
+                <a href="{% url 'audioset_delete' form.instance.project.id form.instance.id %}">
+                  {% trans 'Borrar' %}
+                </a>
+            </li>
+            {% endif %}
+            <li class="default-actions__item default-actions__item--cancel">
+                <span class="form__cancel {% if modifier %}form__cancel--{{ modifier }}{% endif %}" onclick="history.go(-1)">
+                    {% trans 'Cancelar' %}
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="layout-form-audioset__right">
+        <div class="mode-selector" data-current-state="{{ form.mode_display.value }}">
+            {{ form.mode_display }}
+            <div class="mode-selector__state" data-state="1">
+                <div class="mode-selector__state-fields">
+                    {% include 'models/audioset_configuration_field.html' with field=form.background %}
+                </div>
+            </div>
+            <div class="mode-selector__state" data-state="2">
+                <div class="mode-selector__state-fields">
+                    <div id="map"></div>
+                    <div class="map__fields">
+                        {% include 'models/audioset_configuration_field.html' with field=form.map_scale %}
+                        {% include 'models/audioset_configuration_field.html' with field=form.map_center_x %}
+                        {% include 'models/audioset_configuration_field.html' with field=form.map_center_y %}
+                    </div>
+                    <div class="map__actions">
+                        {% include 'components/block-map-finder.html' with submit="Centrar mapa" %}
+                        <span class="map__helptext">
+                            {% blocktrans trimmed %}
+                            Centra el mapa buscando las coordenadas de un lugar en el buscador. Puedes usar el
+                            ratón para cambiar el zoom.
+                            {% endblocktrans %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+    {{ form.media }}
+    {# jquery #}
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <script src="{% static 'dashboard/js/map-loader.js' %}"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', loadMap(
+        {% if object %}
+        {{ object.map_scale }}, {{ object.map_center_x }}, {{ object.map_center_y }}, true
+        {% else %}
+        1, 0, 0, true
+        {% endif %}
+    ));
+    </script>
+    <script type="text/javascript" src="{% static 'dashboard/js/configuration-section.js' %}"></script>
+{% endblock %}

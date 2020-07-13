@@ -11,7 +11,7 @@
             data-action="update"
             data-model="track"
             data-id="{{ track.pk }}"
-            data-tooltip="{% trans 'Edita este track' %}"
+            data-tooltip="{% trans 'Editar esta pista' %}"
         >
             {% icon 'edit' %}
         </li>
@@ -21,18 +21,10 @@
             data-model="clip"
             data-id="{{ clip.pk }}"
             data-track="{{ track.pk }}"
-            data-tooltip="{% trans 'Añade un clip a este track' %}">
-            {% icon 'plus' %}
+            data-tooltip="{% trans 'Añade un clip a esta pista' %}">
+            {% icon 'plus' %} Añadir clip de audio
         </li>
-        <li class="track-actions__delete"
-            data-show-template="template-form-delete"
-            data-action="delete"
-            data-model="track"
-            data-id="{{ track.pk }}"
-            data-tooltip="{% trans 'Borra este track' %}"
-        >
-            {% icon 'trash-2' %}
-        </li>
+
     </ul>
 </div>
 <div class="track__clips" data-track="{{ track.pk }}" data-color="{{ track.color }}">

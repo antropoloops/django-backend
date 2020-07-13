@@ -22,7 +22,8 @@ $big_text: 1.5rem
     background: rgba(black, .85)
     position: absolute
     left: 0
-    bottom: 0
+    top: 0
+    color: white
     z-index: 1000
     text-align: center
     a
@@ -30,26 +31,11 @@ $big_text: 1.5rem
   &:hover
     .widget-wrapper
       opacity: 1
-.form-audioset-configure .placeholder
-  font-size: $big_text
-  color: $color_placeholder
-  font-weight: 600
 .form-audioset-configure .placeholder__text
-  padding: $m*5 $m/2
+  padding: $m/2
+  color: white
 .field-image--audioset-configuration-form .field__widget--picture-preview
   position: relative
-.field-image--audioset-configuration-form .placeholder__text
-  background-color: rgba(black, .1)
-// Readme
-.form-audioset-configure textarea
-  background: transparent
-  border: 0
-  padding: $m/2
-  font-size: $big_text
-  border: 0
-.form-audioset-configure textarea::placeholder
-  font-size: $big_text
-  font-weight: 600
 
 .field__widget--picture-preview
   font-size: .8em
@@ -59,8 +45,6 @@ $big_text: 1.5rem
     top: 2px
   br
     margin-bottom: $m/2
-  .placeholder
-    background-color: rgba(black, .05)
   .widget-wrapper
     background-color: rgba(black, .05)
     padding: $m/2
@@ -68,11 +52,12 @@ $big_text: 1.5rem
 // Mode display
 .mode-selector
   text-align: center
+  height: 100%
 
 .mode-selector,
 .mode-selector__state
   position: relative
-  height: 100%
+  height: calc(100% - #{$height_header*3})
 
 .mode-selector__explanation
   font-size: $big_text
@@ -90,16 +75,31 @@ $states: 1 2
       display: block
 
 // Mode selector widget
-#id_mode_display,
-  +appearance(none)
-  background: none
-  border: 0
-  padding: $m/2
-  li:first-child
-    display: none
-  li:not(:first-child)
+#id_mode_display
+  line-height: $height_header
+  left: 0
+  width: 100%
+  display: block
+  z-index: 100
+  background-color: lighten(#acacac, 10%)
+  text-align: left
+  padding-left: $m
+  &:before
+    content: "Editar fondo"
+    margin-right: $m
+    color: white
+  li
+    font-weight: 600
+    text-transform: uppercase
+    font-size: .8em
     display: inline-block
     margin: 0 $m
+  li:first-child
+    display: none
+  label
+    cursor: pointer
+  label:before
+    content: none
 
 [for=id_mode_display_1]:before
   content: url('/static/dashboard/img/blank-image.svg')
@@ -112,28 +112,12 @@ $states: 1 2
   margin-bottom: $m
 .mode-selector__state
   display: none
-.mode-selector[data-current-state='1'],
-.mode-selector[data-current-state='2']
-  .mode-selector__explanation
-    display: none
-  #id_mode_display
-    position: absolute
-    top: $m
-    right: $m
-    font-weight: 600
-    text-transform: uppercase
-    font-size: .8em
-    display: block
-    z-index: 100
-    background: rgba(black, .75)
-    label
-      cursor: pointer
-    label:before
-      content: none
 
 .mode-selector .placeholder__text
   padding-top: 20%
-
+.mode-selector .placeholder img
+  max-height: 100%
+  width: auto
 .form-audioset-configure .django-ckeditor-widget
   width: 100%
   position: relative
@@ -143,12 +127,10 @@ $states: 1 2
 .form-audioset-configure .cke_inner,
 .form-audioset-configure .cke_top,
 .form-audioset-configure .cke_wysiwyg_div,
-  background-color: transparent !important
   color: white !important
   border: 0
   font-size: 2em !important
 .form-audioset-configure .cke_button
-  filter: invert(1)
   cursor: pointer
 .form-audioset-configure .cke_bottom
   background: rgba(black, .1)
@@ -176,3 +158,13 @@ $states: 1 2
   transition: background-color .2s ease
   &:hover
     background-color: darken($color_success, 10%)
+.form__cancel:hover
+  cursor: pointer
+
+.form-audioset-configure__fieldset-label
+  border-top: 2px solid rgba(black, .5)
+  padding-top: $m/2
+  cursor: pointer
+  &::after
+    content: "\2304"
+    margin-left: $m/4

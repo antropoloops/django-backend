@@ -8,13 +8,6 @@
             {% trans 'Bienvenido' %},
             <strong>{{ request.user.username }}</strong>
         </span>
-        <li class="menu-user__item {% if modifier %}menu-user__item--{{modifier}}{% endif %}"
-            data-tooltip="{% trans 'Ver tu lista de proyectos' %}"
-        >
-            <a href="{% url 'project_list' %}">
-                  {% icon 'list' %}
-            </a>
-        </li>
         {% if request.user.is_staff %}
         <li class="menu-user__item {% if modifier %}menu-user__item--{{modifier}}{% endif %}"
             data-tooltip="{% trans 'Administra el sitio' %}"

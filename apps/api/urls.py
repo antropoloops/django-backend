@@ -72,6 +72,12 @@ urlpatterns = [
         views.audioset,
         name='audioset'
     ),
+    path(
+        'audioset/toggle/<int:pk>',
+        views.audioset_toggle,
+        name='audioset_toggle'
+    ),
+
     # Project
     path(
         'project/<slug:slug>',
@@ -99,8 +105,16 @@ urlpatterns = [
     ),
     # Home
     path(
-    'index',
-    views.home,
-    name='home'
+        'index',
+        views.home,
+        name='home'
     ),
+
+    # Cache
+    path(
+        'clean/<slug:slug>',
+        views.clean_cache,
+        name='clean_cache'
+    ),
+
 ]

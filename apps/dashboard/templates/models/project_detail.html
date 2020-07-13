@@ -6,7 +6,7 @@
 
 {# body's css classes #}
 {% block body_css_classes %}
-    page--dashboard page--project-detail toppadded
+    page--dashboard page--project-detail
 {% endblock %}
 
 {# html title #}
@@ -14,14 +14,18 @@
     {{ object.name }}
 {% endblock %}
 
-{# Sidebar #}
-{% block sidebar %}
+{# breadcrumb #}
+{% block breadcrumb %}
     <p class="page__breadcrumb">
         <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a> » {{ object.name }}
     </p>
-    <h1 class="page__title">
+{% endblock %}
+
+{# Sidebar #}
+{% block sidebar %}
+    <p class="page__title">
         {{ object.name }}
-    </h1>
+    </p>
     <figure class="page__image page__image--project">
         {% if object.image_small %}
             <img src="{{ object.image_small.url }}" />
@@ -29,10 +33,22 @@
             {% blank_image %}
         {% endif %}
     </figure>
-    {% include 'components/menu-actions.html' with section='project-detail' section_id=project.pk section_slug=project.slug %}
+    <p class="dashboard-action">
+        <a href="{% url 'audioset_create' object.id %}">
+              {% icon 'plus' %}
+              {% trans 'Crear audioset' %}
+        </a>
+    </p>
+    {% include 'components/view-dashboard.html' with item_list=audioset_list item_label='audioset' item_url='audioset_tracklist' %}
+    <p class="dashboard-action">
+        <a href="{% url 'project_update' object.id %}">
+              {% icon 'edit-2' %}
+              {% trans 'Editar Proyecto' %}
+        </a>
+    </p>
 {% endblock %}
 
 {# Content #}
 {% block main %}
-    {% include 'components/view-dashboard.html' with item_list=audioset_list item_label='audioset' item_url='audioset_update' %}
+    {% lorem %}
 {% endblock %}

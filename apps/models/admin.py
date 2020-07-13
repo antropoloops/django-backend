@@ -61,6 +61,7 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
                 'project',
                 'slug',
                 'owner',
+                'published'
             )
         }),
         (_('Metadatos'), {

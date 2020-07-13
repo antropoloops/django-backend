@@ -14,18 +14,29 @@
     {% trans 'Añade tracks: ' %} {{ object.name }}
 {% endblock %}
 
+{# breadcrumb #}
+{% block breadcrumb %}
+    <p class="page__breadcrumb">
+        » <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
+        » <a href="{% url 'project_detail' object.project.pk %}">{{ object.project.name }}</a>
+        » {{ object.name }}
+    </p>
+{% endblock %}
+
 {# Content #}
 {% block main %}
-{% include 'components/menu-audioset.html' with slug=audioset_slug active_item='tracklist' %}
 <div class="layout-form-audioset">
     <div class="layout-form-audioset__left modal-anchor">
-        <p class="tracklist__add-item"
+        <p class="page__title">
+            {{ object.name }}
+        </p>
+        <p class="dashboard-action tracklist__add-item"
            data-show-template="template-form-track"
            data-action="create"
            data-model="track"
         >
             {% icon 'plus' %}
-            {% trans 'Añade un track nuevo' %}
+            {% trans 'Añadir pista' %}
         </p>
         <ul class="tracklist tracklist--audioset" data-audioset="{{ view.kwargs.pk }}" data-csrf="{% csrf request %}">
         {% for track in tracks.all %}
@@ -35,11 +46,12 @@
             </li>
         {% endfor %}
         </ul>
-        <div class="tracklist__help">
-            {% blocktrans trimmed %}
-            Puedes reordenar los tracks y los clips desplazándolos con el ratón.
-            {% endblocktrans %}
-        </div>
+        <p class="dashboard-action dashboard-action--fixed-bottom">
+            <a href="{% url 'audioset_update' object.id %}">
+                  {% icon 'edit-2' %}
+                  {% trans 'Editar audioset' %}
+            </a>
+        </p>
         <div id="form-tracklist-container"></div>
         {% include 'models/template_form_track.html' with form=trackform %}
         {% include 'models/template_form_clip.html' with form=clipform %}
@@ -57,6 +69,9 @@
                 {% include 'components/block-map-finder.html' with classes="hidden" submit="Localiza el clip" %}
             </div>
         {% endif %}
+        <div class="clips-display-info">
+            {% trans 'Puedes seleccionar los puntos del mapa para editar los clips asociados' %}
+        </div>
     </div>
 </div>
 {% endblock %}

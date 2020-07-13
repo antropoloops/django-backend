@@ -6,9 +6,9 @@
 function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
 {
     // Map container and main elements
-    var container = document.querySelector('.layout-form-audioset__right').getBoundingClientRect();
-    var W = container.width;
-    var H = container.height;
+    var container = document.querySelector('.layout-form-audioset__right');
+    var W = container.clientWidth;
+    var H = container.clientHeight || document.querySelector('.form--simple').clientHeight;
     var scale_factor = 200;
 
     var svg = d3.select('#map')

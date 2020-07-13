@@ -9,6 +9,10 @@ from django.core import serializers
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.core.cache import cache
+from django.http import HttpRequest
+from django.utils.cache import get_cache_key
+from django.views.decorators.cache import cache_page
 # contrib
 from bulk_update.helper import bulk_update
 # app
@@ -289,6 +293,7 @@ def home(request):
         status=200
     )
 
+@cache_page(60 * 60 * 24)
 def resource(request, slug):
     """ Gets a resource """
 
@@ -305,6 +310,37 @@ def resource(request, slug):
             )
     return HttpResponse(
         data,
+        content_type="application/json",
+        status=200
+    )
+
+@login_required
+def clean_cache(request, slug):
+    request = HttpRequest()
+    path = reverse(
+        'resource',
+        kwargs = { 'slug' : slug }
+    )
+    request.path = path
+    key = get_cache_key(slug)
+    if cache.has_key(key):
+        cache.delete(key)
+    return HttpResponse(
+        data,
+        content_type="application/json",
+        status=200
+    )
+
+@login_required
+def audioset_toggle(request, pk):
+    audioset = get_object_or_404(
+        models.Audioset.objects,
+        pk=pk
+    )
+    audioset.published = not audioset.published
+    audioset.save()
+    return HttpResponse(
+        {},
         content_type="application/json",
         status=200
     )
