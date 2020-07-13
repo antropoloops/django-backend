@@ -9,6 +9,16 @@
     page--audioset-configuration-form
 {% endblock %}
 
+{# breadcrumb #}
+{% block breadcrumb %}
+    <p class="page__breadcrumb">
+        » <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
+        » <a href="{% url 'project_detail' object.project.pk %}">{{ object.project.name }}</a>
+        » <a href="{% url 'audioset_tracklist' object.pk %}">{{ object.name }}</a>
+        » Crear/editar
+    </p>
+{% endblock %}
+
 {# html title #}
 {% block title %}
     {% trans 'Configura: ' %} {{ object.name }}
