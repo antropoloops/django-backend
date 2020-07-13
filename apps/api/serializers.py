@@ -185,7 +185,7 @@ def serialize_audioset(audioset):
         'meta' : {
             'title'       : audioset.name,
             'path'        : audioset.slug,
-            'parent_path' : '',
+            'parent_path' : audioset.project.slug,
             'description' : audioset.description,
             'readme'      : audioset.readme,
             'logo_url'    : audioset.image.url if audioset.image else '',
