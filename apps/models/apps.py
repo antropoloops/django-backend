@@ -2,4 +2,7 @@ from django.apps import AppConfig
 
 
 class ModelsConfig(AppConfig):
-    name = 'models'
+    name = 'apps.models'
+
+    def ready(self):
+        from . import signals
