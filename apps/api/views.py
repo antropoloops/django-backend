@@ -229,10 +229,10 @@ def audioset(request, slug):
 def projects(request):
     """ Gets projects """
 
-    projects = models.Project.objects(published=True)
+    projects = models.Project.objects.filter(published=True)
 
     return HttpResponse(
-        serializers.serialize_project(project),
+        serializers.serialize_project(projects),
         content_type="application/json",
         status=200
     )
@@ -288,12 +288,12 @@ def home(request):
         slug='home'
     )
     return HttpResponse(
-        serializers.serialize_theme(theme),
+        serializers.serialize_home(theme),
         content_type="application/json",
         status=200
     )
 
-@cache_page(60 * 60 * 24)
+# @cache_page(60 * 60 * 24)
 def resource(request, slug):
     """ Gets a resource """
 

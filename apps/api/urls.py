@@ -106,7 +106,7 @@ urlpatterns = [
     # Home
     path(
         'index',
-        views.projects,
+        views.home,
         name='home'
     ),
 
