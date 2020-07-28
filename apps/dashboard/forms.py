@@ -34,6 +34,7 @@ class ProjectForm(forms.ModelForm):
         model = models.Project
         fields = [
             'name',
+            'published',
             'description',
             'image',
             'readme',

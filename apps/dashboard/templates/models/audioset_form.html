@@ -13,15 +13,24 @@
 {% block breadcrumb %}
     <p class="page__breadcrumb">
         » <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
-        » <a href="{% url 'project_detail' object.project.pk %}">{{ object.project.name }}</a>
-        » <a href="{% url 'audioset_tracklist' object.pk %}">{{ object.name }}</a>
-        » Crear/editar
+        {% if form.instance.pk %}
+        » <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
+        » <a href="{% url 'audioset_tracklist' form.instance.pk %}">{{ form.instance.name }}</a>
+        » {% trans 'Editar audioset' %}
+        {% else %}
+        » <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
+        » {% trans 'Añadir audioset' %}
+        {% endif %}
     </p>
 {% endblock %}
 
 {# html title #}
 {% block title %}
-    {% trans 'Configura: ' %} {{ object.name }}
+    {% if form.instance.pk %}
+    {% trans 'Edita ' %} {{ form.instance.name }}
+    {% else %}
+    {% trans 'Añade audioset' %}
+    {% endif %}
 {% endblock %}
 
 {# Content #}
