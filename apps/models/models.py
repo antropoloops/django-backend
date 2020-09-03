@@ -432,9 +432,13 @@ class Audioset(Publishable):
 
     playmode = models.CharField(
         _('Playmode de audio'),
-        max_length=128,
-        blank=True,
-        null=True,
+        default='0',
+        choices=(
+            ('0', _('Monofónico')),
+            ('1', _('Polifónico')),
+        ),
+        max_length=1,
+        null=False,
         help_text=_(
             'Faltaría un texto que explique esto'
         )
@@ -456,17 +460,6 @@ class Audioset(Publishable):
         help_text=_(
             'Faltaría un texto que explique esto'
         )
-    )
-
-    monopoly = models.BooleanField(
-        _('Monopoly'),
-        default='0',
-        choices=(
-            ('0', _('Monofónico')),
-            ('1', _('Polifónico')),
-        ),
-        max_length=1,
-        null=False
     )
 
     def is_owned_by(self, user):

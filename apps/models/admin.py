@@ -86,8 +86,7 @@ class AudiosetAdmin(sortable.NonSortableParentAdmin):
         }),
         (_('Audio'), {
             'fields' : (
-                # TODO: add playmode
-                'monopoly',
+                'playmode',
                 'audio_bpm',
                 'audio_quantize',
             )
