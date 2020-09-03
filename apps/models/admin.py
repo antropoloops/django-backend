@@ -14,6 +14,7 @@ class ClipAdmin(admin.ModelAdmin):
     model = models.Clip
     list_display = (
         'name',
+        'readme',
         'audioset',
         'audio_name',
     )

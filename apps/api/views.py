@@ -161,6 +161,7 @@ def clip_update(request):
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
+        print(data['readme'])
         clip = models.Clip.objects.get(pk=data['pk'])
         clipform = forms.ClipUpdateForm(
             data,

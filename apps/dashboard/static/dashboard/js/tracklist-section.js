@@ -147,6 +147,19 @@ jQuery(document).ready( function()
                             delete_link.dataset.id = id;
                             delete_link.addEventListener("click", (e)=>{  show_template(e, delete_link.dataset) });
                             delete_link.classList.add('visible');
+                            // Apply CKEditor widget to readme field
+                            if(model=='clip') CKEDITOR.replace('id_readme', {
+                                'toolbar' : 'Custom',
+                                'width'   : '100%',
+                                'extraPlugins': 'videodetector,',
+                                'toolbar_Custom': [
+                                    ['Bold', 'Italic', 'Underline'],
+                                    ['NumberedList', 'BulletedList'],
+                                    ['Link', 'Unlink', 'Image', 'VideoDetector'],
+                                    ['RemoveFormat', 'Source'],
+                                ],
+                                'allowedContent' : true,
+                            });
                         },
                         error : function(req){
                             console.log('Error: ', req);
@@ -160,6 +173,12 @@ jQuery(document).ready( function()
                 e.preventDefault();
                 document.querySelector('.layout-form-audioset').classList.add('saving');
                 var endpoint = endpoints[model][action];
+                // If clip replace explicitly the value of the CKEDITOR field
+                // to prevent from not updating it at all
+                if(model=='clip'){
+                    var readme_text = CKEDITOR.instances['id_readme'].getData();
+                    document.querySelector('#id_readme').value = readme_text;
+                }
                 // Serialize form data but delete pks to
                 // avoid breaking creation forms
                 // TODO: not rely on FormData to prevent old browsers from not working at all
@@ -189,6 +208,7 @@ jQuery(document).ready( function()
                                   field.classList.add('not-validated');
                                   field.dataset.error = errors_msg[fieldname][0].message;
                             });
+                            document.querySelector('.layout-form-audioset').classList.remove('saving');
                         }
                     },
                 });

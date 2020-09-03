@@ -43,9 +43,12 @@ class Clip(models.Model):
         max_length=128,
         blank=False,
     )
-    readme = models.TextField(
+    readme = RichTextUploadingField(
         _('Notas adicionales'),
         blank=True,
+        help_text=_(
+            'Descripción del clip.'
+        )
     )
     key = models.CharField(
         _('Tecla'),
