@@ -171,6 +171,7 @@ def clip_update(request):
         if clipform.is_valid():
             for field in [
                 'image',
+                'image_alt',
                 'audio_mp3',
                 'audio_wav',
                 'audio_ogg'

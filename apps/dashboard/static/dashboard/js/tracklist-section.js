@@ -89,26 +89,28 @@ jQuery(document).ready( function()
                             {
                                 var widget = form.querySelector('[name='+field+']');
                                 var audio_fields = [ 'audio_mp3', 'audio_wav', 'audio_ogg' ];
+                                var image_fields = [ 'image', 'image_alt', ];
                                 // Image and color field values cannot be set directly
-                                if( field != 'image' && field != 'order' && audio_fields.indexOf(field) == -1){
+                                if( field != 'image' && field != 'image_alt' && field != 'order' && audio_fields.indexOf(field) == -1){
                                     widget.value = data[field];
                                 }
                                 // Create a proper image field
-                                if( field == 'image' && data[field] )
+                                if( image_fields.includes(field) && data[field] )
                                 {
                                     // As we cannot set image src via ajax we mock the image input
                                     // using JS
-                                    var widget_container = document.querySelector('.form-field--image');
+
+                                    var widget_container = document.querySelector('.form-field--' + field);
                                     // Placeholder
                                     var thumbnail = document.createElement('img');
-                                    thumbnail.src = data['image'];
-                                    thumbnail.classList.add('form-field--image-preview');
+                                    thumbnail.src = data[field];
+                                    thumbnail.classList.add('form-field--'+field+'-preview');
                                     widget_container.appendChild(thumbnail);
                                     // Checkbox to delete the image
                                     var delete_input = document.createElement('input');
                                     delete_input.type = 'checkbox';
-                                    delete_input.name = 'image_delete';
-                                    delete_input.classList.add('form-field--image-delete');
+                                    delete_input.name = field + '_delete';
+                                    delete_input.classList.add('form-field--'+field+'-delete');
                                     var delete_input_label = document.createElement('label');
                                     delete_input_label.innerHTML = 'Borrar la imagen';
                                     widget_container.appendChild(delete_input);
