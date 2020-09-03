@@ -447,6 +447,7 @@ class Audioset(Publishable):
             'Faltaría un texto que explique esto'
         )
     )
+
     audio_quantize = models.PositiveSmallIntegerField(
         _('Quantize'),
         default=0,
@@ -455,6 +456,17 @@ class Audioset(Publishable):
         help_text=_(
             'Faltaría un texto que explique esto'
         )
+    )
+
+    monopoly = models.BooleanField(
+        _('Monopoly'),
+        default='0',
+        choices=(
+            ('0', _('Monofónico')),
+            ('1', _('Polifónico')),
+        ),
+        max_length=1,
+        null=False
     )
 
     def is_owned_by(self, user):

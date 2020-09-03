@@ -101,6 +101,7 @@ class AudiosetForm(forms.ModelForm):
             'map_url',
             'map_lambda',
             'map_shift_vertical',
+            'monopoly'
         ]
         widgets = {
             'description' : LimitedTextareaWidget(limit=280),

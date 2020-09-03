@@ -232,6 +232,7 @@ def serialize_audioset(audioset):
         },
         # audio
         'audio' : {
+            'mode' : audioset.monopoly,
             'bpm' : 120,
             'defaults' : {
                 'loop' : True,
