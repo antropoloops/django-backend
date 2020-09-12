@@ -290,7 +290,7 @@ def serialize_audioset(audioset):
                     clip.pos_x,
                     clip.pos_y
                 ],
-                'title'     : clip.name,
+                'title'     : clip.audio_name,
                 'album'     : clip.album_name,
                 'artist'    : clip.artist,
                 'country'   : clip.country.code,
