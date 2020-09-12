@@ -283,14 +283,14 @@ def serialize_audioset(audioset):
             track_data['clipIds'].append( slugify(clip.name) )
             audioset_data['clips'].append({
                 'id'       : slugify(clip.name),
-                'name'     : clip.name,
+                'name'     : clip.audio_name,
                 'trackId'  : track.id,
                 'trackNum' : index,
                 'position' : [
                     clip.pos_x,
                     clip.pos_y
                 ],
-                'title'     : clip.audio_name,
+                'title'     : clip.name,
                 'album'     : clip.album_name,
                 'artist'    : clip.artist,
                 'country'   : clip.country.code,
