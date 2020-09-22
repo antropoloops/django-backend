@@ -149,19 +149,7 @@ jQuery(document).ready( function()
                             delete_link.dataset.id = id;
                             delete_link.addEventListener("click", (e)=>{  show_template(e, delete_link.dataset) });
                             delete_link.classList.add('visible');
-                            // Apply CKEditor widget to readme field
-                            if(model=='clip') CKEDITOR.replace('id_readme', {
-                                'toolbar' : 'Custom',
-                                'width'   : '100%',
-                                'extraPlugins': 'videodetector,',
-                                'toolbar_Custom': [
-                                    ['Bold', 'Italic', 'Underline'],
-                                    ['NumberedList', 'BulletedList'],
-                                    ['Link', 'Unlink', 'Image', 'VideoDetector'],
-                                    ['RemoveFormat', 'Source'],
-                                ],
-                                'allowedContent' : true,
-                            });
+
                         },
                         error : function(req){
                             console.log('Error: ', req);
@@ -231,6 +219,7 @@ jQuery(document).ready( function()
                 var active_marker = document.querySelector('.clip-marker[data-id="'+id+'"]');
                 if(active_marker)
                     active_marker.classList.add('active');
+
             } else if(d.model == 'track'){
                 document.querySelector('.layout-form-audioset').dataset.active='track';
             }
@@ -239,6 +228,22 @@ jQuery(document).ready( function()
             // Remove previous content and add new one
             clean();
             form_container.appendChild(form_node);
+            // Apply CKEditor widget to readme field
+            if(model=='clip') {
+                // alert();
+                CKEDITOR.replace('id_readme', {
+                    'toolbar' : 'Custom',
+                    'width'   : '100%',
+                    'extraPlugins': 'videodetector,',
+                    'toolbar_Custom': [
+                        ['Bold', 'Italic', 'Underline'],
+                        ['NumberedList', 'BulletedList'],
+                        ['Link', 'Unlink', 'Image', 'VideoDetector'],
+                        ['RemoveFormat', 'Source'],
+                    ],
+                    'allowedContent' : true,
+                });
+            }
             form_container.scrollTo(0,0);
         };
         button.addEventListener("click", show_template);
