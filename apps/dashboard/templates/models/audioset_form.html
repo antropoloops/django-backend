@@ -11,17 +11,17 @@
 
 {# breadcrumb #}
 {% block breadcrumb %}
-    <p class="page__breadcrumb">
-        » <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
-        {% if form.instance.pk %}
-        » <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
-        » <a href="{% url 'audioset_tracklist' form.instance.pk %}">{{ form.instance.name }}</a>
-        » {% trans 'Editar audioset' %}
-        {% else %}
-        » <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
-        » {% trans 'Añadir audioset' %}
-        {% endif %}
-    </p>
+<div class="page__breadcrumb">
+    <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
+    {% if form.instance.pk %}
+    / <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
+    / <a href="{% url 'audioset_tracklist' form.instance.pk %}">{{ form.instance.name }}</a>
+    » {% trans 'Editar audioset' %}
+    {% else %}
+    / <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
+    / {% trans 'Añadir audioset' %}
+    {% endif %}
+</div>
 {% endblock %}
 
 {# html title #}
@@ -35,79 +35,97 @@
 
 {# Content #}
 {% block main %}
-<form enctype="multipart/form-data" class="layout-form-audioset form-audioset-configure" method="post">
+<form enctype="multipart/form-data" class="form layout-form-audioset form-audioset-configure" method="post">
     {% csrf_token %}
-    {% include 'registration/forms/form-errors.html' with name="audioset-configure" %}
+    {% include 'forms/form-errors.html' with name="audioset-configure" %}
     <div class="layout-form-audioset__left">
-        <p class="page__title">
-          {% if object.instance.pk %}
-          {% trans 'Editar audioset' %}
-          {% else %}
-          {% trans 'Crear audioset' %}
-          {% endif %}
-        </p>
-        <div class="form--simple">
-            {% include 'models/audioset_configuration_field--full.html' with field=form.name %}
-            {% include 'models/audioset_configuration_field--full.html' with field=form.description %}
-            {% include 'models/audioset_configuration_field--full.html' with field=form.image %}
-            {% include 'models/audioset_configuration_field--full.html' with field=form.readme %}
-            {% include 'models/audioset_configuration_field--full.html' with field=form.slug %}
-            <div class="form-audioset-configure__fieldset">
-                <h5 class="form-audioset-configure__fieldset-label">
-                    {% trans 'Propiedades avanzadas' %}
-                </h5>
-                <div class="form-audioset-configure__fieldset-fields hidden">
-                    {% include 'models/audioset_configuration_field--full.html' with field=form.audio_bpm %}
-                    {% include 'models/audioset_configuration_field--full.html' with field=form.playmode %}
-                    {% include 'models/audioset_configuration_field--full.html' with field=form.audio_quantize %}
-                    {% include 'models/audioset_configuration_field--full.html' with field=form.map_url %}
-                    {% include 'models/audioset_configuration_field--full.html' with field=form.map_lambda %}
-                    {% include 'models/audioset_configuration_field--full.html' with field=form.map_shift_vertical %}
-                </div>
-            </div>
+        <div class="actions">
+            <h5 class="actions__title">
+                {% if form.instance.pk %}
+                {% trans 'Editar audioset' %}
+                {% else %}
+                {% trans 'Crear audioset' %}
+                {% endif %}
+            </h5>
+            <ul class="actions__items">
+                <li class="actions__item">
+                    <span class="form__cancel {% if modifier %}form__cancel--{{ modifier }}{% endif %}" onclick="history.go(-1)">
+                        {% trans 'Cancelar' %}
+                    </span>
+                </li>
+                <li class="actions__item">
+                    <input class="btn btn--red" type="submit" value="{% trans 'Guardar' %}" />
+                </li>
+            </ul>
         </div>
-        <ul class="default-actions default-actions--fixed-bottom">
-            <li class="default-actions__item default-actions__item--submit">
-                <input class="form-tracklist__submit" type="submit" value="{% trans 'Guardar' %}" />
-            </li>
-            {% if form.instance.pk %}
-            <li class="default-actions__item default-actions__item--delete">
-                <a href="{% url 'audioset_delete' form.instance.project.id form.instance.id %}">
-                  {% trans 'Borrar' %}
-                </a>
-            </li>
+        <div class="form-fields">
+            <div class="fieldset">
+                {% include 'forms/field.html' with field=form.name %}
+                {% include 'forms/field.html' with field=form.slug %}
+            </div>
+            <div class="fieldset">
+                {% include 'forms/field.html' with field=form.image %}
+                {% include 'forms/field.html' with field=form.description %}
+                {% include 'forms/field.html' with field=form.readme %}
+            </div>
+            <div class="fieldset">
+                {% include 'forms/field.html' with field=form.playmode %}
+                {% include 'forms/field.html' with field=form.audio_bpm %}
+            </div>
+            {% if request.user.is_staff %}
+            <div class="fieldset">
+                {% include 'forms/field.html' with field=form.audio_quantize %}
+                {% include 'forms/field.html' with field=form.map_url %}
+                {% include 'forms/field.html' with field=form.map_lambda %}
+                {% include 'forms/field.html' with field=form.map_shift_vertical %}
+            </div>
             {% endif %}
-            <li class="default-actions__item default-actions__item--cancel">
-                <span class="form__cancel {% if modifier %}form__cancel--{{ modifier }}{% endif %}" onclick="history.go(-1)">
-                    {% trans 'Cancelar' %}
-                </span>
-            </li>
-        </ul>
+        </div>
+        {% if form.instance.pk %}
+        <div class="actions-secondary">
+            <ul class="actions-secondary__items">
+                <li class="actions-secondary__item">
+                    <a href="{% url 'audioset_delete' form.instance.project.id form.instance.id %}">
+                        {% trans 'Borra este audioset' %}
+                        {% m_icon 'delete' %}
+                    </a>
+                </li>
+                {% if request.user.is_staff %}
+                <li class="actions-secondary__item">
+                    <a href="{% url 'api:audioset' form.instance.slug %}" target="_blank">
+                        {% trans 'Ver en API' %}
+                        {% m_icon 'visibility' %}
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
     </div>
     <div class="layout-form-audioset__right">
-        <div class="mode-selector" data-current-state="{{ form.mode_display.value }}">
+        <div class="background-field background-field--panel">
+            <label class="background-field__label required">
+                {% trans 'Fondo del audioset' %}
+            </label>
+            <span class="background-field__helptext">
+                {% trans '¿Qué fondo quieres para el audioset?' %}
+            </span>
             {{ form.mode_display }}
+        </div>
+        <div class="mode-selector" data-current-state="{{ form.mode_display.value }}">
             <div class="mode-selector__state" data-state="1">
                 <div class="mode-selector__state-fields">
-                    {% include 'models/audioset_configuration_field.html' with field=form.background %}
+                    {% include 'forms/field.html' with field=form.background %}
                 </div>
             </div>
             <div class="mode-selector__state" data-state="2">
                 <div class="mode-selector__state-fields">
                     <div id="map"></div>
                     <div class="map__fields">
-                        {% include 'models/audioset_configuration_field.html' with field=form.map_scale %}
-                        {% include 'models/audioset_configuration_field.html' with field=form.map_center_x %}
-                        {% include 'models/audioset_configuration_field.html' with field=form.map_center_y %}
-                    </div>
-                    <div class="map__actions">
-                        {% include 'components/block-map-finder.html' with submit="Centrar mapa" %}
-                        <span class="map__helptext">
-                            {% blocktrans trimmed %}
-                            Centra el mapa buscando las coordenadas de un lugar en el buscador. Puedes usar el
-                            ratón para cambiar el zoom.
-                            {% endblocktrans %}
-                        </span>
+                        {% include 'components/block-background-field-map.html' with submit="Centrar mapa" %}
+                        {% include 'forms/field.html' with field=form.map_scale classes="hidden" %}
+                        {% include 'forms/field.html' with field=form.map_center_x classes="hidden" %}
+                        {% include 'forms/field.html' with field=form.map_center_y classes="hidden" %}
                     </div>
                 </div>
             </div>

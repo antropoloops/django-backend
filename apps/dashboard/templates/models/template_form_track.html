@@ -2,49 +2,42 @@
 {% load i18n %}
 
 <template id="template-form-track">
-    <form class="form-tracklist" data-model="track" data-action="create">
+    <form class="form-tracklist form" data-model="track" data-action="create">
         {% csrf_token %}
-        <div class="form-tracklist__header">
-            <h3 class="form-tracklist__label" data-action="create">
+        <div class="actions">
+            <span class="actions__title" data-action="create">
                 {% trans 'Crear pista' %}
-            </h3>
-            <h3 class="form-tracklist__label" data-action="update">
+            </span>
+            <span class="actions__title" data-action="update">
                 {% trans 'Editar pista' %}
-            </h3>
-        </div>
-        <div class="form-tracklist__fields">
-            <div class="fieldset fieldset-display {%if inline %}collapsible{% endif %}">
-                <div class="fieldset__content">
-                    {% for field in form %}
-                    <div class="form-field form-field--{{ field.name }}">
-                        <label class="form-field__label {% if field.field.required %}required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
-                        {{ field }}
-                        <p class="form-field__helptext">
-                            {{ field.help_text }}
-                        </p>
-                    </div>
-                    {% endfor %}
-                    <input type="hidden" name="track" />
-                </div>
-            </div>
-        </div>
-        <ul class="default-actions default-actions--fixed-bottom">
-            <li class="default-actions__item default-actions__item--submit">
-                <input class="form-tracklist__submit" type="submit" value="{% trans 'Guardar' %}" />
-            </li>
-            <li class="default-actions__item default-actions__item--delete"
-                data-show-template="template-form-delete"
-                data-action="delete"
-                data-model="track"
-                data-id=""
-            >
-                {% trans 'Borrar pista' %}
-            </li>
-            <li class="default-actions__item default-actions__item--cancel">
-                <span class="form__cancel {% if modifier %}form__cancel--{{ modifier }}{% endif %}" onclick="closePopup()">
+            </span>
+            <ul class="actions__items">
+                <li class="actions__item" onclick="closePopup()">
                     {% trans 'Cancelar' %}
-                </span>
-            </li>
-        </ul>
+                </li>
+                <li class="actions__item">
+                    <input class="btn btn--red" type="submit" value="{% trans 'Guardar' %}" />
+                </li>
+            </ul>
+        </div>
+        <div class="form-fields">
+            {% include 'forms/field.html' with field=form.pk classes='hidden' %}
+            {% include 'forms/field.html' with field=form.name %}
+            {% include 'forms/field.html' with field=form.color %}
+            <input type="hidden" name="track" />
+        </div>
+        <div class="actions-secondary">
+            <ul class="actions-secondary__items">
+                <li class="actions-secondary__item"
+                    data-show-template="template-form-delete"
+                    data-action="delete"
+                    data-model="track"
+                    data-id=""
+                >
+                    {% trans 'Borrar pista' %}
+                    {% m_icon 'delete' %}
+                </li>
+            </ul>
+        </div>
     </form>
 </template>

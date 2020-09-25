@@ -12,6 +12,7 @@
         if(current){
               placeholder.innerHTML = "<img src='" + current.href + "' />";
         }
+        console.log(placeholder.innerHTML);
         input.addEventListener(
             'change',
             function(e) {

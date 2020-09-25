@@ -69,6 +69,15 @@ class AudiosetForm(forms.ModelForm):
         widget=AutoslugWidget(src='name')
     )
 
+    def __init__(self, *args, **kwargs):
+        super(AudiosetForm,self).__init__(*args, **kwargs)
+        print(self.fields)
+        self.fields['published'].help_text = _(
+            'Cuando tengas listo tu audioset, marca esta casilla para '
+            'aparezca en el índice del apartado «Comunidad».'
+        )
+
+
     def clean_slug(self):
         slug = self.cleaned_data['slug']
         if models.Audioset.objects.filter(
@@ -86,6 +95,7 @@ class AudiosetForm(forms.ModelForm):
         model = models.Audioset
         fields = [
             'name',
+            'published',
             'description',
             'slug',
             'image',
@@ -103,7 +113,7 @@ class AudiosetForm(forms.ModelForm):
             'map_shift_vertical',
         ]
         widgets = {
-            'description' : LimitedTextareaWidget(limit=280),
+            'description' : LimitedTextareaWidget(limit=70),
             'image' : ImagePreviewWidget(
                 placeholder=_(
                     "Añade aquí una imagen de cabecera"

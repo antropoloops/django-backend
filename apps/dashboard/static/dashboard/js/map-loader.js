@@ -97,10 +97,10 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
 
     // Map finder behavior
     //
-    var map_finder = document.querySelector('.map-finder__submit');
+    var map_finder = document.querySelector('.background-field__submit');
     map_finder.addEventListener('click', function(e)
     {
-        var place = document.querySelector('.map-finder__input').value;
+        var place = document.querySelector('.background-field__input').value;
         if(place)
         {
             document.querySelector('.layout-form-audioset').classList.add('saving');
@@ -114,9 +114,9 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
                 var place = null;
                 if(data.length > 0){
                     place = data[0];
-                    document.querySelector('.map-finder__warning').classList.add('hidden');
+                    document.querySelector('.background-field__warning').classList.add('hidden');
                 } else {
-                    document.querySelector('.map-finder__warning').classList.remove('hidden');
+                    document.querySelector('.background-field__warning').classList.remove('hidden');
                 }
                 // TODO: handle rejections and coordinates outside of current projection bounding box
                 if(is_map_conf){

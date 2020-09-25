@@ -1,0 +1,28 @@
+{# Default form #}
+{% load i18n static %}
+
+<form action="{{ action }}" enctype="multipart/form-data" method="post" class="form {% if modifier %}form--{{ modifier }}{% endif %}">
+    {% csrf_token %}
+    {% include 'forms/form-errors.html' with form=form %}
+    {% for field in form %}
+        <div class="form__field form-field--{{ field.name }} {% if modifier %}form__field--{{ modifier }}{% endif %}">
+            <label class="form__label form-label--{{ field.name }} {% if modifier %}form__label--{{ modifier }}{% endif %} {% if field.field.required %}required{% endif %}"
+                  for="{{ field.name }}">
+                {{ field.label }}
+            </label>
+            {{ field }}
+            <p class="form__helptext {% if modifier %}form-helptext--{{ modifier }}{% endif %}">
+                {{ field.help_text }}
+            </p>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                <ul class="form__errors {% if modifier %}form-errors--{{ modifier }}{% endif %}">
+                    <li class="form__error {% if modifier %}form-error--{{ modifier }}{% endif %}">
+                        {{ error }}
+                    </li>
+                </ul>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+</form>

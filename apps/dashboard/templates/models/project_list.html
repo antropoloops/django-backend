@@ -16,20 +16,24 @@
 
 {# breadcrumb #}
 {% block breadcrumb %}
-    <p class="page__breadcrumb">
-        » {% trans 'Proyectos' %}
-    </p>
+<div class="page__breadcrumb">
+    {% trans 'Proyectos' %}
+</div>
 {% endblock %}
 
 {# Sidebar #}
 {% block sidebar %}
-    <p class="dashboard-action">
-        <a href="{% url 'project_create' %}">
-              {% icon 'plus' %}
-              {% trans 'Crear nuevo proyecto' %}
-        </a>
-    </p>
-    {% include 'components/view-dashboard.html' with item_list=project_list item_label='proyecto' item_url='project_detail' %}
+<div class="actions">
+    <span class="actions__title"></span>
+    <ul class="actions__items">
+        <li class="actions__item" data-tooltip="{% trans 'Añadir un proyecto' %}">
+            <a href="{% url 'project_create' %}">
+                {% m_icon 'add' %}
+            </a>
+        </li>
+    </ul>
+</div>
+{% include 'components/view-dashboard.html' with item_list=project_list item_label='proyecto' item_url='project_detail' %}
 {% endblock %}
 
 {# Content #}

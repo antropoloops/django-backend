@@ -18,7 +18,7 @@ body
   overflow-x: hidden
   color: $color_text
   background-color: $color_background
-  font-family: $font_text, $font_text_alternates
+  font-family: $font_text
   font-weight: $weight_text
   text-rendering: optimizeSpeed
 
@@ -33,7 +33,7 @@ figure
 
 // SET DEFAULT TEXT SIZES
 =h($n)
-  font-family : $font_headers, $font_headers_alternates
+  font-family : $font_headers
   font-weight : $weight_headers
   font-size   : nth($size_headers, $n)
 
@@ -101,3 +101,36 @@ select
 
 .hidden
   display: none
+
+.icon
+  vertical-align: middle
+  &:hover
+    cursor: pointer
+
+.inline li
+  display: inline
+
+.btn
+  border-radius: 12px
+  color: white
+  padding: 0 $m/4
+  line-height: 24px
+  font-weight: bold
+  transition: background-color .2s ease
+  border: 0
+  display: inline-block
+  &:hover
+    cursor: pointer
+
+.btn--gray
+  background-color: #787878
+  &:hover
+    background-color: darken(#787878, 5%)
+
+.btn--red
+  background-color: $red
+  &:hover
+    background-color: darken($red, 5%)
+
+.white
+  color: white

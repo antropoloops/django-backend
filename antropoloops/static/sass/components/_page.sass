@@ -1,4 +1,4 @@
-// Page titles
+// Page common elements
 
 .page__title
   line-height: $m*2
@@ -6,17 +6,22 @@
   color: white
 
 .page__breadcrumb
-  display: inline-block
-  position: absolute
-  left: 400px
-  margin: 0
-  top: 18px
   font-weight: bold
+  color: #991820
   a
-    color: inherit
+    color: $color_text
     font-weight: normal
   text-transform: uppercase
   font-size: .75em
 
 .page__image
   float: left
+
+// Specific page styles
+
+.page--registration .layout-two-col__right-col
+  background: url('../img/bg--login.jpg') no-repeat center center/cover
+
+.page--chao .layout-one-col-fixed__col
+  min-height: calc(100vh - 35px)
+  background: url('../img/bg--logout.jpg') no-repeat center center/cover

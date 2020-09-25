@@ -1,0 +1,16 @@
+{# form field #}
+
+<div class="field field--{{ field.name }} {% if classes %}{{ classes }}{% endif %}">
+    <label class="field__label {% if field.field.required %}required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
+    {{ field }}
+    {% if field.help_text %}
+    <div class="field__helptext">
+        {{ field.help_text | safe }}
+    </div>
+    {% endif %}
+    {% if field.errors %}
+    <div class="field__errors">
+        {{ field.errors }}
+    </div>
+    {% endif %}
+</div>

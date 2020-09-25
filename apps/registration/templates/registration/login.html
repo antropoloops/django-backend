@@ -1,5 +1,5 @@
 {# Login form page. Overrides auth's template #}
-{% extends 'layouts/single-column-fixed.html' %}
+{% extends 'layouts/two-column.html' %}
 
 {# tags not defined as built-ins in settings.py #}
 {% load i18n static %}
@@ -15,11 +15,36 @@ Login
 {% endblock %}
 
 {# Content #}
-{% block main %}
-
-<h1 class="page__title">
-  {% icon 'log-in' %} {% trans 'Login' %}
-</h1>
-{% include 'registration/forms/form--login.html' %}
-
+{% block sidebar %}
+<form action="{{ action }}" method="post" class="form form--login">
+    {% csrf_token %}
+    <div class="form-header">
+        <h5 class="form-title">
+            {% trans 'Login' %}
+        </h5>
+        <ul class="form-actions">
+            <li class="form-action">
+                <input class="form-registration__submit" type="submit" value="{% trans 'Entrar' %}" />
+            </li>
+        </ul>
+    </div>
+    {% include 'forms/form-errors.html' with name="registration" modifier="login" %}
+    <div class="form-fields">
+        {% include 'forms/field.html' with field=form.username %}
+        {% include 'forms/field.html' with field=form.password %}
+    </div>
+    <div class="form-help form-help--login">
+        <a href="{% url 'password_reset' %}">
+            {% trans '¿Has olvidado tu nombre de usuari@ o contraseña?' %}
+            {% m_icon 'psychology' %}
+        </a>
+    </div>
+    <div class="site-info">
+        {% blocktrans trimmed %}
+        Hola, estamos aún en fase de pruebas del gestor de contenidos, si te interesa
+        probar la herramienta puedes escribirnos a talleres<en>antropoloops.com y te
+        crearemos un perfil de usuaria/o. ¡Saludos!
+        {% endblocktrans %}
+    </div>
+</form>
 {% endblock %}

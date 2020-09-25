@@ -1,43 +1,21 @@
 .clip
   position: relative
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background-color: rgba(white, .25)
+  padding-right: $m/2
+  height: 50px
+.clip__thumbnail img
+  vertical-align: bottom
+  width: auto
+  max-height: 50px
+  max-width: 50px
 .clip:not(:last-child)
-  border-bottom: 4px solid rgba(black, .5)
-.clip-actions
-  position: absolute
-  right: 12px
-  top: $m/3
-  background-color: rgba(black, .15)
-  padding: 4px
-[class*='clip-actions__']
-  display: inline
-  cursor: pointer
-  margin-left: $m/4
-.clip__thumbnail
-  display: inline-block
-  float: left
-  background-color: rgba(black, .15)
-  img
-    max-height: 100%
-    width: auto
-    vertical-align: bottom
+  margin-bottom: 2px
 .clip__name
-  display: inline-block
-  line-height: 100px
-  padding-left: $m
-  position: relative
-  color: #222
-  max-width: 280px
-  overflow: hidden
-  text-overflow: ellipsis
-.clip__key
-  position: absolute
-  right: $m
-  height: $m
-  text-align: center
-  line-height: $m
-  border-radius: 50%
-  width: $m
-  background-color: rgba(black, .25)
-  top: calc(70px - #{$m/2})
-.track__clips .empty
-  padding: $m
+  flex-basis: 280px
+  color: rgba(68,68,68,1)
+  font-weight: bold
+.clip-actions img
+  opacity: .6

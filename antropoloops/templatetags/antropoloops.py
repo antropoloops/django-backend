@@ -25,3 +25,10 @@ def img(file):
 @register.simple_tag
 def csrf(req):
     return get_token(req)
+
+@register.simple_tag
+def m_icon(file):
+    return mark_safe('<img class="icon" src="%s/%s-24px.svg" />' % (
+        settings.STATIC_URL + 'icons',
+        file
+    ))

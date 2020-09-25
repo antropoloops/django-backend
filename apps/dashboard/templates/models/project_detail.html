@@ -16,39 +16,35 @@
 
 {# breadcrumb #}
 {% block breadcrumb %}
-    <p class="page__breadcrumb">
-        <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a> » {{ object.name }}
-    </p>
+<div class="page__breadcrumb">
+    <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a> / {{ object.name }}
+</div>
 {% endblock %}
 
 {# Sidebar #}
 {% block sidebar %}
-    <p class="page__title">
+<div class="actions">
+    <span class="actions__title">
         {{ object.name }}
-    </p>
-    <figure class="page__image page__image--project">
-        {% if object.image_small %}
-            <img src="{{ object.image_small.url }}" />
-        {% else %}
-            {% blank_image %}
-        {% endif %}
-    </figure>
-    <p class="dashboard-action">
-        <a href="{% url 'audioset_create' object.id %}">
-              {% icon 'plus' %}
-              {% trans 'Crear audioset' %}
-        </a>
-    </p>
-    {% include 'components/view-dashboard.html' with item_list=audioset_list item_label='audioset' item_url='audioset_tracklist' %}
-    <p class="dashboard-action">
-        <a href="{% url 'project_update' object.id %}">
-              {% icon 'edit-2' %}
-              {% trans 'Editar Proyecto' %}
-        </a>
-    </p>
+    </span>
+    <ul class="actions__items">
+        <li class="actions__item" data-tooltip="{% trans 'Añade un audioset' %}">
+            <a href="{% url 'audioset_create' object.id %}">
+                {% m_icon 'add' %}
+            </a>
+        </li>
+        <li class="actions__item" data-tooltip="{% trans 'Edita este proyecto' %}">
+            <a href="{% url 'project_update' object.id %}">
+                {% m_icon 'create' %}
+            </a>
+        </li>
+    </ul>
+</div>
+{% include 'components/view-dashboard.html' with item_list=audioset_list item_label='audioset' item_url='audioset_tracklist' %}
+<p class="dashboard-action">
+
+</p>
 {% endblock %}
 
 {# Content #}
-{% block main %}
-    {% lorem %}
-{% endblock %}
+{% block main %}{% endblock %}

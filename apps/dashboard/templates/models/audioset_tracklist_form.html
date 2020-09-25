@@ -20,28 +20,37 @@
 
 {# breadcrumb #}
 {% block breadcrumb %}
-    <p class="page__breadcrumb">
-        » <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
-        » <a href="{% url 'project_detail' object.project.pk %}">{{ object.project.name }}</a>
-        » {{ object.name }}
-    </p>
+<div class="page__breadcrumb">
+    / <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
+    / <a href="{% url 'project_detail' object.project.pk %}">{{ object.project.name }}</a>
+    / {{ object.name }}
+</div>
 {% endblock %}
 
 {# Content #}
 {% block main %}
 <div class="layout-form-audioset">
     <div class="layout-form-audioset__left modal-anchor">
-        <p class="page__title">
-            {{ object.name }}
-        </p>
-        <p class="dashboard-action tracklist__add-item"
-           data-show-template="template-form-track"
-           data-action="create"
-           data-model="track"
-        >
-            {% icon 'plus' %}
-            {% trans 'Añadir pista' %}
-        </p>
+        <div class="actions">
+            <span class="actions__title">{{ object.name }}</span>
+            <ul class="actions__items">
+                  <li class="actions__item"
+                      data-show-template="template-form-track"
+                      data-action="create"
+                      data-model="track"
+                      data-tooltip="{% trans 'Añade una pista' %}"
+                  >
+                    {% m_icon 'add' %}
+                </li>
+                <li class="actions__item"
+                    data-tooltip="{% trans 'Edita este audioset' %}"
+                >
+                    <a href="{% url 'audioset_update' object.id %}">
+                        {% m_icon 'create' %}
+                    </a>
+                </li>
+            </ul>
+        </div>
         <ul class="tracklist tracklist--audioset" data-audioset="{{ view.kwargs.pk }}" data-csrf="{% csrf request %}">
         {% for track in tracks.all %}
             <li class="tracklist__item tracklist__item--audioset" data-id="{{ track.id }}" data-order="{{ track.order }}"
@@ -50,32 +59,42 @@
             </li>
         {% endfor %}
         </ul>
-        <p class="dashboard-action dashboard-action--fixed-bottom">
-            <a href="{% url 'audioset_update' object.id %}">
-                  {% icon 'edit-2' %}
-                  {% trans 'Editar audioset' %}
-            </a>
-        </p>
         <div id="form-tracklist-container"></div>
+        <div class="form-help form-help--tracklist">
+            {% trans 'Puedes seleccionar los clips en el mapa para editarlos' %}
+        </div>
+        <div class="actions-secondary">
+            <ul class="actions-secondary__items">
+                <li class="actions-secondary__item">
+                    <a href="https://play.antropoloops.com/audioset/{{ object.slug }}" target="_blank">
+                        {% trans 'Ver audioset online' %}
+                        {% m_icon 'play_circle_filled' %}
+                    </a>
+                </li>
+                <li class="actions-secondary__item">
+                    <a href="{% url 'audioset_delete' object.project.pk object.pk %}">
+                        {% trans 'Borrar audioset' %}
+                        {% m_icon 'delete' %}
+                    </a>
+                </li>
+            </ul>
+        </div>
         {% include 'models/template_form_track.html' with form=trackform %}
         {% include 'models/template_form_clip.html' with form=clipform %}
         {% include 'models/template_form_delete.html' %}
     </div>
     <div class="layout-form-audioset__right">
         {% if audioset.is_panel and audioset.background %}
+              {% include 'components/block-background-field-panel.html' with classes="hidden" %}
             <img class="audioset-background"
                  width="{{ audioset.background.width }}"
                  height="{{ audioset.background.height }}"
                  src="{{ audioset.background.url }}"
             />
         {% else %}
-            <div id="map">
-                {% include 'components/block-map-finder.html' with classes="hidden" submit="Localiza el clip" %}
-            </div>
+            {% include 'components/block-background-field-map.html' with classes="hidden" %}
+            <div id="map"></div>
         {% endif %}
-        <div class="clips-display-info">
-            {% trans 'Puedes seleccionar los puntos del mapa para editar los clips asociados' %}
-        </div>
     </div>
 </div>
 {% endblock %}

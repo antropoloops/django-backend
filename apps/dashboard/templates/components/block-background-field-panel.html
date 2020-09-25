@@ -1,0 +1,11 @@
+{# Map finder block #}
+{% load i18n %}
+
+<div class="background-field background-field--panel {% if classes %}{{ classes }}{% endif %}">
+    <label class="background-field__label required">
+        {% trans 'Posición clip' %}
+    </label>
+    <span class="background-field__helptext">
+        {% trans 'Haz clic sobre la imagen para situar este clip en ella' %}
+    </span>
+</div>

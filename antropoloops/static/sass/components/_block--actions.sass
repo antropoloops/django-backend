@@ -1,0 +1,36 @@
+.actions
+  display: flex
+  justify-content: space-between
+  align-items: center
+  position: fixed
+  width: 400px
+  padding: $m/2
+  z-index: 11000
+  height: 40px
+  color: rgba(black, .9)
+  background-color: #aaa
+  top: $height_header
+
+.actions__title
+  margin: 0
+  max-width: 275px
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.actions__items
+  padding-right: 6px
+  img
+    opacity: .5
+    transition: opacity .2s ease
+
+.actions__item
+  display: inline-block
+  color: white
+  &:hover
+    cursor: pointer
+    img
+      opacity: 1
+
+.actions__item:not(:first-of-type)
+  margin-left: $m/2

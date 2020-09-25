@@ -23,8 +23,8 @@
  }
 
 // Container node to hold forms in the view
-var form_container  = document.querySelector('#form-tracklist-container');
-var map_finder      = document.querySelector('.map-finder');
+var form_container   = document.querySelector('#form-tracklist-container');
+var background_field = document.querySelector('.background-field');
 function clean(){
     while(form_container.firstChild)
         form_container.removeChild(form_container.firstChild);
@@ -33,9 +33,10 @@ function clean(){
 function closePopup(){
     clean();
     document.querySelector('.layout-form-audioset').dataset.active = '';
-    if(map_finder){
-        document.querySelector('.map-finder').classList.add('hidden');
-        document.querySelector('.map-finder__input').value = '';
+    if(background_field){
+        background_field.classList.add('hidden');
+        var input = document.querySelector('.background-field__input');
+        if(input) input.value = '';
     }
     var placeholder = document.querySelector('.clip-marker--placeholder');
     if(placeholder)
@@ -76,9 +77,14 @@ jQuery(document).ready( function()
             if(action)
                 form.setAttribute('data-action', action);
 
+
             // Populate form with proper data
             switch(action)
             {
+                case 'delete':
+                    var name = form_node.querySelector('.delete-text__name');
+                    if(name) name.innerHTML = dataset['name'];
+                    break;
                 case 'update':
                     jQuery.ajax({
                         type : 'GET',
@@ -88,8 +94,8 @@ jQuery(document).ready( function()
                             Object.keys(data).forEach(function(field)
                             {
                                 var widget = form.querySelector('[name='+field+']');
-                                var audio_fields = [ 'audio_mp3', 'audio_wav', 'audio_ogg' ];
-                                var image_fields = [ 'image', 'image_alt', ];
+                                var audio_fields = [ 'audio_wav' ];
+                                var image_fields = [ 'image' ];
                                 // Image and color field values cannot be set directly
                                 if( field != 'image' && field != 'image_alt' && field != 'order' && audio_fields.indexOf(field) == -1){
                                     widget.value = data[field];
@@ -100,7 +106,7 @@ jQuery(document).ready( function()
                                     // As we cannot set image src via ajax we mock the image input
                                     // using JS
 
-                                    var widget_container = document.querySelector('.form-field--' + field);
+                                    var widget_container = document.querySelector('.field--' + field);
                                     // Placeholder
                                     var thumbnail = document.createElement('img');
                                     thumbnail.src = data[field];
@@ -123,33 +129,37 @@ jQuery(document).ready( function()
                                     {
                                         // As we cannot set audio src via ajax we mock the image input
                                         // using JS
-                                        var widget_container = document.querySelector('.form-field--' + audio_field);
+                                        var widget_container = document.querySelector('.field--' + audio_field);
                                         // Placeholder
                                         var placeholder = document.createElement('a');
+                                        var input = widget_container.querySelector('input[type=file]');
                                         placeholder.href= data[field];
                                         placeholder.target = '_blank';
                                         placeholder.innerHTML = data[field];
                                         placeholder.classList.add('form-field__placeholder--audio');
-                                        widget_container.appendChild(placeholder);
+                                        widget_container.insertBefore(placeholder, input);
+
                                         // Checkbox to delete the image
+                                        var delete_div = document.createElement('div');
+                                        delete_div.classList.add('form-field__delete--audio');
                                         var delete_input = document.createElement('input');
                                         delete_input.type = 'checkbox';
                                         delete_input.name = audio_field + '_delete';
-                                        delete_input.classList.add('form-field__delete--audio');
                                         var delete_input_label = document.createElement('label');
                                         delete_input_label.innerHTML = 'Borrar el audio';
-                                        widget_container.appendChild(delete_input);
-                                        widget_container.appendChild(delete_input_label);
+                                        delete_div.appendChild(delete_input);
+                                        delete_div.appendChild(delete_input_label);
+                                        widget_container.insertBefore(delete_div, input);
                                     }
                                 });
                                 form.querySelector('[name=pk]').value = data.pk;
                             });
                             // Create delete button
-                            var delete_link = document.querySelector('.default-actions__item--delete');
+                            var delete_link = document.querySelector('[data-action=delete]');
                             delete_link.dataset.id = id;
+                            delete_link.dataset.name = data['name'];
                             delete_link.addEventListener("click", (e)=>{  show_template(e, delete_link.dataset) });
                             delete_link.classList.add('visible');
-
                         },
                         error : function(req){
                             console.log('Error: ', req);
@@ -209,8 +219,8 @@ jQuery(document).ready( function()
                 if(active)
                   active.classList.remove('active');
                 document.querySelector('.layout-form-audioset').dataset.active='clip';
-                if(map_finder){
-                    document.querySelector('.map-finder').classList.remove('hidden');
+                if(background_field){
+                    document.querySelector('.background-field').classList.remove('hidden');
                 }
                 var placeholder = document.querySelector('.clip-marker--placeholder');
                 if(placeholder){

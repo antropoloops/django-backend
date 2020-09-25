@@ -2,69 +2,34 @@
 
 $big_text: 1.5rem
 
-// Name
-.field-name--form-audioset-configure
-  padding: $m/4 $m/2
-  .feather
-    vertical-align: middle
-    margin-right: $m/3
-  a:link, a:visited,a:hover, a:active
-    color: white
-// Logo
-.field-image--audioset-configuration-form,
-.field-background--audioset-configuration-form
-  position: relative
-  .widget-wrapper
-    opacity: 0
-    transition: opacity .2s ease
-    padding: $m/4
-    width: 100%
-    background: rgba(black, .85)
-    position: absolute
-    left: 0
-    top: 0
-    color: white
-    z-index: 1000
-    text-align: center
-    a
-      color: white !important
-  &:hover
-    .widget-wrapper
-      opacity: 1
-.form-audioset-configure .placeholder__text
-  padding: $m/2
-  color: white
-.field-image--audioset-configuration-form .field__widget--picture-preview
-  position: relative
-
-.field__widget--picture-preview
-  font-size: .8em
-  input[type=checkbox]
+// Mode selector widget tweaks
+#id_mode_display
+  display: inline-block
+  li
+    font-size: .8em
+    display: inline
     margin-left: $m/2
+  li:first-child
+    display: none
+  label, input
+    cursor: pointer
+    vertical-align: middle
+  input
     position: relative
-    top: 2px
-  br
-    margin-bottom: $m/2
-  .widget-wrapper
-    background-color: rgba(black, .05)
-    padding: $m/2
+    top: -2px
+  label:before
+    content: none
+
 
 // Mode display
 .mode-selector
   text-align: center
+  position: relative
   height: 100%
 
 .mode-selector,
 .mode-selector__state
   position: relative
-  height: calc(100% - #{$height_header*3})
-
-.mode-selector__explanation
-  font-size: $big_text
-  color: #929292
-  padding-top: $m*3
-  font-weight: 600
-  margin: $m*2 0
 
 $states: 1 2
 @each $state in $states
@@ -74,99 +39,21 @@ $states: 1 2
     [data-state='#{$state}']
       display: block
 
-// Mode selector widget
-#id_mode_display
-  line-height: $height_header
-  left: 0
-  width: 100%
-  display: block
-  z-index: 100
-  background-color: lighten(#acacac, 10%)
-  text-align: left
-  padding-left: $m
-  &:before
-    content: "Editar fondo"
-    margin-right: $m
-    color: white
-  li
-    font-weight: 600
-    text-transform: uppercase
-    font-size: .8em
-    display: inline-block
-    margin: 0 $m
-  li:first-child
-    display: none
-  label
-    cursor: pointer
-  label:before
-    content: none
-
-[for=id_mode_display_1]:before
-  content: url('/static/dashboard/img/blank-image.svg')
-  display: block
-  margin-bottom: $m
-[for=id_mode_display_2]:before
-  content: url('/static/dashboard/img/world-image.svg')
-  display: block
-  max-width: 100%
-  margin-bottom: $m
 .mode-selector__state
   display: none
 
-.mode-selector .placeholder__text
-  padding-top: 20%
-.mode-selector .placeholder img
-  max-height: 100%
-  width: auto
-.form-audioset-configure .django-ckeditor-widget
+.map__fields
+  position: absolute
+  left: 0
+  bottom: 0
+  height: 40px
   width: 100%
-  position: relative
-  height: 100%
-.form-audioset-configure .cke_chrome
-  border: 0
-.form-audioset-configure .cke_inner,
-.form-audioset-configure .cke_top,
-.form-audioset-configure .cke_wysiwyg_div,
-  color: white !important
-  border: 0
-  font-size: 2em !important
-.form-audioset-configure .cke_button
-  cursor: pointer
-.form-audioset-configure .cke_bottom
-  background: rgba(black, .1)
-  a.cke_path_item, span.cke_path_empty
-    color: white !important
+  text-align: left
 
-.form__actions--audioset-configure
-  margin: 0
-  padding: 0
-.form__action--audioset-configure
-  display: inline
-.form-field--audioset
-  display: none
-.audioset-submit
-  font-weight: 600
-  padding: 0 $m/2
-  height: $m*2
-  line-height: $m*2
-  float: right
-  margin: $m/2 $m/3 0 0
-  background-color: $color_success
-  color: white
-  border: 0
-  cursor: pointer
-  transition: background-color .2s ease
-  &:hover
-    background-color: darken($color_success, 10%)
-.form__cancel:hover
-  cursor: pointer
-
-.form-audioset-configure__fieldset-label
-  border-top: 2px solid rgba(black, .5)
-  padding-top: $m/2
-  cursor: pointer
-  &::after
-    content: "\2304"
-    margin-left: $m/4
-textarea.cke_source
-  color: #111
+.mode-selector .field--background
+  padding-top: 35px
+  .field__label
+    display: none
+  img
+    max-height: 100%
+    width: auto

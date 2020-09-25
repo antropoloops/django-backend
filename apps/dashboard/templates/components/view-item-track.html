@@ -2,29 +2,29 @@
 {% load i18n dashboard_tags %}
 
 <div class="track-header">
-    <h4 class="track__name">
+    <p class="track__name">
         {{ track.name }}
-    </h4>
-    <ul class="track-actions">
-        <li class="track-actions__edit"
+    </p>
+    <ul class="track-actions inline">
+        <li class="track-action"
+            data-show-template="template-form-clip"
+            data-action="create"
+            data-model="clip"
+            data-id="{{ clip.pk }}"
+            data-track="{{ track.pk }}"
+            data-tooltip="{% trans 'Añade un clip a esta pista' %}"
+        >
+            {% m_icon 'add' %}
+        </li>
+        <li class="track-action"
             data-show-template="template-form-track"
             data-action="update"
             data-model="track"
             data-id="{{ track.pk }}"
             data-tooltip="{% trans 'Editar esta pista' %}"
         >
-            {% icon 'edit' %}
+            {% m_icon 'create' %}
         </li>
-        <li class="track-actions__add"
-            data-show-template="template-form-clip"
-            data-action="create"
-            data-model="clip"
-            data-id="{{ clip.pk }}"
-            data-track="{{ track.pk }}"
-            data-tooltip="{% trans 'Añade un clip a esta pista' %}">
-            {% icon 'plus' %} Añadir clip de audio
-        </li>
-
     </ul>
 </div>
 <div class="track__clips" data-track="{{ track.pk }}" data-color="{{ track.color }}">

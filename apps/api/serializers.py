@@ -37,7 +37,15 @@ class ClipSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Clip
-        exclude = [ 'id', ]
+        exclude = [
+            'id',
+            'audio_mp3',
+            'audio_ogg',
+            'image_alt',
+            'place',
+            'beats',
+            'volume'
+        ]
 
 class MapClipSerializer(serializers.ModelSerializer):
 

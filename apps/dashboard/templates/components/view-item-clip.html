@@ -12,11 +12,6 @@
     <div class="clip__name">
         {{ clip.name }}
     </div>
-    {% if clip.key %}
-    <span class="clip__key">
-        {{ clip.key }}
-    </span>
-    {% endif %}
     <ul class="clip-actions">
         <li class="clip-actions__edit"
             data-show-template="template-form-clip"
@@ -25,7 +20,7 @@
             data-id="{{ clip.pk }}"
             data-tooltip="{% trans 'Edita este clip' %}"
         >
-            {% icon 'edit' %}
+            {% m_icon 'create' %}
         </li>
     </ul>
 </div>

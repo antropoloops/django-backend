@@ -27,6 +27,14 @@ validator_wav = validators.AudioTypeValidator([
     "audio/x-wave",
     "audio/vnd.wave"
 ])
+validator_audio = validators.AudioTypeValidator([
+    "audio/mpeg",
+    "audio/ogg"
+    "audio/wav",
+    "audio/x-wav",
+    "audio/x-wave",
+    "audio/vnd.wave"
+])
 
 class Clip(models.Model):
     """ Clip model definition """
@@ -42,12 +50,19 @@ class Clip(models.Model):
         _('Nombre del clip'),
         max_length=128,
         blank=False,
+        help_text=_(
+            'Es el nombre que se muestra en tu clip antes de activarlo. '
+            'Úsalo para describir qué es...por ejemplo «ritmo base» o «sonido calle»…'
+        )
     )
     readme = RichTextUploadingField(
         _('Notas adicionales'),
         blank=True,
         help_text=_(
-            'Descripción del clip.'
+            'Aquí puedes insertar texto, imágenes y contenido para explicar más '
+            'cosas del audio. Por ejemplo puedes insertar un link a otra página '
+            'donde se pueda oir completo el audio o contar alguna historia sobre '
+            'el mismo.'
         )
     )
     key = models.CharField(
@@ -59,6 +74,10 @@ class Clip(models.Model):
         _('Imagen'),
         blank=True,
         upload_to='images/clips/',
+        help_text=_(
+            'Sube una imagen cuadrada como portada de tu clip '
+            '(mínimo e ideal 400x400 px).'
+        )
     )
     image_small = ImageSpecField(
         source='image',
@@ -108,7 +127,7 @@ class Clip(models.Model):
     audio_name = models.CharField(
         _('Nombre del audio'),
         max_length=128,
-        blank=False,
+        blank=True,
         null=True,
     )
     audio_mp3 = models.FileField(
@@ -130,12 +149,13 @@ class Clip(models.Model):
         )
     )
     audio_wav = models.FileField(
-        _('Archivo de audio WAV'),
+        _('Archivo de audio'),
         blank=True,
-        validators=[ validator_wav ],
+        validators=[ validator_audio ],
         upload_to='audio/wav',
         help_text=_(
-            'Archivo de audio del sample en formato WAV'
+            'Archivo de audio del sample. Idealmente en WAV aunque acepta también '
+            'formatos MP3 y OGG.'
         )
     )
     artist = models.CharField(
@@ -186,6 +206,7 @@ class Clip(models.Model):
     beats = models.PositiveSmallIntegerField(
         _('Beats'),
         default=0,
+        blank=True,
         help_text=_(
             'Número de beats de los samples del clip'
         )
@@ -326,15 +347,15 @@ class Audioset(Publishable):
         _('Descripción corta'),
         blank=True,
         help_text=_(
-            'Descripción corta. Se usará en vistas de contenido. '
+            'Este texto funciona como un subtítulo para tu audioset, puedes explicar muy brevemente qué es.'
         )
     )
     readme = RichTextUploadingField(
         _('Descripción'),
         blank=True,
         help_text=_(
-            'Descripción larga. Se usará en la página específica '
-            'del audioset.'
+            'Aquí puedes insertar texto, imágenes y contenido para explicar en qué '
+            'contexto has realizado tu audioset, contar un poco del proyecto, etc.'
         )
     )
     project = models.ForeignKey(
@@ -350,7 +371,11 @@ class Audioset(Publishable):
     image = models.ImageField(
         _('Imagen'),
         blank=True,
-        upload_to='images/audiosets'
+        upload_to='images/audiosets',
+        help_text=_(
+            'Sube una imagen cuadrada como portada de tu audioset '
+            '(mínimo e ideal 400x400 px).'
+        )
     )
     image_small = ImageSpecField(
         source='image',
@@ -434,7 +459,7 @@ class Audioset(Publishable):
     )
 
     playmode = models.CharField(
-        _('Playmode de audio'),
+        _('Tipo de audioset'),
         default='0',
         choices=(
             ('0', _('Monofónico')),
@@ -443,7 +468,8 @@ class Audioset(Publishable):
         max_length=1,
         null=False,
         help_text=_(
-            'Faltaría un texto que explique esto'
+            'Monofónico: sólo puede sonar un audio a la vez. '
+            'Polifónico: pueden sonar varios audios a la vez.'
         )
     )
 
@@ -451,7 +477,10 @@ class Audioset(Publishable):
         _('BPM del audio'),
         default=120,
         help_text=_(
-            'Faltaría un texto que explique esto'
+            'BPM son las pulsaciones por minuto. Tienes que poner aquí el valor '
+            'que hayas usado en tu software de edición para el audio. '
+            '<a href="https://es.wikipedia.org/wiki/Pulsaciones_por_minuto" '
+            'target="_blank">Más información</a>.'
         )
     )
 
@@ -505,9 +534,11 @@ class Track(SortableMixin):
     )
     color = RGBColorField(
         _('Color'),
-        blank=True,
+        blank=False,
         help_text=_(
-            'Escoge el color de fondo del track'
+            'Escoge el color de fondo de la pista, '
+            'los clips que crees dentro de ella tendrán un color más claro '
+            'que el que elijas.'
         )
     )
     clips = models.ManyToManyField(

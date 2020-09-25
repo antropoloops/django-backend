@@ -2,54 +2,74 @@
 {% load i18n %}
 
 <template id="template-form-clip">
-    <form enctype="multipart/form-data" class="form-tracklist" data-model="clip" data-action="create">
+    <form enctype="multipart/form-data" class="form form-tracklist" data-model="clip" data-action="create">
         {% csrf_token %}
-        <div class="form-tracklist__header">
-            <h3 class="form-tracklist__label" data-action="create">
+        <div class="actions">
+            <h5 class="actions__title" data-action="create">
                 {% trans 'Añade un clip' %}
-            </h3>
-            <h3 class="form-tracklist__label" data-action="update">
+            </h5>
+            <h5 class="actions__title" data-action="update">
                 {% trans 'Edita este clip' %}
-            </h3>
+            </h5>
+            <ul class="actions__items">
+                <li class="actions__item" onclick="closePopup()">
+                    {% trans 'Cancelar' %}
+                </li>
+                <li class="actions__item">
+                    <input class="form-tracklist__submit btn btn--red" type="submit" value="{% trans 'Guardar' %}" />
+                </li>
+            </ul>
         </div>
-        <div class="form-tracklist__fields">
-            <div class="fieldset fieldset-display {%if inline %}collapsible{% endif %}">
-                <div class="fieldset__content">
-                    {% for field in form %}
-                    <div class="form-field form-field--{{ field.name }}">
-                        <label class="form-field__label {% if field.field.required %}required{% endif %}" for="{{ field.name }}">{{ field.label }}</label>
-                        {{ field }}
-                        <p class="form-field__helptext">
-                            {{ field.help_text }}
-                        </p>
-                    </div>
-                    {% endfor %}
-                    <input type="hidden" name="track" />
+        <div class="form-fields">
+            <div class="fieldset">
+                {% include 'forms/field.html' with field=form.name %}
+                {% include 'forms/field.html' with field=form.image %}
+                {% include 'forms/field.html' with field=form.key %}
+            </div>
+            <div class="fieldset">
+                <div class="fieldset__label">
+                    {% trans 'Audio' %}
+                </div>
+                {% include 'forms/field.html' with field=form.audio_wav %}
+                {% include 'forms/field.html' with field=form.audio_name %}
+                {% include 'forms/field.html' with field=form.artist %}
+                {% include 'forms/field.html' with field=form.album_name %}
+                <div class="fieldset__row">
+                    {% include 'forms/field.html' with field=form.year %}
+                    {% include 'forms/field.html' with field=form.country %}
                 </div>
             </div>
+            <div class="fieldset">
+                <div class="fieldset__label">
+                    {% trans 'Info adicional del clip' %}
+                </div>
+                {% include 'forms/field.html' with field=form.readme %}
+            </div>
+            {% include 'forms/field.html' with field=form.pk classes="hidden" %}
+            {% include 'forms/field.html' with field=form.pos_x classes="hidden" %}
+            {% include 'forms/field.html' with field=form.pos_y classes="hidden" %}
+            {% include 'forms/field.html' with field=form.beats classes="hidden" %}
+            {% include 'forms/field.html' with field=form.volume classes="hidden" %}
+            <input type="hidden" name="track" />
         </div>
         <div class="form-errors hidden">
             {% blocktrans trimmed %}
             El formulario contiene errores. Revísalo, por favor.
             {% endblocktrans %}
         </div>
-        <ul class="default-actions default-actions--fixed-bottom">
-            <li class="default-actions__item default-actions__item--submit">
-                <input class="form-tracklist__submit" type="submit" value="{% trans 'Guardar' %}" />
-            </li>
-            <li class="default-actions__item default-actions__item--delete"
-                data-show-template="template-form-delete"
-                data-action="delete"
-                data-model="clip"
-                data-id=""
-            >
-                {% trans 'Borrar clip' %}
-            </li>
-            <li class="default-actions__item default-actions__item--cancel">
-                <span class="form__cancel {% if modifier %}form__cancel--{{ modifier }}{% endif %}" onclick="closePopup()">
-                    {% trans 'Cancelar' %}
-                </span>
-            </li>
+        <div class="actions-secondary">
+            <ul class="actions-secondary__items">
+                <li class="actions-secondary__item"
+                    data-show-template="template-form-delete"
+                    data-action="delete"
+                    data-model="clip"
+                    data-id=""
+                    data-name=""
+                >
+                    {% trans 'Borrar clip' %}
+                    {% m_icon 'delete' %}
+                </li>
+            </ul>
         </ul>
     </form>
 </template>

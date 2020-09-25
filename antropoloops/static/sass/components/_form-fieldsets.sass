@@ -1,0 +1,17 @@
+// Fieldsets
+
+.fieldset
+  border-bottom: 1px solid
+  padding-bottom: $m
+.fieldset:not(:first-of-type)
+  margin-top: $m/2
+.fieldset__label
+  text-align: right
+.fieldset__label + .field
+  margin-top: -40px
+.fieldset__row
+  display: flex
+  justify-content: space-between
+  align-items: top
+  .field:not(:first-child)
+    padding-left: $m/2

@@ -1,12 +1,10 @@
 {# Login form page. Overrides auth's template #}
 {% extends 'layouts/single-column-fixed.html' %}
-
-{# tags not defined as built-ins in settings.py #}
 {% load i18n %}
 
 {# body's css classes #}
 {% block body_css_classes %}
-page--registration page--chao
+page--chao
 {% endblock %}
 
 {# html title #}
@@ -17,10 +15,7 @@ page--registration page--chao
 {# Content #}
 {% block main %}
 <div class="goodbye">
-    {% icon 'heart' %}
-    <h1 class="page__title">
-      ¡Gracias por la visita!
-    </h1>
+    ¡Gracias por la visita!
+    {% m_icon 'favorite' %}
 </div>
-
 {% endblock %}

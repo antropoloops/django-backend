@@ -1,10 +1,11 @@
 @import compass/css3/animation
 
 .goodbye
-  text-align: center
+  text-align: right
   +animation(fadeup 1s 1)
-  margin-top: $m*4
-.goodbye .feather
-  stroke: red
-  transform: scale(2)
-  margin-bottom: $m
+  color: white
+  padding: $m/2
+  img
+    vertical-align: middle
+    margin-left: $m/4
+    filter: invert(1)

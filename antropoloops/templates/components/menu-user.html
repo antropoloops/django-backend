@@ -1,29 +1,24 @@
 {# User menu #}
 {% load static i18n %}
 
-{% if not request.user.is_anonymous %}
-<div class="menu-user {% if modifier %}menu-user--{{modifier}}{% endif %}">
-    <ul class="menu-user__items {% if modifier %}menu-user__items--{{modifier}}{% endif %}">
+<div class="menu-user">
+    <ul class="menu-user__items">
+        {% if not request.user.is_anonymous %}
         <span class="greeting__user">
-            {% trans 'Bienvenido' %},
-            <strong>{{ request.user.username }}</strong>
+            {% trans 'Bienvenido' %}, <strong>{{ request.user.username }}</strong>
         </span>
         {% if request.user.is_staff %}
-        <li class="menu-user__item {% if modifier %}menu-user__item--{{modifier}}{% endif %}"
-            data-tooltip="{% trans 'Administra el sitio' %}"
-        >
-            <a href="{% url 'admin:index' %}">
-                  {% icon 'settings' %}
-            </a>
+        <li class="menu-user__item" data-tooltip="{% trans 'Administra el sitio' %}">
+            <a href="{% url 'admin:index' %}">{% m_icon 'settings' %}</a>
         </li>
         {% endif %}
-        <li class="menu-user__item {% if modifier %}menu-user__item--{{modifier}}{% endif %}"
-            data-tooltip="{% trans 'Logout' %}"
-        >
-            <a href="{% url 'logout' %}">
-                  {% icon 'log-out' %}
-            </a>
+        <li class="menu-user__item" data-tooltip="{% trans 'Logout' %}">
+            <a href="{% url 'logout' %}">{% m_icon 'logout' %}</a>
         </li>
+        {% else %}
+        <li class="menu-user__item">
+            <a href="/">Login {% m_icon 'login' %}</a>
+        </li>
+        {% endif %}
     </ul>
 </div>
-{% endif %}

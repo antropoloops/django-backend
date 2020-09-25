@@ -1,0 +1,24 @@
+{# Map finder block #}
+{% load i18n %}
+
+<div class="background-field background-field--map {% if classes %}{{ classes }}{% endif %}">
+    <label class="background-field__label required">
+        {% trans 'Posición clip' %}
+    </label>
+    <span class="background-field__helptext">
+        {% trans 'Busca un lugar para situar el clip en tu mapa' %}
+    </span>
+    <span class="background-field__icon">
+        {% m_icon 'search' %}
+    </span>
+    <input class="background-field__input" type="text">
+    <span class="background-field__submit btn btn--gray">
+        {% trans 'Situar clip' %}
+    </span>
+    <div class="background-field__warning hidden">
+        {% blocktrans trimmed %}
+        La búqueda no ha tenido éxito. Comprueba si has escrito bien el lugar y/o
+        prueba con un lugar cercano una búsqueda más general.
+        {% endblocktrans %}
+    </div>
+</div>

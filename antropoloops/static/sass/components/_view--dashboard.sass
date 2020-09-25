@@ -3,9 +3,10 @@
 .view-dashboard__item
   position: relative
   display: block
-  margin-bottom: $m/2
+  margin-bottom: 2px
+  top: 40px
   +clearfix
-  background-color: #8f8f8f
+  background-color: #9e9e9e
   transition: background-color .2s ease
   &:link, &:visited, &:hover, &:active
     color: inherit
@@ -15,6 +16,10 @@
 .field-name--item-dashboard
   font-weight: 900
   margin: 0 0 $m/2
+  max-width: 275px
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
 
 .field-thumbnail--item-dashboard
   text-align: center

@@ -1,7 +1,6 @@
 .tracklist
-  padding-bottom: $height_header
+  margin-top: 40px
   +clearfix
-
 .tracklist__item .field-name
   margin: 0
   padding: $m/2 $m/4
@@ -11,24 +10,19 @@
 .track__name
   margin: 0
   padding: $m/2 $m/4
-.track-header
-  background: rgba(black, .5)
-  position: relative
-
-.track-actions
   color: white
-  padding-bottom: $m/2
-  .feather
-    color: #222
-    position: relative
-    top: 5px
-.track-actions__edit
-  position: absolute
-  right: $m/3
-  top: $m/3
-[class*='track-actions__']
-  cursor: pointer
-  margin-left: $m/4
+  font-weight: bold
+.track-header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: $m/4 $m/2
+  height: 40px
+.track-actions img
+  opacity: .6
+.track-action
+  margin-left: $m/2
+  display: inline
 .tracklist__item--audioset:hover
   cursor: grab
 .tracklist__help
