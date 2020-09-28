@@ -18,13 +18,13 @@ Login
 {% block sidebar %}
 <form action="{{ action }}" method="post" class="form form--login">
     {% csrf_token %}
-    <div class="form-header">
-        <h5 class="form-title">
+    <div class="actions">
+        <h5 class="actions__title">
             {% trans 'Login' %}
         </h5>
-        <ul class="form-actions">
-            <li class="form-action">
-                <input class="form-registration__submit" type="submit" value="{% trans 'Entrar' %}" />
+        <ul class="actions__items">
+            <li class="actions__item">
+                <input class="form-registration__submit btn btn--red" type="submit" value="{% trans 'Entrar' %}" />
             </li>
         </ul>
     </div>
