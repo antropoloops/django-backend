@@ -68,6 +68,7 @@ PROJECT_APPS = [
     'apps.autoslug_widget',
     'apps.models',
     'apps.dashboard',
+    'apps.textblock'
 ]
 
 INSTALLED_APPS = PROJECT_ADMIN_APPS + DJANGO_APPS + CONTRIB_APPS + PROJECT_APPS
