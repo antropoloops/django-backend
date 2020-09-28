@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 from apps.textblock.models import Textblock
 register = template.Library()
 
-@register.inclusion_tag('icon.html')
+@register.simple_tag
 def textblock(slug):
     block = Textblock.objects.get(slug=slug)
     return mark_safe( block.body )
