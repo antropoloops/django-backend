@@ -29,11 +29,11 @@ Login
         </ul>
     </div>
     <div class="height-forms">
-        {% include 'forms/form-errors.html' with name="registration" modifier="login" %}
         <div class="form-fields">
             {% include 'forms/field.html' with field=form.username %}
             {% include 'forms/field.html' with field=form.password %}
         </div>
+        {% include 'forms/form-errors.html' with name="registration" modifier="login" %}
         <div class="form-help form-help--login">
             <a href="{% url 'password_reset' %}">
                 {% trans '¿Has olvidado tu nombre de usuari@ o contraseña?' %}

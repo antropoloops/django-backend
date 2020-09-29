@@ -90,12 +90,6 @@
 .form .django-ckeditor-widget
   width: 100%
 
-.form__errors
-  background-color: $color_danger
-  color: white
-  margin: $m/2 0
-  padding: $m/4 $m/2
-
 .form iframe
   max-width: 100% !important
 
@@ -134,3 +128,11 @@
     background-color: rgba(black, .5)
     color: white !important
     padding: $m/2
+
+.form__non-field-errors,
+.form__field-errors,
+.form__errors,
+.field__errors
+  color: $red
+  font-size: .8em
+  padding: $m
