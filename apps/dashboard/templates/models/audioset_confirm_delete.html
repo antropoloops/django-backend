@@ -17,6 +17,7 @@
 {# Content #}
 {% block sidebar %}
 <form class="form" method="post">
+    {% csrf_token %}
     <div class="actions">
         <span class="actions__title"></span>
         <ul class="actions__items">
@@ -28,7 +29,7 @@
             </li>
         </ul>
     </div>
-    <div class="form-fields">
+    <div class="form-fields height-forms">
         <div class="delete-text">
             <h5 class="delete-text__header white">
                 Eliminar «<span class="delete-text__name">{{ object.name }}</span>»

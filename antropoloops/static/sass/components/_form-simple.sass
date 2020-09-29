@@ -3,8 +3,6 @@
 @import compass/css3/appearance
 
 .form
-  height: calc(100vh - #{$height_header})
-  overflow-y: auto
   overflow-x: hidden
   background-color: #9e9e9e
 
@@ -14,7 +12,6 @@
   text-align: right
   width: 100%
 .form-fields
-  margin-top: 70px
   padding: 0 $m/2
 .field__label
   display: block
@@ -27,7 +24,6 @@
   margin-left: 2px
 
 .form-help
-  color: white
   font-size: .85em
   a:link, a:visited
     color: white
@@ -53,7 +49,10 @@
   border: 0
   width: 100%
   color: #333
-  padding: 0 $m/2
+  padding-left: $m/2
+  padding-right: $m/2
+.form textarea
+  padding: $m/2
 .form input[type='color']
   height: 40px
   padding: 0 !important
@@ -103,7 +102,7 @@
 .form .field a
   font-size: .9em
   &:link, &:visited
-    color: $red
+    color: white
     max-width: 90%
     overflow: hidden
     text-overflow: ellipsis
@@ -114,7 +113,7 @@
   &:hover
     color: lighten($red, 20%)
   &:active
-    color: $red
+    color: white
 
 .form-field__delete--audio
   font-size: .8em
@@ -126,12 +125,12 @@
 
 .field__widget--picture-preview
   position: relative
-  .widget-wrapper
+  &.image-loaded .widget-wrapper
     position: absolute
     left: 0
     right: 0
     bottom: 0
     z-index: 100
-    background-color: rgba(black, .75)
-    color: white
+    background-color: rgba(black, .5)
+    color: white !important
     padding: $m/2

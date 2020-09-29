@@ -28,23 +28,25 @@ Login
             </li>
         </ul>
     </div>
-    {% include 'forms/form-errors.html' with name="registration" modifier="login" %}
-    <div class="form-fields">
-        {% include 'forms/field.html' with field=form.username %}
-        {% include 'forms/field.html' with field=form.password %}
-    </div>
-    <div class="form-help form-help--login">
-        <a href="{% url 'password_reset' %}">
-            {% trans '¿Has olvidado tu nombre de usuari@ o contraseña?' %}
-            {% m_icon 'psychology' %}
-        </a>
-    </div>
-    <div class="site-info">
-        {% blocktrans trimmed %}
-        Hola, estamos aún en fase de pruebas del gestor de contenidos, si te interesa
-        probar la herramienta puedes escribirnos a talleres<en>antropoloops.com y te
-        crearemos un perfil de usuaria/o. ¡Saludos!
-        {% endblocktrans %}
+    <div class="height-forms">
+        {% include 'forms/form-errors.html' with name="registration" modifier="login" %}
+        <div class="form-fields">
+            {% include 'forms/field.html' with field=form.username %}
+            {% include 'forms/field.html' with field=form.password %}
+        </div>
+        <div class="form-help form-help--login">
+            <a href="{% url 'password_reset' %}">
+                {% trans '¿Has olvidado tu nombre de usuari@ o contraseña?' %}
+                {% m_icon 'psychology' %}
+            </a>
+        </div>
+        <div class="site-info">
+            {% blocktrans trimmed %}
+            Hola, estamos aún en fase de pruebas del gestor de contenidos, si te interesa
+            probar la herramienta puedes escribirnos a talleres<en>antropoloops.com y te
+            crearemos un perfil de usuaria/o. ¡Saludos!
+            {% endblocktrans %}
+        </div>
     </div>
 </form>
 {% endblock %}

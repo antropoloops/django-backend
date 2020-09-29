@@ -186,7 +186,9 @@ class ClipForm(forms.ModelForm):
 
     class Meta:
         model = models.Clip
-        fields = '__all__'
+        exclude = [
+            'image_alt', 'audio_mp3', 'audio_ogg'
+        ]
         widgets = {
             'image' : ImagePreviewWidget(),
         }

@@ -2,25 +2,58 @@
 
 .background-field
   background-color: #d6d6d6
-  padding: 0 $m/2
-  line-height: 40px
-  width: 100%
-  position: absolute
-  z-index: 12000
+  padding: $m $m/2
+  +breakpoint('xs')
+    text-align: center
+  +breakpoint('sm')
+    padding-top: 0
+    padding-bottom: 0
+    line-height: 40px
+    width: 100%
+    z-index: 12000
+    position: absolute
 .background-field__label
   font-weight: bold
   color: inherit
   margin: 0
+  display: block
+  +breakpoint('xs')
+    display: block
 .background-field__helptext
   padding: 0 $m/2
+  +breakpoint('xs')
+    padding-top: $m/2
+    font-size: .8em
 .background-field__input
-  width: auto
+  width: auto !important
   position: relative
   left: -4px
   line-height: 30px
   border: 0
-  padding: 0 $m/2 0 30px
+  padding: 0 $m/2 0 30px !important
+  +breakpoint('xs')
+    display: inline-block
+    margin: $m/2 0
+
 .background-field__icon
   opacity: .5
   position: absolute
   z-index: 10
+  +breakpoint('xs')
+    display: none
+
+.background-field__warning
+  position: fixed
+  top: 90px
+  right: 10px
+  width: 240px
+  background: white
+  line-height: 1.5em
+  padding: $m/3
+  font-size: .8em
+  transition: opacity .2s ease
+  opacity: 1
+.background-field__warning.hidden
+  display: block
+  opacity: 0
+  pointer-events: none

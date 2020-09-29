@@ -10,17 +10,18 @@
         var input = widget.querySelector('input[type=file]');
         var current = widget.querySelector('.widget-wrapper a');
         if(current){
+              widget.classList.add('image-loaded');
               placeholder.innerHTML = "<img src='" + current.href + "' />";
         }
-        console.log(placeholder.innerHTML);
         input.addEventListener(
             'change',
             function(e) {
                 if (input.files && input.files[0])
                 {
-                  var reader = new FileReader();
+                    var reader = new FileReader();
                     reader.onload = function(e) {
                         placeholder.innerHTML = "<img src='" + e.target.result + "' />";
+                        widget.classList.add('image-loaded');
                     }
                     reader.readAsDataURL(input.files[0]);
                 }

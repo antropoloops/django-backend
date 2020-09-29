@@ -14,8 +14,12 @@
 .clip:not(:last-child)
   margin-bottom: 2px
 .clip__name
-  flex-basis: 280px
+  flex-basis: calc(100% - 100px)
+  padding-left: $m/2
   color: rgba(68,68,68,1)
   font-weight: bold
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
 .clip-actions img
   opacity: .6

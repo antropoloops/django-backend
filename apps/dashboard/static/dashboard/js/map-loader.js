@@ -117,6 +117,8 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
                     document.querySelector('.background-field__warning').classList.add('hidden');
                 } else {
                     document.querySelector('.background-field__warning').classList.remove('hidden');
+                    document.querySelector('.layout-form-audioset').classList.remove('saving');
+                    return;
                 }
                 // TODO: handle rejections and coordinates outside of current projection bounding box
                 if(is_map_conf){

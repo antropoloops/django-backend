@@ -20,24 +20,40 @@
                 </li>
             </ul>
         </div>
-        <div class="form-fields">
-            {% include 'forms/field.html' with field=form.pk classes='hidden' %}
-            {% include 'forms/field.html' with field=form.name %}
-            {% include 'forms/field.html' with field=form.color %}
-            <input type="hidden" name="track" />
-        </div>
-        <div class="actions-secondary">
-            <ul class="actions-secondary__items">
-                <li class="actions-secondary__item"
-                    data-show-template="template-form-delete"
-                    data-action="delete"
-                    data-model="track"
-                    data-id=""
-                >
-                    {% trans 'Borrar pista' %}
-                    {% m_icon 'delete' %}
-                </li>
-            </ul>
+        <div class="height-forms">
+            <div class="form-errors hidden">
+                {% blocktrans trimmed %}
+                El formulario contiene errores. Revísalo, por favor.
+                {% endblocktrans %}
+            </div>
+            <div class="form-fields">
+                {% include 'forms/field.html' with field=form.pk classes='hidden' %}
+                {% include 'forms/field.html' with field=form.audioset classes='hidden' %}
+                {% include 'forms/field.html' with field=form.name %}
+                {% include 'forms/field.html' with field=form.color %}
+                <input type="hidden" name="track" />
+            </div>
+            <div class="actions-secondary">
+                <ul class="actions-secondary__items">
+                    <li class="actions-secondary__item"
+                        data-show-template="template-form-delete"
+                        data-action="delete"
+                        data-model="track"
+                        data-id=""
+                    >
+                        {% trans 'Borrar pista' %}
+                        {% m_icon 'delete' %}
+                    </li>
+                </ul>
+            </div>
+            <datalist id="id_color">
+                <option value="#48f912">
+                <option value="#12f99d">
+                <option value="#f912e2">
+                <option value="#f9126b">
+                <option value="#12acf9">
+                <option value="#1276f9">
+            </datalist>
         </div>
     </form>
 </template>

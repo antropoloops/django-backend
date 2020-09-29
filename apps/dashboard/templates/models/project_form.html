@@ -25,6 +25,7 @@
 {# Sidebar #}
 {% block sidebar %}
 <form class="form" action="{{ action }}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
     <div class="actions">
         <span class="actions__title">
             {% if form.instance.pk %}
@@ -42,42 +43,44 @@
             </li>
         </ul>
     </div>
-    <div class="form-fields">
-        <div class="fieldset">
-            {% include 'forms/field.html' with field=form.name %}
-            {% include 'forms/field.html' with field=form.slug %}
-            {% include 'forms/field.html' with field=form.published %}
-        </div>
-        <div class="fieldset">
-            {% include 'forms/field.html' with field=form.image %}
-            {% include 'forms/field.html' with field=form.readme %}
-        </div>
-    {% if form.instance.pk %}
-    <div class="actions-secondary">
-        <ul class="actions-secondary__items">
-            {% if request.user.is_staff %}
-            <li class="actions-secondary__item">
-                <a href="{% url 'api:project' form.instance.slug %}" target="_blank">
-                    {% trans 'Ver en API' %}
-                    {% m_icon 'visibility' %}
-                </a>
-            </li>
-            <li class="actions-secondary__item">
-              <a href="{% url 'project_delete' form.instance.id %}">
-                {% trans 'Borra este proyecto' %}
-                {% m_icon 'delete' %}
-              </a>
-            </li>
+    <div class="height-forms">
+        <div class="form-fields">
+            <div class="fieldset">
+                {% include 'forms/field.html' with field=form.name %}
+                {% include 'forms/field.html' with field=form.slug %}
+                {% include 'forms/field.html' with field=form.published %}
+            </div>
+            <div class="fieldset">
+                {% include 'forms/field.html' with field=form.image %}
+                {% include 'forms/field.html' with field=form.readme %}
+            </div>
+            {% if form.instance.pk %}
+            <div class="actions-secondary">
+                <ul class="actions-secondary__items">
+                    {% if request.user.is_staff %}
+                    <li class="actions-secondary__item">
+                        <a href="{% url 'api:project' form.instance.slug %}" target="_blank">
+                            {% trans 'Ver en API' %}
+                            {% m_icon 'visibility' %}
+                        </a>
+                    </li>
+                    <li class="actions-secondary__item">
+                      <a href="{% url 'project_delete' form.instance.id %}">
+                        {% trans 'Borra este proyecto' %}
+                        {% m_icon 'delete' %}
+                      </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
             {% endif %}
-        </ul>
+        </div>
     </div>
-    {% endif %}
 </form>
 {% endblock %}
 
 {# Content #}
 {% block main %}
-    {% lorem %}
 {% endblock %}
 
 {% block extra_js %}

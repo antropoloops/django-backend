@@ -3,75 +3,17 @@
 @import compass/css3/appearance
 
 #form-tracklist-container
-  position: absolute
-  top: 0
-  left: 0
-  width: 400px
-  max-height: 100%
-  overflow-y: auto
   background-color: #9e9e9e
+  +breakpoint('sm')
+    position: absolute
+    top: 35px
+    left: 0
+    max-height: 100%
+    overflow-y: auto
+    width: 33%
+  +breakpoint('md')
+    width: 25%
 
-// #form-tracklist-container form
-//   // height from layout-form-audioset
-//   min-height: 75vh
-//
-// .form-tracklist__label,
-// .form-tracklist__fields
-//   padding: $m
-// .form-tracklist__text
-//   padding: $m*2 $m 0
-// .form-tracklist__fields
-//   margin-top: 0
-// .form-tracklist__label
-//   margin: 0
-//
-// .form-field
-//   margin-bottom: $m
-//   padding-bottom: $m
-// .form-field--pk
-//   display: none
-// .form-field__label
-//   font-weight: 600
-//   display: block
-//   margin-bottom: $m/2
-//   opacity: .85
-//   color: white
-//   &.required
-//     opacity: 1
-//   &.required:after
-//     content: "*"
-//     color: $green
-//     margin-left: $m/3
-//
-// .form-field input,
-// .form-tracklist__fields input
-//   &[type=text],
-//   &[type=number],
-//     margin: $m/4 0
-//     border: 0
-//     line-height: $m*1.5
-//     padding: 0 $m/2
-//     color: #333
-// .form-tracklist__fields input[type=color]
-//   margin: $m/4 $m/2
-//   outline: 0 !important
-//   border: 0 !important
-//   padding: 0
-//   height: $m*1.5
-//   min-width: 230px
-// .form-tracklist__fields textarea
-//   color: #333
-//   padding: $m/2
-//   border: 0
-// .form-tracklist__fields select
-//   padding: $m/2
-//   border: 0
-//   color: #333
-//   +appearance(none)
-// .form-tracklist__fields .helptext
-//   display: block
-//   font-size: .9em
-//
 $actions: create update delete
 @each $action in $actions
   [data-action='#{$action}']
@@ -82,67 +24,7 @@ $actions: create update delete
 
 [data-action="create"] [data-action="delete"]
   display: none
-// .form-tracklist [type=submit]
-//   display: inline-block
-//   background: white
-//   padding: $m/2
-//   margin: $m
-//   border: 0
-//   &:hover
-//     cursor: pointer
-//
-// .form-tracklist__close
-//   cursor: pointer
-//   position: absolute !important
-//   right: $m
-//   top: $m
-//
-// // Fieldsets
-// .fieldset:not(:last-child)
-//   border-bottom: 1px solid black
-//   margin-bottom: $m
-//
-// // Mocked image input
-// .form-field--image-preview
-//   margin: $m/2 0
-// .form-field--image-delete
-//   margin-right: $m/4
-//   position: relative
-//   top: 3px
-// .form-field--image-delete + label
-//   font-size: .9em
-//
-// // Mocked audio inputs
-// .form-field__placeholder--audio
-//   display: block
-//   margin: $m/2
-//   text-decoration: underline
-//   text-decoration: dotted
-//   &:link, &:visited, &:hover, &:active
-//     color: $green
-// .form-field__delete--audio
-//   margin-right: $m/4
-//   position: relative
-//   top: 3px
-// .form-field__delete--audio + label
-//   font-size: .9em
-//
-// // Errors
-// .form-errors
-//   padding: $m
-//   background-color: $color_danger
-//   color: white
-// .form-errors.hidden
-//   display: none
-// .not-validated
-//   background-color: $color_danger
-//   padding: $m/2
-//   &:after
-//     display: block
-//     content: attr(data-error)
-//     font-size: .9em
-//     padding: $m/4
-//
+
 
 .layout-form-audioset.saving:before
   content: ""
@@ -156,9 +38,7 @@ $actions: create update delete
   background-repeat: no-repeat
   background-position: center center
   background-color: rgba(black, .75)
-//
-// #form-tracklist-container
-//   overflow-x: hidden
+
 .layout-form-audioset[data-active='clip'] .tracklist,
 .layout-form-audioset[data-active='track'] .tracklist
   display: none

@@ -1,21 +1,17 @@
-.menu-user a
-  &:link, &:visited
-    color: #111
-  &:hover
-    color: #991820
-  &:active
-    color: #111
+.menu-user
+  position: absolute
+  right: $m/2
+  top: $m/4
 
 .menu-user__item
   display: inline
-  margin-left: $m/2
+  margin-left: $m/4
 
 .greeting__user
   font-size: .8em
-  vertical-align: top
-  position: relative
-  top: 4px
-  margin-right: $m/2
+  display: none
+  +breakpoint('md')
+    display: inline
 
 .page--login .menu-user
   display: none

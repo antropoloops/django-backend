@@ -30,10 +30,12 @@
 
         {# header #}
         <header class="region-header">
-            {# Site brand #}
-            {% include 'components/brand.html' %}
-            {# Breadcrumb #}
-            {% block breadcrumb %}{% endblock %}
+            <div class="layout-two-col">
+                {# Site brand #}
+                {% include 'components/brand.html' %}
+                {# Breadcrumb #}
+                {% block breadcrumb %}{% endblock %}
+            </div>
             {# User actions menu #}
             {% include 'components/menu-user.html' with modifier='navigation' %}
         </header>

@@ -35,7 +35,7 @@
 
 {# Content #}
 {% block main %}
-<form enctype="multipart/form-data" class="form layout-form-audioset form-audioset-configure" method="post">
+<form enctype="multipart/form-data" class="form layout-form-audioset form-audioset-configure layout-two-col" method="post">
     {% csrf_token %}
     {% include 'forms/form-errors.html' with name="audioset-configure" %}
     <div class="layout-form-audioset__left">
@@ -58,49 +58,51 @@
                 </li>
             </ul>
         </div>
-        <div class="form-fields">
-            <div class="fieldset">
-                {% include 'forms/field.html' with field=form.name %}
-                {% include 'forms/field.html' with field=form.slug %}
+        <div class="height-forms">
+            <div class="form-fields">
+                <div class="fieldset">
+                    {% include 'forms/field.html' with field=form.name %}
+                    {% include 'forms/field.html' with field=form.slug %}
+                </div>
+                <div class="fieldset">
+                    {% include 'forms/field.html' with field=form.image %}
+                    {% include 'forms/field.html' with field=form.description %}
+                    {% include 'forms/field.html' with field=form.readme %}
+                </div>
+                <div class="fieldset">
+                    {% include 'forms/field.html' with field=form.playmode %}
+                    {% include 'forms/field.html' with field=form.audio_bpm %}
+                </div>
+                {% if request.user.is_staff %}
+                <div class="fieldset">
+                    {% include 'forms/field.html' with field=form.audio_quantize %}
+                    {% include 'forms/field.html' with field=form.map_url %}
+                    {% include 'forms/field.html' with field=form.map_lambda %}
+                    {% include 'forms/field.html' with field=form.map_shift_vertical %}
+                </div>
+                {% endif %}
             </div>
-            <div class="fieldset">
-                {% include 'forms/field.html' with field=form.image %}
-                {% include 'forms/field.html' with field=form.description %}
-                {% include 'forms/field.html' with field=form.readme %}
-            </div>
-            <div class="fieldset">
-                {% include 'forms/field.html' with field=form.playmode %}
-                {% include 'forms/field.html' with field=form.audio_bpm %}
-            </div>
-            {% if request.user.is_staff %}
-            <div class="fieldset">
-                {% include 'forms/field.html' with field=form.audio_quantize %}
-                {% include 'forms/field.html' with field=form.map_url %}
-                {% include 'forms/field.html' with field=form.map_lambda %}
-                {% include 'forms/field.html' with field=form.map_shift_vertical %}
+            {% if form.instance.pk %}
+            <div class="actions-secondary">
+                <ul class="actions-secondary__items">
+                    <li class="actions-secondary__item">
+                        <a href="{% url 'audioset_delete' form.instance.project.id form.instance.id %}">
+                            {% trans 'Borra este audioset' %}
+                            {% m_icon 'delete' %}
+                        </a>
+                    </li>
+                    {% if request.user.is_staff %}
+                    <li class="actions-secondary__item">
+                        <a href="{% url 'api:audioset' form.instance.slug %}" target="_blank">
+                            {% trans 'Ver en API' %}
+                            {% m_icon 'visibility' %}
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
             {% endif %}
         </div>
-        {% if form.instance.pk %}
-        <div class="actions-secondary">
-            <ul class="actions-secondary__items">
-                <li class="actions-secondary__item">
-                    <a href="{% url 'audioset_delete' form.instance.project.id form.instance.id %}">
-                        {% trans 'Borra este audioset' %}
-                        {% m_icon 'delete' %}
-                    </a>
-                </li>
-                {% if request.user.is_staff %}
-                <li class="actions-secondary__item">
-                    <a href="{% url 'api:audioset' form.instance.slug %}" target="_blank">
-                        {% trans 'Ver en API' %}
-                        {% m_icon 'visibility' %}
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-        {% endif %}
     </div>
     <div class="layout-form-audioset__right">
         <div class="background-field background-field--panel">

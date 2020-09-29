@@ -13,12 +13,12 @@
     </span>
     <input class="background-field__input" type="text">
     <span class="background-field__submit btn btn--gray">
-        {% trans 'Situar clip' %}
+        {{ submit }}
     </span>
-    <div class="background-field__warning hidden">
+    <span class="background-field__warning hidden">
         {% blocktrans trimmed %}
-        La búqueda no ha tenido éxito. Comprueba si has escrito bien el lugar y/o
-        prueba con un lugar cercano una búsqueda más general.
+        La búsqueda no ha tenido éxito. Comprueba si has escrito bien el lugar y/o
+        prueba con un lugar cercano o una búsqueda más general.
         {% endblocktrans %}
-    </div>
+    </span>
 </div>

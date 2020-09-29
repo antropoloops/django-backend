@@ -161,7 +161,6 @@ def clip_update(request):
 
     if request.method == 'POST' and request.is_ajax and request.user.is_authenticated:
         data = request.POST
-        print(data['readme'])
         clip = models.Clip.objects.get(pk=data['pk'])
         clipform = forms.ClipUpdateForm(
             data,
@@ -171,10 +170,7 @@ def clip_update(request):
         if clipform.is_valid():
             for field in [
                 'image',
-                'image_alt',
-                'audio_mp3',
                 'audio_wav',
-                'audio_ogg'
             ]:
                 if '%s_delete'%field in data:
                     setattr(clip, field, None)

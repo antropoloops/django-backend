@@ -29,7 +29,7 @@
 
 {# Content #}
 {% block main %}
-<div class="layout-form-audioset">
+<div class="layout-form-audioset layout-two-col">
     <div class="layout-form-audioset__left modal-anchor">
         <div class="actions">
             <span class="actions__title">{{ object.name }}</span>
@@ -51,33 +51,35 @@
                 </li>
             </ul>
         </div>
-        <ul class="tracklist tracklist--audioset" data-audioset="{{ view.kwargs.pk }}" data-csrf="{% csrf request %}">
-        {% for track in tracks.all %}
-            <li class="tracklist__item tracklist__item--audioset" data-id="{{ track.id }}" data-order="{{ track.order }}"
-                style="background-color: {{ track.color }}">
-                {% include 'components/view-item-track.html' with track=track %}
-            </li>
-        {% endfor %}
-        </ul>
-        <div id="form-tracklist-container"></div>
-        <div class="form-help form-help--tracklist">
-            {% trans 'Puedes seleccionar los clips en el mapa para editarlos' %}
-        </div>
-        <div class="actions-secondary">
-            <ul class="actions-secondary__items">
-                <li class="actions-secondary__item">
-                    <a href="https://play.antropoloops.com/audioset/{{ object.slug }}" target="_blank">
-                        {% trans 'Ver audioset online' %}
-                        {% m_icon 'play_circle_filled' %}
-                    </a>
+        <div class="height-forms">
+            <ul class="tracklist tracklist--audioset" data-audioset="{{ view.kwargs.pk }}" data-csrf="{% csrf request %}">
+            {% for track in tracks.all %}
+                <li class="tracklist__item tracklist__item--audioset" data-id="{{ track.id }}" data-order="{{ track.order }}"
+                    style="background-color: {{ track.color }}">
+                    {% include 'components/view-item-track.html' with track=track %}
                 </li>
-                <li class="actions-secondary__item">
-                    <a href="{% url 'audioset_delete' object.project.pk object.pk %}">
-                        {% trans 'Borrar audioset' %}
-                        {% m_icon 'delete' %}
-                    </a>
-                </li>
+            {% endfor %}
             </ul>
+            <div id="form-tracklist-container"></div>
+            <div class="form-help form-help--tracklist">
+                {% trans 'Puedes seleccionar los clips en el mapa para editarlos' %}
+            </div>
+            <div class="actions-secondary">
+                <ul class="actions-secondary__items">
+                    <li class="actions-secondary__item">
+                        <a href="https://play.antropoloops.com/audioset/{{ object.slug }}" target="_blank">
+                            {% trans 'Ver audioset online' %}
+                            {% m_icon 'play_circle_filled' %}
+                        </a>
+                    </li>
+                    <li class="actions-secondary__item">
+                        <a href="{% url 'audioset_delete' object.project.pk object.pk %}">
+                            {% trans 'Borrar audioset' %}
+                            {% m_icon 'delete' %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
         {% include 'models/template_form_track.html' with form=trackform %}
         {% include 'models/template_form_clip.html' with form=clipform %}
@@ -92,7 +94,7 @@
                  src="{{ audioset.background.url }}"
             />
         {% else %}
-            {% include 'components/block-background-field-map.html' with classes="hidden" %}
+            {% include 'components/block-background-field-map.html' with classes="hidden" submit="Situar clip" %}
             <div id="map"></div>
         {% endif %}
     </div>
@@ -124,5 +126,4 @@
     {% endif %}
     {# forms #}
     <script src="{% static 'dashboard/js/tracklist-section.js' %}"></script>
-    {{ clipform.media }}
 {% endblock %}

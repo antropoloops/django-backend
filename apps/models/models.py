@@ -527,6 +527,7 @@ class Track(SortableMixin):
     volume = models.PositiveSmallIntegerField(
         _('Volumen'),
         default=1,
+        blank=True,
         null=True,
         help_text=_(
             'Faltaría un texto que explique esto'
@@ -535,6 +536,8 @@ class Track(SortableMixin):
     color = RGBColorField(
         _('Color'),
         blank=False,
+        default='#ffffff',
+        colors=["#48f912", "#12f99d", "#f912e2", "#f9126b", "#12acf9", "#1276f9"],
         help_text=_(
             'Escoge el color de fondo de la pista, '
             'los clips que crees dentro de ella tendrán un color más claro '

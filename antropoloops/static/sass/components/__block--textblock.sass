@@ -1,0 +1,17 @@
+
+.textblock
+  max-width: 820px
+  font-size: 1rem
+  margin: $m*2
+  p
+    margin-bottom: 1.25em
+    line-height: 24px
+    text-align: justify
+  a
+    transition: color .2s ease
+    &:link, &:visited
+      color: $red
+    &:hover
+      color: lighten($red, 10%)
+    &:active
+      color: $red

@@ -20,56 +20,58 @@
                 </li>
             </ul>
         </div>
-        <div class="form-fields">
-            <div class="fieldset">
-                {% include 'forms/field.html' with field=form.name %}
-                {% include 'forms/field.html' with field=form.image %}
-                {% include 'forms/field.html' with field=form.key %}
-            </div>
-            <div class="fieldset">
-                <div class="fieldset__label">
-                    {% trans 'Audio' %}
+        <div class="height-forms">
+            <div class="form-fields">
+                <div class="fieldset">
+                    {% include 'forms/field.html' with field=form.name %}
+                    {% include 'forms/field.html' with field=form.image %}
+                    {% include 'forms/field.html' with field=form.key %}
                 </div>
-                {% include 'forms/field.html' with field=form.audio_wav %}
-                {% include 'forms/field.html' with field=form.audio_name %}
-                {% include 'forms/field.html' with field=form.artist %}
-                {% include 'forms/field.html' with field=form.album_name %}
-                <div class="fieldset__row">
-                    {% include 'forms/field.html' with field=form.year %}
-                    {% include 'forms/field.html' with field=form.country %}
+                <div class="fieldset">
+                    <div class="fieldset__label">
+                        {% trans 'Audio' %}
+                    </div>
+                    {% include 'forms/field.html' with field=form.audio_wav %}
+                    {% include 'forms/field.html' with field=form.audio_name %}
+                    {% include 'forms/field.html' with field=form.artist %}
+                    {% include 'forms/field.html' with field=form.album_name %}
+                    <div class="fieldset__row">
+                        {% include 'forms/field.html' with field=form.year %}
+                        {% include 'forms/field.html' with field=form.country %}
+                    </div>
                 </div>
-            </div>
-            <div class="fieldset">
-                <div class="fieldset__label">
-                    {% trans 'Info adicional del clip' %}
+                <div class="fieldset">
+                    <div class="fieldset__label">
+                        {% trans 'Info adicional del clip' %}
+                    </div>
+                    {% include 'forms/field.html' with field=form.readme %}
                 </div>
-                {% include 'forms/field.html' with field=form.readme %}
+                {% include 'forms/field.html' with field=form.pk classes="hidden" %}
+                {% include 'forms/field.html' with field=form.pos_x classes="hidden" %}
+                {% include 'forms/field.html' with field=form.pos_y classes="hidden" %}
+                {% include 'forms/field.html' with field=form.beats classes="hidden" %}
+                {% include 'forms/field.html' with field=form.volume classes="hidden" %}
+                <input type="hidden" name="track" />
             </div>
-            {% include 'forms/field.html' with field=form.pk classes="hidden" %}
-            {% include 'forms/field.html' with field=form.pos_x classes="hidden" %}
-            {% include 'forms/field.html' with field=form.pos_y classes="hidden" %}
-            {% include 'forms/field.html' with field=form.beats classes="hidden" %}
-            {% include 'forms/field.html' with field=form.volume classes="hidden" %}
-            <input type="hidden" name="track" />
+            <div class="form-errors hidden">
+                {% blocktrans trimmed %}
+                El formulario contiene errores. Revísalo, por favor.
+                {% endblocktrans %}
+            </div>
+            <div class="actions-secondary">
+                <ul class="actions-secondary__items">
+                    <li class="actions-secondary__item"
+                        data-show-template="template-form-delete"
+                        data-action="delete"
+                        data-model="clip"
+                        data-id=""
+                        data-name=""
+                    >
+                        {% trans 'Borrar clip' %}
+                        {% m_icon 'delete' %}
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="form-errors hidden">
-            {% blocktrans trimmed %}
-            El formulario contiene errores. Revísalo, por favor.
-            {% endblocktrans %}
-        </div>
-        <div class="actions-secondary">
-            <ul class="actions-secondary__items">
-                <li class="actions-secondary__item"
-                    data-show-template="template-form-delete"
-                    data-action="delete"
-                    data-model="clip"
-                    data-id=""
-                    data-name=""
-                >
-                    {% trans 'Borrar clip' %}
-                    {% m_icon 'delete' %}
-                </li>
-            </ul>
-        </ul>
     </form>
 </template>

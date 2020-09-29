@@ -1,7 +1,7 @@
 {# Dashboard views #}
 {% load i18n %}
 
-<div class="view-dashboard">
+<div class="view-dashboard height-forms">
     {% for item in item_list %}
         <a href="{% url item_url item.pk %}"
            class="view-dashboard__item"

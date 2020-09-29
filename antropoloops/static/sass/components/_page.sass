@@ -7,21 +7,22 @@
 
 .page__breadcrumb
   font-weight: bold
+  line-height: 35px
   color: #991820
+  padding: 0 $m/2
+  background: white
+  +breakpoint('sm')
+    background: #ececec
   a
     color: $color_text
     font-weight: normal
   text-transform: uppercase
   font-size: .75em
 
-.page__image
-  float: left
 
-// Specific page styles
+.page--registration
+  background: url('../img/bg--login.jpg') no-repeat center top/cover
 
-.page--registration .layout-two-col__right-col
-  background: url('../img/bg--login.jpg') no-repeat center center/cover
-
-.page--chao .layout-one-col-fixed__col
+.page--chao
   min-height: calc(100vh - 35px)
   background: url('../img/bg--logout.jpg') no-repeat center center/cover

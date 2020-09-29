@@ -1,6 +1,7 @@
 .tracklist
-  margin-top: 40px
   +clearfix
+.tracklist__item
+  margin-bottom: 4px
 .tracklist__item .field-name
   margin: 0
   padding: $m/2 $m/4
@@ -12,6 +13,10 @@
   padding: $m/2 $m/4
   color: white
   font-weight: bold
+  max-width: calc(100% - 80px)
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
 .track-header
   display: flex
   justify-content: space-between
@@ -29,3 +34,6 @@
   padding: $m/2
   font-size: .8em
   text-align: center
+.tracklist__item .empty
+  padding: $m/2
+  color: rgba(black, .8)

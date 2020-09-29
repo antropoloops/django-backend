@@ -2,7 +2,7 @@
 {% extends 'layouts/two-column.html' %}
 
 {# tags not defined as built-ins in settings.py #}
-{% load i18n static imagekit dashboard_tags %}
+{% load i18n static imagekit dashboard_tags textblock_tags %}
 
 {# body's css classes #}
 {% block body_css_classes %}
@@ -47,4 +47,6 @@
 {% endblock %}
 
 {# Content #}
-{% block main %}{% endblock %}
+{% block main %}
+    {% textblock 'como-funciona' %}
+{% endblock %}

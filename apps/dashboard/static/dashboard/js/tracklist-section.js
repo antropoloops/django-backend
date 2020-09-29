@@ -105,7 +105,6 @@ jQuery(document).ready( function()
                                 {
                                     // As we cannot set image src via ajax we mock the image input
                                     // using JS
-
                                     var widget_container = document.querySelector('.field--' + field);
                                     // Placeholder
                                     var thumbnail = document.createElement('img');
@@ -205,8 +204,10 @@ jQuery(document).ready( function()
                             var errors_msg = JSON.parse(response.responseText);
                             Object.keys(errors_msg).forEach( function(fieldname) {
                                   var field = document.querySelector('.form-field--' + fieldname);
-                                  field.classList.add('not-validated');
-                                  field.dataset.error = errors_msg[fieldname][0].message;
+                                  if(field){
+                                      field.classList.add('not-validated');
+                                      field.dataset.error = errors_msg[fieldname][0].message;
+                                  }
                             });
                             document.querySelector('.layout-form-audioset').classList.remove('saving');
                         }

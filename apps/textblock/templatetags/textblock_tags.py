@@ -7,5 +7,10 @@ register = template.Library()
 
 @register.simple_tag
 def textblock(slug):
-    block = Textblock.objects.get(slug=slug)
-    return mark_safe( block.body )
+    try:
+        block = Textblock.objects.get(slug = slug)
+        return mark_safe(
+            "<div class='textblock'><div class='textblock__inner'>%s</div></div>" % block.body
+        )
+    except:
+        return None

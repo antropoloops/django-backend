@@ -1,18 +1,9 @@
 // Regions
 .region-header
-  padding: 0 $m/2
-  height: $height_header
   background: #ececec
-  display: flex
-  justify-content: space-between
-  align-items: center
-  > div:first-child
-    flex-basis: 400px
-  > div:nth-child(2):not(.menu-user)
-    flex-grow: 1
+  +breakpoint('sm')
+    height: $height_header
 
-.region-content
-  min-height: calc(100vh - #{$height_header})
 .region-footer
   padding: $padding_footer
   height: $height_footer
@@ -21,63 +12,25 @@
   padding-left: $m/2
   padding-right: $m/2
 
+// One col layout
+.layout-one-col-fluid__col
+  padding: 0
+
 // Two column layout
-.layout-two-col__left-col
-  background-color: #bdbdbd
-.page--project-detail,
-.page-form-project,
-.page-form-audioset,
-  .layout-two-col__left-col
-    background-color: #bdbdbd
-
-+breakpoint('sm')
-  .layout-two-col__left-col
-    display: inline-block
-    width: 400px
-    float: left
-    height: calc(100vh - #{$height_header})
-    overflow-y: hidden
-  .layout-two-col__right-col
-    display: inline-block
-    padding: $m*2
-    width: calc(100% - 400px)
-    min-height: calc(100vh - #{$height_header})
-
-// Classes
-body.toppadded .region-content
-  padding-top: $m*3
-
-// Audioset form common settings
-
-.layout-form-audioset
-  +clearfix
-  background-color: #333
+.layout-two-col__left-col,
 .layout-form-audioset__left
-  background-color: #acacac
-  position: relative
+  background-color: #9e9e9e
 
-.layout-form-audioset__left
-  height: calc(100vh - #{ $height_header })
-  overflow-y: auto
+.layout-two-col
+  +breakpoint('sm')
+    display: grid
+    grid-template-columns: 33% 1fr
+  +breakpoint('md')
+    display: grid
+    grid-template-columns: 25% 1fr
 .layout-form-audioset__right
-  max-height: calc(100vh - #{ $height_header })
-  overflow-y: auto
   position: relative
-+breakpoint('sm')
-  .layout-form-audioset__left
-    display: inline-block
-    width: 400px
-    float: left
-    overflow-x: hidden
-  .layout-form-audioset__right
-    display: inline-block
-    float: right
-    width: calc(100% - 400px)
-
-.region-content
-  background-color: #d5d5d5
-
-.page--audioset,
-.page--audioset-configuration-form
-  .layout-one-col-fluid__col
-    padding: 0
+.height-forms
+  +breakpoint('sm')
+    height: calc(100vh - 75px)
+    overflow-y: auto
