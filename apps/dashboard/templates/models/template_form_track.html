@@ -21,11 +21,6 @@
             </ul>
         </div>
         <div class="height-forms">
-            <div class="form-errors hidden">
-                {% blocktrans trimmed %}
-                El formulario contiene errores. Revísalo, por favor.
-                {% endblocktrans %}
-            </div>
             <div class="form-fields">
                 {% include 'forms/field.html' with field=form.pk classes='hidden' %}
                 {% include 'forms/field.html' with field=form.audioset classes='hidden' %}

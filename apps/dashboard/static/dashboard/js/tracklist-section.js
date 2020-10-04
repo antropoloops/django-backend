@@ -25,6 +25,7 @@
 // Container node to hold forms in the view
 var form_container   = document.querySelector('#form-tracklist-container');
 var background_field = document.querySelector('.background-field');
+
 function clean(){
     while(form_container.firstChild)
         form_container.removeChild(form_container.firstChild);
@@ -76,7 +77,6 @@ jQuery(document).ready( function()
                 form.querySelector('[name="pk"]').value = id;
             if(action)
                 form.setAttribute('data-action', action);
-
 
             // Populate form with proper data
             switch(action)
@@ -174,7 +174,7 @@ jQuery(document).ready( function()
                 var endpoint = endpoints[model][action];
                 // If clip replace explicitly the value of the CKEDITOR field
                 // to prevent from not updating it at all
-                if(model=='clip'){
+                if(model=='clip' && action != 'delete'){
                     var readme_text = CKEDITOR.instances['id_readme'].getData();
                     document.querySelector('#id_readme').value = readme_text;
                 }
@@ -199,16 +199,22 @@ jQuery(document).ready( function()
                         // Validation failed
                         if(response.status==400)
                         {
-                            var form_errors = document.querySelector('.form-errors');
-                            form_errors.classList.remove('hidden');
                             var errors_msg = JSON.parse(response.responseText);
+                            var messages = document.querySelector('.site-messages');
+                            var message = document.createElement('li');
+                            message.classList.add('site-message', 'site-message--error');
+                            message.innerHTML = '\
+                                <span class="site-message__close" data-hide=".site-message--0">×</span>\
+                                El formulario contiene errores:';
                             Object.keys(errors_msg).forEach( function(fieldname) {
-                                  var field = document.querySelector('.form-field--' + fieldname);
+                                  var field = document.querySelector('.field--' + fieldname);
                                   if(field){
                                       field.classList.add('not-validated');
                                       field.dataset.error = errors_msg[fieldname][0].message;
                                   }
+                                  message.innerHTML += '<p>' + errors_msg[fieldname][0].message + '</p>';
                             });
+                            document.querySelector('.site-messages').appendChild(message);
                             document.querySelector('.layout-form-audioset').classList.remove('saving');
                         }
                     },
@@ -239,6 +245,8 @@ jQuery(document).ready( function()
             // Remove previous content and add new one
             clean();
             form_container.appendChild(form_node);
+
+
             // Apply CKEditor widget to readme field
             if(model=='clip') {
                 // alert();

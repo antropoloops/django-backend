@@ -42,7 +42,7 @@ class ProjectForm(forms.ModelForm):
         ]
         widgets = {
             'image' : ImagePreviewWidget(),
-            'description' : LimitedTextareaWidget(limit=280),
+            'description' : LimitedTextareaWidget(limit=70),
         }
 
     def clean_slug(self):
@@ -214,21 +214,31 @@ class ClipForm(forms.ModelForm):
                     'para rellenar automáticamente este campo'
                 )
 
+    def clean(self):
+        cleaned_data = super().clean()
+        print(cleaned_data)
+        if not 'pos_x' in cleaned_data or not 'pos_y' in cleaned_data or not cleaned_data['pos_x'] or not cleaned_data['pos_y']:
+            raise forms.ValidationError(
+                _("Es necesario especificar una posición para el clip")
+            )
+        return cleaned_data
+
     def clean_key(self):
         new_key = self.cleaned_data['key']
         if new_key:
-            audioset = models.Track.objects.get(
-                pk=self.track_pk
-            ).audioset
-            audioset_tracks = audioset.tracks.all()
+            audioset_tracks = self.instance.track.first().audioset.tracks.all()
             keys = list( models.Clip.objects.filter(
-                track__in=audioset_tracks
+                track__in=audioset_tracks,
+                key__isnull=False
             ).values_list(
                 'key',
                 flat=True
             ))
+            current_key = self.instance.key
+            if current_key and current_key in keys:
+                keys.remove(current_key)
             if new_key in keys:
-                current_keys = reduce(lambda a, b : ("'%s' '%s'")%(a, b), keys)
+                current_keys = reduce(lambda a, b : ("%s %s")%(a, b), keys)
                 raise forms.ValidationError(
                     _("La tecla '%s' ya está seleccionada. Teclas seleccionadas actualmente: %s" % ( new_key, current_keys ))
                 )
@@ -240,23 +250,3 @@ class ClipUpdateForm(ClipForm):
     pk = forms.IntegerField(
         widget=widgets.HiddenInput()
     )
-
-    def clean_key(self):
-        new_key = self.cleaned_data['key']
-        if new_key:
-            audioset_tracks = self.instance.track.first().audioset.tracks.all()
-            keys = list( models.Clip.objects.filter(
-                track__in=audioset_tracks
-            ).values_list(
-                'key',
-                flat=True
-            ))
-            current_key = self.instance.key
-            if current_key and current_key in keys:
-                keys.remove(current_key)
-            if new_key in keys:
-                current_keys = reduce(lambda a, b : ("'%s' '%s'")%(a, b), keys)
-                raise forms.ValidationError(
-                    _("La tecla '%s' ya está seleccionada. Teclas seleccionadas actualmente: %s" % ( new_key, current_keys ))
-                )
-        return new_key

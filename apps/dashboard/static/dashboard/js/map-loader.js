@@ -10,7 +10,7 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
     var W = container.clientWidth;
     var H_target = document.querySelector('.form--simple') || container;
     var H = H_target.clientHeight;
-    var scale_factor = 200;
+    var scale_factor = W / 6.5;
 
     var svg = d3.select('#map')
       .append("svg")
@@ -83,7 +83,7 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
         zoom = d3.behavior.zoom()
           .translate([ W/2, H/2 ])
           .scale(map_scale * scale_factor)
-          .scaleExtent([250, 2000])
+          .scaleExtent([W/6.5, 2000])
           .on("zoom", zoomed);
         svg.call(zoom).call(zoom.event);
     }

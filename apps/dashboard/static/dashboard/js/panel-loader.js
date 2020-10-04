@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var source_h = panel.getAttribute('height');
     var source_fw = source_w / panel.width;
     var source_fh = source_h / panel.height;
-    
+
     panel.addEventListener('click', function(e){
         var clip_is_active = document.querySelector('.layout-form-audioset').dataset.active == 'clip';
         var placeholder =  document.querySelector('.clip-marker--placeholder');
@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function(){
             placeholder.style.top  = (y - 20) + "px";
             var new_x = x * source_fw;
             var new_y = y * source_fh;
-            document.querySelector('#id_pos_x').value = parseInt(new_x);
-            document.querySelector('#id_pos_y').value = parseInt(new_y);
+            document.querySelector('#id_pos_x').setAttribute('value', parseInt(new_x));
+            document.querySelector('#id_pos_y').setAttribute('value', parseInt(new_y));
         }
     });
     jQuery.get('/api/1.0/track/clips/'+audioset, function(data){

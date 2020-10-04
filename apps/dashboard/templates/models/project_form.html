@@ -52,6 +52,7 @@
             </div>
             <div class="fieldset">
                 {% include 'forms/field.html' with field=form.image %}
+                {% include 'forms/field.html' with field=form.description %}
                 {% include 'forms/field.html' with field=form.readme %}
             </div>
             {% if form.instance.pk %}

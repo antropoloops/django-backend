@@ -15,7 +15,7 @@
   padding: 0 $m/2
 .field__label
   display: block
-  margin: $m*1.5 0 $m/2
+  margin: 18px 0 12px
   color: white
   font-weight: bold
 .required:after
@@ -38,7 +38,7 @@
   img
     filter: invert(1)
 .form-help--tracklist
-  padding: $m
+  padding: $m $m/2
 
 .form input,
 .form select
@@ -119,20 +119,18 @@
 
 .field__widget--picture-preview
   position: relative
-  &.image-loaded .widget-wrapper
-    position: absolute
-    left: 0
-    right: 0
-    bottom: 0
-    z-index: 100
-    background-color: rgba(black, .5)
-    color: white !important
-    padding: $m/2
 
 .form__non-field-errors,
 .form__field-errors,
-.form__errors,
 .field__errors
   color: $red
   font-size: .8em
   padding: $m
+
+.field.not-validated
+  &:after
+    content: attr(data-error)
+    color: $red
+    font-size: .8em
+    padding: $m
+    display: block

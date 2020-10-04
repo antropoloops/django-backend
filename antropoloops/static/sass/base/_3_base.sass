@@ -13,7 +13,7 @@ html
 
 body
   position: relative
-  background: #d9d9d9
+  background: #d6d6d6
   height: 100%
   overflow-x: hidden
   color: $color_text
@@ -110,11 +110,11 @@ select
   display: inline
 
 .btn
-  border-radius: 12px
+  border-radius: 15px
   color: white
-  padding: 0 $m/4
+  padding: 0 10px
   line-height: 24px
-  font-weight: bold
+  vertical-align: middle
   transition: background-color .2s ease
   border: 0
   display: inline-block
@@ -129,7 +129,11 @@ select
 .btn--red
   background-color: $red
   &:hover
-    background-color: darken($red, 5%)
+    background-color: #991820
+    cursor: pointer
 
 .white
   color: white
+
+.invert img
+  filter: invert(1)

@@ -21,7 +21,7 @@
 {# breadcrumb #}
 {% block breadcrumb %}
 <div class="page__breadcrumb">
-    / <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
+    <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
     / <a href="{% url 'project_detail' object.project.pk %}">{{ object.project.name }}</a>
     / {{ object.name }}
 </div>
@@ -32,21 +32,21 @@
 <div class="layout-form-audioset layout-two-col">
     <div class="layout-form-audioset__left modal-anchor">
         <div class="actions">
-            <span class="actions__title">{{ object.name }}</span>
+            <h5 class="actions__title">{{ object.name }}</h5>
             <ul class="actions__items">
-                  <li class="actions__item"
+                  <li class="actions__item invert"
                       data-show-template="template-form-track"
                       data-action="create"
                       data-model="track"
                       data-tooltip="{% trans 'Añade una pista' %}"
                   >
-                    {% m_icon 'add' %}
+                    {% m_icon 'add_circle' %}
                 </li>
-                <li class="actions__item"
+                <li class="actions__item invert"
                     data-tooltip="{% trans 'Edita este audioset' %}"
                 >
                     <a href="{% url 'audioset_update' object.id %}">
-                        {% m_icon 'create' %}
+                        {% m_icon 'edit_circle' %}
                     </a>
                 </li>
             </ul>
@@ -66,13 +66,13 @@
             </div>
             <div class="actions-secondary">
                 <ul class="actions-secondary__items">
-                    <li class="actions-secondary__item">
+                    <li class="actions-secondary__item invert">
                         <a href="https://play.antropoloops.com/audioset/{{ object.slug }}" target="_blank">
                             {% trans 'Ver audioset online' %}
                             {% m_icon 'play_circle_filled' %}
                         </a>
                     </li>
-                    <li class="actions-secondary__item">
+                    <li class="actions-secondary__item invert">
                         <a href="{% url 'audioset_delete' object.project.pk object.pk %}">
                             {% trans 'Borrar audioset' %}
                             {% m_icon 'delete' %}

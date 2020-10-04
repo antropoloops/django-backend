@@ -24,18 +24,18 @@
 {# Sidebar #}
 {% block sidebar %}
 <div class="actions">
-    <span class="actions__title">
+    <h5 class="actions__title">
         {{ object.name }}
-    </span>
+    </h5>
     <ul class="actions__items">
-        <li class="actions__item" data-tooltip="{% trans 'Añade un audioset' %}">
+        <li class="actions__item invert" data-tooltip="{% trans 'Añade un audioset' %}">
             <a href="{% url 'audioset_create' object.id %}">
-                {% m_icon 'add' %}
+                {% m_icon 'add_circle' %}
             </a>
         </li>
-        <li class="actions__item" data-tooltip="{% trans 'Edita este proyecto' %}">
+        <li class="actions__item invert" data-tooltip="{% trans 'Edita este proyecto' %}">
             <a href="{% url 'project_update' object.id %}">
-                {% m_icon 'create' %}
+                {% m_icon 'edit_circle' %}
             </a>
         </li>
     </ul>
@@ -48,5 +48,5 @@
 
 {# Content #}
 {% block main %}
-    {% textblock 'como-funciona' %}
+    {% textblock 'crear-audioset' %}
 {% endblock %}

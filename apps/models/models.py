@@ -29,7 +29,7 @@ validator_wav = validators.AudioTypeValidator([
 ])
 validator_audio = validators.AudioTypeValidator([
     "audio/mpeg",
-    "audio/ogg"
+    "audio/ogg",
     "audio/wav",
     "audio/x-wav",
     "audio/x-wave",
@@ -187,8 +187,8 @@ class Clip(models.Model):
     )
     pos_x = models.FloatField(
         _('Posición X'),
-        default = 0,
-        blank=False,
+        blank=True,
+        null=True,
         help_text=_(
             'Coordinada horizontal de la posición del clip en la imagen. '
             'Haz click en un punto de la imagen para rellenar este campo automáticamente.'
@@ -196,8 +196,8 @@ class Clip(models.Model):
     )
     pos_y = models.FloatField(
         _('Posición Y'),
-        default = 0,
-        blank=False,
+        blank=True,
+        null=True,
         help_text=_(
             'Coordinada vertical de la posición del clip en la imagen. '
             'Haz click en un punto de la imagen para rellenar este campo automáticamente.'
@@ -402,9 +402,9 @@ class Audioset(Publishable):
     mode_display = models.CharField(
         _('Tipo de visual'),
         max_length=2,
-        blank=True,
-        null=False,
-        default='',
+        blank=False,
+        null=True,
+        default='1',
         choices=categories.VISUAL_DISPLAY_MODE,
         help_text=_(
             'Elige el modo en que quieres mostrar el audioset. Elige <em>panel</em> '
