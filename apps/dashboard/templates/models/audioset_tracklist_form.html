@@ -61,9 +61,11 @@
             {% endfor %}
             </ul>
             <div id="form-tracklist-container"></div>
+            {% if clipsnumber == 0 %}
             <div class="form-help form-help--tracklist">
                 {% trans 'Puedes seleccionar los clips en el mapa para editarlos' %}
             </div>
+            {% endif %}
             <div class="actions-secondary">
                 <ul class="actions-secondary__items">
                     <li class="actions-secondary__item invert">
