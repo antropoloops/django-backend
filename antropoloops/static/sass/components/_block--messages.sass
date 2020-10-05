@@ -2,9 +2,9 @@
 
 .site-messages
   position: fixed
-  top: $m*2
+  top: 100px
   right: $m
-  font-size: 1em
+  font-size: $size_small
   width: 360px
   max-width: 100%
   z-index: 15000
@@ -12,9 +12,17 @@
 .site-message
   border-radius: 4px
   padding: $m/2
+  margin-bottom: $m/2
   transition: opacity .2s ease
   color: white
   +animation( slideright 1s 1)
+  *
+    pointer-events: none
+  p
+    margin-top: $m/4
+  &:hover
+    cursor: pointer
+    opacity: .75
 
 .site-message.collapsed
   opacity: 0
@@ -22,12 +30,10 @@
 
 .site-message__close
   position: absolute
-  top: 0
-  left: -$m
+  top: $m/2
+  right: $m/2
   font-size: 1.5em
-  color: #222
-  &:hover
-    cursor: pointer
+  color: white
 
 .site-message--success
   background-color: $color_success

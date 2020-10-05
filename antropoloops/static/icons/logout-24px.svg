@@ -15,7 +15,7 @@
    sodipodi:docname="logout-24px.svg"
    width="24"
    height="24"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+   inkscape:version="0.92.5 (0.92.5+68)">
   <metadata
      id="metadata16">
     <rdf:RDF>
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -39,19 +39,20 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="740"
+     inkscape:window-width="1920"
+     inkscape:window-height="1053"
      id="namedview12"
      showgrid="false"
      inkscape:zoom="10.680141"
-     inkscape:cx="-4.838997"
+     inkscape:cx="-17.104753"
      inkscape:cy="20.007539"
-     inkscape:window-x="1920"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg10" />
   <path
      id="path2"
-     style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:Sans;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6;marker:none;enable-background:accumulate"
-     d="m 15.447503,5.3258282 a 0.80004116,0.80004116 0 0 0 -0.499975,1.3915991 l 4.883095,4.4831157 H 7.4895556 c -0.02775,-0.0013 -0.05558,-0.0013 -0.08333,0 -0.418909,0.02173 -0.780114,0.422713 -0.758296,0.841626 0.02182,0.418886 0.422724,0.780189 0.841625,0.758296 H 19.830623 l -4.883095,4.474783 a 0.80004116,0.80004116 0 1 0 1.08328,1.174943 l 6.399689,-5.866382 a 0.80004116,0.80004116 0 0 0 0,-1.174943 L 16.030808,5.5424843 A 0.80004116,0.80004116 0 0 0 15.447503,5.3258282 Z M 8.5955289,0.0010867 A 0.80104545,0.80104545 0 1 1 8.5121996,1.601009 H 2.9124715 v 20.79899 h 5.5997281 a 0.80004116,0.80004116 0 1 1 0,1.599922 H 2.1125104 A 0.80004116,0.80004116 0 0 1 1.3125492,23.19996 V 0.80104786 A 0.80004116,0.80004116 0 0 1 2.1125104,0.0010867 h 6.3996892 a 0.80004116,0.80004116 0 0 1 0.083329,0 z" />
+     style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:Sans;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:5;marker:none;enable-background:accumulate"
+     d="m 14.872919,6.4381893 a 0.66670096,0.66670096 0 0 0 -0.416646,1.1596659 l 4.069246,3.7359298 H 8.2412961 c -0.023125,-0.0011 -0.046317,-0.0011 -0.069442,0 -0.3490908,0.01811 -0.650095,0.352261 -0.6319133,0.701355 0.018183,0.349072 0.35227,0.650158 0.7013542,0.631913 h 10.284224 l -4.069246,3.728986 a 0.66670096,0.66670096 0 1 0 0.902734,0.979119 l 5.333074,-4.888651 a 0.66670096,0.66670096 0 0 0 0,-0.979119 L 15.359007,6.6187361 A 0.66670096,0.66670096 0 0 0 14.872919,6.4381893 Z M 9.1629405,2.0009048 a 0.66753787,0.66753787 0 1 1 -0.069441,1.3332685 h -4.66644 V 20.666665 h 4.66644 a 0.66670096,0.66670096 0 1 1 0,1.333268 H 3.7604251 A 0.66670096,0.66670096 0 0 1 3.0937908,21.333299 V 2.6675391 A 0.66670096,0.66670096 0 0 1 3.7604251,2.0009048 h 5.3330743 a 0.66670096,0.66670096 0 0 1 0.069441,0 z"
+     inkscape:connector-curvature="0" />
 </svg>

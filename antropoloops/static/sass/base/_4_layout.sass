@@ -1,9 +1,10 @@
 // Regions
 .region-header
   background: #ececec
+  font-size: $size_small
   +breakpoint('sm')
-    height: $height_header
-
+    height: $m*2
+    line-height: $m*2
 .region-footer
   padding: $padding_footer
   height: $height_footer
@@ -27,11 +28,12 @@
   +breakpoint('sm')
     display: grid
     grid-template-columns: 33% 1fr
-  +breakpoint('lg')
+  +breakpoint('xl')
     display: grid
     grid-template-columns: 25% 1fr
 .layout-form-audioset__right
   position: relative
+  background-color: #7e7e7e
   +breakpoint('sm')
     height: calc(100vh - 40px)
     overflow-y: auto

@@ -25,7 +25,7 @@
 // Container node to hold forms in the view
 var form_container   = document.querySelector('#form-tracklist-container');
 var inner_container  = document.querySelector('.height-forms');
-var background_field = document.querySelector('.background-field');
+var background_field = document.querySelector('.background-field__header');
 
 function clean(){
     while(form_container.firstChild)
@@ -108,19 +108,8 @@ jQuery(document).ready( function()
                                     // using JS
                                     var widget_container = document.querySelector('.field--' + field);
                                     // Placeholder
-                                    var thumbnail = document.createElement('img');
+                                    var thumbnail = document.querySelector('.placeholder img');
                                     thumbnail.src = data[field];
-                                    thumbnail.classList.add('form-field--'+field+'-preview');
-                                    widget_container.appendChild(thumbnail);
-                                    // Checkbox to delete the image
-                                    var delete_input = document.createElement('input');
-                                    delete_input.type = 'checkbox';
-                                    delete_input.name = field + '_delete';
-                                    delete_input.classList.add('form-field--'+field+'-delete');
-                                    var delete_input_label = document.createElement('label');
-                                    delete_input_label.innerHTML = 'Borrar la imagen';
-                                    widget_container.appendChild(delete_input);
-                                    widget_container.appendChild(delete_input_label);
                                 }
                                 // Create proper audio fields
                                 audio_fields.forEach(function(audio_field)
@@ -203,9 +192,9 @@ jQuery(document).ready( function()
                             var errors_msg = JSON.parse(response.responseText);
                             var messages = document.querySelector('.site-messages');
                             var message = document.createElement('li');
-                            message.classList.add('site-message', 'site-message--error');
+                            message.classList.add('site-message', 'site-message--error',);
                             message.innerHTML = '\
-                                <span class="site-message__close" data-hide=".site-message--0">×</span>\
+                                <span class="site-message__close>×</span>\
                                 El formulario contiene errores:';
                             Object.keys(errors_msg).forEach( function(fieldname) {
                                   var field = document.querySelector('.field--' + fieldname);
@@ -228,7 +217,7 @@ jQuery(document).ready( function()
                   active.classList.remove('active');
                 document.querySelector('.layout-form-audioset').dataset.active='clip';
                 if(background_field){
-                    document.querySelector('.background-field').classList.remove('hidden');
+                    background_field.classList.remove('hidden');
                 }
                 var placeholder = document.querySelector('.clip-marker--placeholder');
                 if(placeholder){

@@ -38,12 +38,12 @@
                       data-show-template="template-form-track"
                       data-action="create"
                       data-model="track"
-                      data-tooltip="{% trans 'Añade una pista' %}"
+                      data-tooltip="{% trans 'Añadir pista' %}"
                   >
                     {% m_icon 'add_circle' %}
                 </li>
                 <li class="actions__item invert"
-                    data-tooltip="{% trans 'Edita este audioset' %}"
+                    data-tooltip="{% trans 'Editar audioset' %}"
                 >
                     <a href="{% url 'audioset_update' object.id %}">
                         {% m_icon 'edit_circle' %}
@@ -88,17 +88,23 @@
         {% include 'models/template_form_delete.html' %}
     </div>
     <div class="layout-form-audioset__right">
-        {% if audioset.is_panel and audioset.background %}
-              {% include 'components/block-background-field-panel.html' with classes="hidden" %}
+        <div class="background-field">
+            <div class="background-field__header hidden">
+                <label class="background-field__label required">Posición</label>
+                {% if audioset.is_panel and audioset.background %}
+                    {% include 'components/block-background-field-panel.html' %}
+            </div>
             <img class="audioset-background"
                  width="{{ audioset.background.width }}"
                  height="{{ audioset.background.height }}"
                  src="{{ audioset.background.url }}"
             />
-        {% else %}
-            {% include 'components/block-background-field-map.html' with classes="hidden" submit="Situar clip" %}
+                {% else %}
+                    {% include 'components/block-background-field-map.html' with text="Busca un lugar para situar el clip" submit="Situar clip" %}
+            </div>
             <div id="map"></div>
-        {% endif %}
+                {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

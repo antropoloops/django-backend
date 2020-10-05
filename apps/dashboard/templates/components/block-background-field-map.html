@@ -2,11 +2,8 @@
 {% load i18n %}
 
 <div class="background-field background-field--map {% if classes %}{{ classes }}{% endif %}">
-    <label class="background-field__label required">
-        {% trans 'Posición clip' %}
-    </label>
     <span class="background-field__helptext">
-        {% trans 'Busca un lugar para situar el clip en tu mapa' %}
+        {{ text }}
     </span>
     <span class="background-field__icon">
         {% m_icon 'search' %}

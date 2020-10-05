@@ -6,6 +6,8 @@ from django.forms import widgets
 from django.utils.translation import ugettext_lazy as _
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import ValidationError
+from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.urls import reverse_lazy
 # app
 from apps.models import models
 from apps.limited_textarea_widget.widgets import LimitedTextareaWidget
@@ -42,7 +44,7 @@ class ProjectForm(forms.ModelForm):
         ]
         widgets = {
             'image' : ImagePreviewWidget(),
-            'description' : LimitedTextareaWidget(limit=70),
+            'description' : LimitedTextareaWidget(attrs={'rows':2 }, limit=70),
         }
 
     def clean_slug(self):
@@ -113,18 +115,12 @@ class AudiosetForm(forms.ModelForm):
             'map_shift_vertical',
         ]
         widgets = {
-            'description' : LimitedTextareaWidget(limit=70),
+            'description' : LimitedTextareaWidget(attrs={'rows':2 }, limit=70),
             'image' : ImagePreviewWidget(
-                placeholder=_(
-                    "Añade aquí una imagen de cabecera"
-                )
+                placeholder=_('<img src="%s" />' % static('img/audioset.jpg'))
             ),
             'mode_display' : widgets.RadioSelect(),
-            'background' : ImagePreviewWidget(
-                placeholder=_(
-                    "Añade aquí la imagen de fondo del panel"
-                )
-            ),
+            'background' : ImagePreviewWidget(),
         }
 
 class TrackForm(forms.ModelForm):
@@ -190,7 +186,7 @@ class ClipForm(forms.ModelForm):
             'image_alt', 'audio_mp3', 'audio_ogg'
         ]
         widgets = {
-            'image' : ImagePreviewWidget(),
+            'image' : ImagePreviewWidget(placeholder='<img src="%s" />' % static('img/clip.jpg')),
         }
 
     def __init__(self, *args, **kwargs):

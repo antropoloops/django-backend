@@ -2,10 +2,8 @@
 
 <div class="field__widget--picture-preview empty">
     <div class="placeholder">
-        {% if placeholder %}
-        <p class="placeholder__text">
-            {{ placeholder }}
-        </p>
+        {% if placeholder and not parent_widget.value %}
+            {{ placeholder | safe }}
         {% endif %}
     </div>
     <div class="widget-wrapper">

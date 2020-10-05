@@ -6,6 +6,9 @@
   overflow-x: hidden
   background-color: #9e9e9e
 
+.form .actions
+  background-color: #9e9e9e
+
 .form-action:not(.form-action--tracklist)
   display: inline
 .form-actions--tracklist
@@ -15,7 +18,7 @@
   padding: 0 $m/2
 .field__label
   display: block
-  margin: 18px 0 6px
+  margin: 12px 0 6px
   color: white
   font-weight: bold
 .required:after
@@ -24,7 +27,7 @@
   margin-left: 2px
 
 .form-help
-  font-size: .85em
+  font-size: $size_small
   a:link, a:visited
     color: white
   a:hover
@@ -37,8 +40,11 @@
   text-align: right
   img
     filter: invert(1)
+
 .form-help--tracklist
-  padding: $m $m/2
+  line-height: 40px
+  padding: 0 $m/2
+  color: white
 
 .form input,
 .form select
@@ -51,6 +57,7 @@
   color: #333
   padding-left: $m/2
   padding-right: $m/2
+  font-size: $size_small
 .form textarea
   padding: $m/2
 .form input[type='color']
@@ -63,19 +70,22 @@
 
 .field__helptext
   display: block
-  font-size: .8em
-  margin-top: $m/2
+  font-size: .8rem
+  margin-top: $m/4
   color: #222
 
 .textarea-counter
   text-align: right
-  font-size: .8em
+  font-size: $size_small
   margin-bottom: $m/4
 
 .field__widget--picture-preview
+  display: grid
+  grid-template-columns: 50% 50%
+  align-items: end
   .placeholder
     text-align: center
-    margin: $m 0
+    vertical-align: bottom
   a
     color: white
     text-decoration: underline
@@ -86,6 +96,17 @@
     top: 2px
   br
     margin-bottom: $m/2
+  .widget-wrapper
+    padding: $m $m/2
+    font-size: $size_small
+    color: #9e9e9e
+    *:not([type=file])
+      display: none !important
+
+.field--background .field__widget--picture-preview
+  display: block
+  input
+    padding-left: 0 !important
 
 .form .django-ckeditor-widget
   width: 100%
@@ -94,7 +115,7 @@
   max-width: 100% !important
 
 .form .field a
-  font-size: .9em
+  font-size: $size_small
   &:link, &:visited
     color: white
     max-width: 90%
@@ -110,15 +131,12 @@
     color: white
 
 .form-field__delete--audio
-  font-size: .8em
+  font-size: .8rem
   margin: $m/3 0
   input
     margin-right: $m/3
     position: relative
     top: 2px
-
-.field__widget--picture-preview
-  position: relative
 
 .form__non-field-errors,
 .form__field-errors,

@@ -26,7 +26,7 @@
 <div class="actions">
     <h5 class="actions__title">{{ request.user.username }}</h5>
     <ul class="actions__items">
-        <li class="actions__item invert" data-tooltip="{% trans 'Añadir un proyecto' %}">
+        <li class="actions__item invert" data-tooltip="{% trans 'Añadir proyecto' %}">
             <a href="{% url 'project_create' %}">
                 {% m_icon 'add_circle' %}
             </a>

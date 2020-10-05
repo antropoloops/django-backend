@@ -28,12 +28,12 @@
         {{ object.name }}
     </h5>
     <ul class="actions__items">
-        <li class="actions__item invert" data-tooltip="{% trans 'Añade un audioset' %}">
+        <li class="actions__item invert" data-tooltip="{% trans 'Añadir audioset' %}">
             <a href="{% url 'audioset_create' object.id %}">
                 {% m_icon 'add_circle' %}
             </a>
         </li>
-        <li class="actions__item invert" data-tooltip="{% trans 'Edita este proyecto' %}">
+        <li class="actions__item invert" data-tooltip="{% trans 'Editar proyecto' %}">
             <a href="{% url 'project_update' object.id %}">
                 {% m_icon 'edit_circle' %}
             </a>

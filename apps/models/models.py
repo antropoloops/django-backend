@@ -74,6 +74,7 @@ class Clip(models.Model):
     image = models.ImageField(
         _('Imagen'),
         blank=True,
+        default='images/clips/clip.jpg',
         upload_to='images/clips/',
         help_text=_(
             'Sube una imagen cuadrada como portada de tu clip '
@@ -243,7 +244,7 @@ class Project(Publishable):
 
     name = models.CharField(
         _('Nombre del proyecto'),
-        max_length=128,
+        max_length=48,
         blank=False,
     )
     description = models.TextField(
@@ -258,8 +259,8 @@ class Project(Publishable):
         blank=True,
         help_text=_(
             'Aquí puedes insertar texto, imágenes y contenido para explicar más '
-            'cosas del proyecto. Para insertar imágenes puedes simplemente. '
-            'arrastrarlas dentro.'
+            'cosas del proyecto. <b>Para insertar imágenes puedes simplemente '
+            'arrastrarlas dentro</b>.'
         )
     )
     background = models.ImageField(
@@ -331,7 +332,7 @@ class Audioset(Publishable):
 
     name = models.CharField(
         _('Nombre del set'),
-        max_length=128,
+        max_length=48,
         blank=False,
         help_text=_(
             'Elige un nombre para el audioset.'
@@ -358,7 +359,7 @@ class Audioset(Publishable):
         help_text=_(
             'Aquí puedes insertar texto, imágenes y contenido para explicar en qué '
             'contexto has realizado tu audioset, contar un poco del proyecto, etc.'
-            'Para insertar imágenes puedes simplemente arrastrarlas dentro.'
+            '<b>Para insertar imágenes puedes simplemente arrastrarlas dentro</b>.'
         )
     )
     project = models.ForeignKey(
@@ -374,6 +375,7 @@ class Audioset(Publishable):
     image = models.ImageField(
         _('Imagen'),
         blank=True,
+        default='images/audiosets/audioset.jpg',
         upload_to='images/audiosets',
         help_text=_(
             'Sube una imagen cuadrada como portada de tu audioset '

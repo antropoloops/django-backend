@@ -103,4 +103,10 @@ document.addEventListener("DOMContentLoaded", function()
             wb_get(url)
         });
     });
+    document.querySelector('.site-messages').addEventListener('click', function(e){
+        var t = e.target;
+        if(t.classList.contains('site-message')) {
+            t.classList.add('hidden');
+        }
+    });
 });

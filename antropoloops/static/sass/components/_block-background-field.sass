@@ -1,17 +1,54 @@
-// Map inder
+// Background field
 
-.background-field
-  background-color: #d6d6d6
-  padding: $m $m/2
-  +breakpoint('xs')
-    text-align: center
-  +breakpoint('sm')
-    padding-top: 0
-    padding-bottom: 0
-    line-height: 40px
-    width: 100%
-    z-index: 12000
+#id_mode_display
+  display: inline-block
+  li
+    font-size: .8em
+    display: inline
+    margin-left: $m/2
+  label, input
+    cursor: pointer
+    vertical-align: middle
+  input
+    position: relative
+    top: -2px
+  label:before
+    content: none
+
+.background-field[data-current-state='1'] .map
+  display: none
+.background-field[data-current-state='2'] .panel
+  display: none
+
+.panel
+  .field__label
+    display: none
+  .field__widget--picture-preview .widget-wrapper
+    padding: 0
+    margin-left: $m*2
+  .placeholder
     position: absolute
+    left: 0
+    right: 0
+    top: 40px
+    bottom: 0
+
+.background-field__header
+  background-color: #d6d6d6
+  position: absolute
+  left: 0
+  right: 0
+  top: 0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 0 $m/2
+  height: 40px
+  line-height: 40px
+  z-index: 12000
+  &.hidden
+    display: none
+
 .background-field__label
   font-weight: bold
   color: inherit
@@ -20,9 +57,9 @@
     display: block
 .background-field__helptext
   padding: 0 $m/2
+  font-size: $size_small
   +breakpoint('xs')
     padding-top: $m/2
-    font-size: .8em
 .background-field__input
   width: auto !important
   position: relative
@@ -49,9 +86,10 @@
   background: white
   line-height: 1.5em
   padding: $m/3
-  font-size: .8em
+  font-size: $size_small
   transition: opacity .2s ease
   opacity: 1
+
 .background-field__warning.hidden
   display: block
   opacity: 0

@@ -8,14 +8,16 @@
 [data-tooltip]:hover:after
   content: attr(data-tooltip)
   position: absolute
-  right: $m*1.2
+  right: 30px
   top: 0
-  width: $m*3
+  height: 24px
+  line-height: 24px
+  width: $m*5
   text-align: center
   background-color: #4d4d4a
   z-index: 1000
-  padding: $m/2
   +animation(fadein .25s 1)
   border-radius: 4px
   color: white
   font-size: .8em
+  pointer-events: none

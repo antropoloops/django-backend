@@ -73,6 +73,9 @@
                     {% include 'forms/field.html' with field=form.playmode %}
                     {% include 'forms/field.html' with field=form.audio_bpm %}
                 </div>
+                {% include 'forms/field.html' with field=form.map_scale classes="hidden" %}
+                {% include 'forms/field.html' with field=form.map_center_x classes="hidden" %}
+                {% include 'forms/field.html' with field=form.map_center_y classes="hidden" %}
                 {% if request.user.is_staff %}
                 <div class="fieldset">
                     {% include 'forms/field.html' with field=form.audio_quantize %}
@@ -105,32 +108,22 @@
         </div>
     </div>
     <div class="layout-form-audioset__right">
-        <div class="background-field background-field--panel">
-            <label class="background-field__label required">
-                {% trans 'Fondo del audioset' %}
-            </label>
-            <span class="background-field__helptext">
-                {% trans '¿Qué fondo quieres para el audioset?' %}
-            </span>
-            {{ form.mode_display }}
-        </div>
-        <div class="mode-selector" data-current-state="{{ form.mode_display.value }}">
-            <div class="mode-selector__state" data-state="1">
-                <div class="mode-selector__state-fields">
+        <div class="background-field">
+            <div class="background-field__header">
+                <div class="field--mode__display">
+                    <label class="background-field__label required">
+                        {% trans 'Fondo' %}
+                    </label>
+                    {{ form.mode_display }}
+                </div>
+                <div class="panel">
                     {% include 'forms/field.html' with field=form.background %}
                 </div>
-            </div>
-            <div class="mode-selector__state" data-state="2">
-                <div class="mode-selector__state-fields">
-                    <div id="map"></div>
-                    <div class="map__fields">
-                        {% include 'components/block-background-field-map.html' with submit="Centrar mapa" %}
-                        {% include 'forms/field.html' with field=form.map_scale classes="hidden" %}
-                        {% include 'forms/field.html' with field=form.map_center_x classes="hidden" %}
-                        {% include 'forms/field.html' with field=form.map_center_y classes="hidden" %}
-                    </div>
+                <div class="map">
+                    {% include 'components/block-background-field-map.html' with text="Busca un lugar para centrar tu mapa y usa el scroll para ajustar su escala" submit="Centrar mapa" %}
                 </div>
             </div>
+            <div id="map" class="map"></div>
         </div>
     </div>
 </form>

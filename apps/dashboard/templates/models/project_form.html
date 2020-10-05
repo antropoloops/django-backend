@@ -27,13 +27,13 @@
 <form class="form" action="{{ action }}" enctype="multipart/form-data" method="post">
     {% csrf_token %}
     <div class="actions">
-        <span class="actions__title">
+        <h5 class="actions__title">
             {% if form.instance.pk %}
                 {% trans 'Editar proyecto' %}
             {% else %}
                 {% trans 'Crear proyecto' %}
             {% endif %}
-        </span>
+        </h5>
         <ul class="actions__items">
             <li class="actions__item" onclick="history.go(-1)">
                 {% trans 'Cancelar' %}

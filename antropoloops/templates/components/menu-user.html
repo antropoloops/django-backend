@@ -8,11 +8,11 @@
             {% trans 'Bienvenido' %}, <strong>{{ request.user.username }}</strong>
         </span>
         {% if request.user.is_staff %}
-        <li class="menu-user__item" data-tooltip="{% trans 'Administra el sitio' %}">
+        <li class="menu-user__item" data-tooltip="{% trans 'Administrar' %}">
             <a href="{% url 'admin:index' %}">{% m_icon 'settings' %}</a>
         </li>
         {% endif %}
-        <li class="menu-user__item" data-tooltip="{% trans 'Logout' %}">
+        <li class="menu-user__item" data-tooltip="{% trans 'Salir' %}">
             <a href="{% url 'logout' %}">{% m_icon 'logout' %}</a>
         </li>
         {% else %}
