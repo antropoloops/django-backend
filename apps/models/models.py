@@ -62,7 +62,8 @@ class Clip(models.Model):
             'Aquí puedes insertar texto, imágenes y contenido para explicar más '
             'cosas del audio. Por ejemplo puedes insertar un link a otra página '
             'donde se pueda oir completo el audio o contar alguna historia sobre '
-            'el mismo.'
+            'el mismo. Para insertar imágenes puedes simplemente. '
+            'arrastrarlas dentro.'
         )
     )
     key = models.CharField(
@@ -256,8 +257,9 @@ class Project(Publishable):
         _('Descripción'),
         blank=True,
         help_text=_(
-            'Descripción larga. Se usará en la página específica '
-            'del proyecto.'
+            'Aquí puedes insertar texto, imágenes y contenido para explicar más '
+            'cosas del proyecto. Para insertar imágenes puedes simplemente. '
+            'arrastrarlas dentro.'
         )
     )
     background = models.ImageField(
@@ -356,6 +358,7 @@ class Audioset(Publishable):
         help_text=_(
             'Aquí puedes insertar texto, imágenes y contenido para explicar en qué '
             'contexto has realizado tu audioset, contar un poco del proyecto, etc.'
+            'Para insertar imágenes puedes simplemente arrastrarlas dentro.'
         )
     )
     project = models.ForeignKey(

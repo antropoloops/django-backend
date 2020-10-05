@@ -24,6 +24,7 @@
 
 // Container node to hold forms in the view
 var form_container   = document.querySelector('#form-tracklist-container');
+var inner_container  = document.querySelector('.height-forms');
 var background_field = document.querySelector('.background-field');
 
 function clean(){
@@ -339,4 +340,11 @@ jQuery(document).ready( function()
             },
         });
     }
+
+    // Ajust padding in main actions
+    var form_overflown = inner_container.scrollHeight > inner_container.offsetHeight;
+    if(form_overflown){
+        document.querySelector('.actions__items').style.paddingRight = '6px';
+    }
+
 });

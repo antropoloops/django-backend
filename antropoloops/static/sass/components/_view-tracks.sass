@@ -11,12 +11,13 @@
 .track__name
   margin: 0
   padding: $m/2 0
-  color: white
+  color: #555
   font-weight: bold
   max-width: calc(100% - 80px)
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
+  mix-blend-mode: difference
 .track-header
   display: flex
   justify-content: space-between
@@ -24,7 +25,8 @@
   padding: $m/4 $m/2
   height: 40px
 .track-actions img
-  opacity: .6
+  mix-blend-mode: difference
+  filter: invert(33%) sepia(10%) saturate(17%) hue-rotate(350deg) brightness(92%) contrast(90%)
 .track-action
   margin-left: $m/2
   display: inline

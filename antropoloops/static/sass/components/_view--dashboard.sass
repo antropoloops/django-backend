@@ -12,9 +12,8 @@
     background-color: #7e7e7e
 
 .field-name--item-dashboard
-  margin: 0 0 $m/2
-  max-width: 275px
-  white-space: nowrap
+  margin: 0 0 $m/4
+  max-height: 80px
   overflow: hidden
   text-overflow: ellipsis
 
@@ -45,31 +44,6 @@
 .field-date--item-dashboard .field__value
   font-weight: bold
 
-.field-description--item-dashboard .blank-description
-  font-style: italic
-
-.project-delete
-  a
-    &:link, &:visited
-      color: white
-    &:hover
-      color: $green
-    &:active
-      color: white
-  .feather
-    vertical-align: middle
-    height: .9em
-    position: relative
-    top: -2px
-  +breakpoint('sm')
-    font-size: .9em
-    float: right
-    margin-right: $m
-
-.blank-image
-  width: 100%
-  padding: 0 $m*2
-
 .field-link--item-dashboard
   position: relative
   display: block
@@ -84,3 +58,10 @@
 
 .view-dashboard__empty
   padding: $m*2 $m
+
+.field-description--item-dashboard
+  font-size: .9em
+
+@media all and (min-width: 768px) and (max-width: 1080px)
+  .field-description--item-dashboard
+    display: none
