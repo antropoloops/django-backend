@@ -250,7 +250,6 @@ jQuery(document).ready( function()
 
             // Apply CKEditor widget to readme field
             if(model=='clip') {
-                // alert();
                 CKEDITOR.replace('id_readme', {
                     'toolbar' : 'Custom',
                     'width'   : '100%',

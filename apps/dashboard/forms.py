@@ -216,7 +216,6 @@ class ClipForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        print(cleaned_data)
         if not 'pos_x' in cleaned_data or not 'pos_y' in cleaned_data or not cleaned_data['pos_x'] or not cleaned_data['pos_y']:
             raise forms.ValidationError(
                 _("Es necesario especificar una posición para el clip")
