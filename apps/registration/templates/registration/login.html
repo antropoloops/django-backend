@@ -30,6 +30,7 @@ Login
     </div>
     <div class="height-forms">
         <div class="form-fields">
+            <input type="hidden" name="next" value="{{ next }}" />
             {% include 'forms/field.html' with field=form.username %}
             {% include 'forms/field.html' with field=form.password %}
         </div>

@@ -36,11 +36,6 @@ urlpatterns = [
         '',
         include(dashboard_urls)
     ),
-    # front
-    path(
-        '',
-        RedirectView.as_view(url='dashboard')
-    ),
 
     # API
     # v1.0

@@ -73,7 +73,6 @@ class AudiosetForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AudiosetForm,self).__init__(*args, **kwargs)
-        print(self.fields)
         self.fields['published'].help_text = _(
             'Cuando tengas listo tu audioset, marca esta casilla para '
             'aparezca en el índice del apartado «Comunidad».'

@@ -1,5 +1,5 @@
 # django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.translation import ugettext_lazy as _
 from apps.models import models as antropoloops_models
 from django.views.generic.list import ListView
@@ -13,6 +13,32 @@ from django.http import Http404
 # app
 from . import forms
 
+
+def login_redirect(request):
+    """
+    Redirects users based on whether they are in the admins group
+    """
+
+    if request.user.is_staff:
+        return redirect("project_list")
+    else:
+        return redirect("audioset_list")
+
+
+class AudiosetListView(LoginRequiredMixin, ListView):
+    """ User dashboard view """
+
+    model = antropoloops_models.Audioset
+    login_url = 'login'
+
+    def get_queryset(self):
+        current_user = self.request.user
+        queryset = antropoloops_models.Audioset.objects.all().order_by(
+            '-update_date'
+        )
+        if not current_user.is_staff:
+            queryset = queryset.filter(owner=current_user)
+        return queryset
 
 class ProjectListView(LoginRequiredMixin, ListView):
     """ User dashboard view """
@@ -133,16 +159,23 @@ class AudiosetCreateView(LoginRequiredMixin, CreateView):
     template_name = 'models/audioset_form.html'
 
     def dispatch(self, *args, **kwargs):
-        self.project = get_object_or_404(
-            antropoloops_models.Project,
-            pk=kwargs.get('pk')
-        )
+        if 'pk' in kwargs:
+            self.project = get_object_or_404(
+                antropoloops_models.Project,
+                pk=kwargs.get('pk')
+            )
+        else:
+            self.project, created = antropoloops_models.Project.objects.get_or_create(
+                antropoloops_models.Project,
+                slug='comunidad'
+            )
         return super(AudiosetCreateView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         """Pass context data to generic view."""
         context = super(AudiosetCreateView, self).get_context_data(**kwargs)
-        context['project']  = self.project
+        if hasattr(self, 'project'):
+            context['project'] = self.project
         return context
 
     def form_valid(self, form):
@@ -154,10 +187,13 @@ class AudiosetCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, _(
             'Has añadido éxitosamente el audioset'
         ))
-        return reverse_lazy(
-            'project_detail',
-            kwargs={ 'pk' : self.project.pk }
-        )
+        if self.request.user.is_staff:
+            return reverse_lazy(
+                'project_detail',
+                kwargs={ 'pk' : self.project.pk }
+            )
+        return reverse_lazy('audioset_list')
+
 
 class AudiosetUpdateView(LoginRequiredMixin, UpdateView):
     """ Audioset update form in user dashboard """
@@ -187,6 +223,7 @@ class AudiosetUpdateView(LoginRequiredMixin, UpdateView):
         ))
         return reverse_lazy('audioset_tracklist', kwargs={'pk' : self.object.pk })
 
+
 class AudiosetDeleteView(LoginRequiredMixin, DeleteView):
     """ Audioset delete form in user dashboard """
 
@@ -200,10 +237,7 @@ class AudiosetDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy(
-            'project_detail',
-            kwargs = {
-                'pk' : self.kwargs.get('project_pk')
-            }
+            'audioset_list',
         )
 
     def delete(self, request, *args, **kwargs):

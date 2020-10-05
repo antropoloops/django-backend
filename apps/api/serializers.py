@@ -140,6 +140,47 @@ def serialize_theme(theme):
         indent=4,
     )
 
+def serialize_community(audiosets):
+    """ Custom serializer for audioset objects """
+
+    theme_data = {
+        'format'          : 'atpls-audioset',
+        'version'         : '2.0.0',
+        'id'              : 'comunidad',
+        'type'            : 'project',
+        'last_updated_at' : time.mktime(
+            theme.update_date.timetuple()
+        ),
+        # meta
+        'meta' : {
+            'title'       : 'Comunidad',
+            'path'        : 'comunidad',
+            'parent_path' : '',
+            'description' : 'Lorem ipsum',
+            'readme'      : 'Lorem ipsum',
+            'logo_url'    : theme.image.url if theme.image else '',
+        },
+        'audiosets' : [],
+    }
+
+    items = models.Project.objects.filter(
+        published=True
+    )
+
+    for content in items:
+        theme_data['audiosets'].append({
+            'id'             : content.play_id,
+            'title'          : content.name,
+            'publish_path'   : content.slug,
+            'description'    : content.description,
+            'logo_url'       : content.image.url if content.image else '',
+        })
+
+    return json.dumps(
+        theme_data,
+        indent=4,
+    )
+
 def serialize_home(theme):
     """ Custom serializer for audioset objects """
 

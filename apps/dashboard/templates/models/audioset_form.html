@@ -12,14 +12,24 @@
 {# breadcrumb #}
 {% block breadcrumb %}
 <div class="page__breadcrumb">
-    <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
-    {% if form.instance.pk %}
-    / <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
-    / <a href="{% url 'audioset_tracklist' form.instance.pk %}">{{ form.instance.name }}</a>
-    » {% trans 'Editar audioset' %}
+    {% if project %}
+        <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
+        {% if form.instance.pk %}
+        / <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
+        / <a href="{% url 'audioset_tracklist' form.instance.pk %}">{{ form.instance.name }}</a>
+        / {% trans 'Editar audioset' %}
+        {% else %}
+        / <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
+        / {% trans 'Añadir audioset' %}
+        {% endif %}
     {% else %}
-    / <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
-    / {% trans 'Añadir audioset' %}
+        <a href="{% url 'audioset_list' %}">{% trans 'Audiosets' %}</a>
+        {% if form.instance.pk %}
+        / <a href="{% url 'audioset_tracklist' form.instance.pk %}">{{ form.instance.name }}</a>
+        / {% trans 'Editar audioset' %}
+        {% else %}
+        / {% trans 'Añadir audioset' %}
+        {% endif %}
     {% endif %}
 </div>
 {% endblock %}
@@ -89,7 +99,7 @@
             <div class="actions-secondary">
                 <ul class="actions-secondary__items">
                     <li class="actions-secondary__item">
-                        <a href="{% url 'audioset_delete' form.instance.project.id form.instance.id %}">
+                        <a href="{% url 'audioset_delete' form.instance.id %}">
                             {% trans 'Borra este audioset' %}
                             {% m_icon 'delete' %}
                         </a>

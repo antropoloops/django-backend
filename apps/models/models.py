@@ -367,6 +367,7 @@ class Audioset(Publishable):
         verbose_name=_('Proyecto'),
         related_name='audiosets',
         null=True,
+        blank=True,
         on_delete=models.CASCADE,
         help_text=_(
             'Proyecto al que pertenece el audioset'

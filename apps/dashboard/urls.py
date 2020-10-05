@@ -7,7 +7,17 @@ from . import views
 
 urlpatterns = [
     path(
-        'dashboard',
+        '',
+        views.login_redirect,
+        name='login_redirect'
+    ),
+    path(
+        'mis-audiosets',
+        views.AudiosetListView.as_view(),
+        name='audioset_list'
+    ),
+    path(
+        'proyectos',
         views.ProjectListView.as_view(),
         name='project_list'
     ),
@@ -37,7 +47,12 @@ urlpatterns = [
         name='audioset_create'
     ),
     path(
-        'proyecto/<int:project_pk>/borra-audioset/<int:pk>',
+        'audioset/crea',
+        views.AudiosetCreateView.as_view(),
+        name='audioset_create_alt'
+    ),
+    path(
+        'audioset/<int:pk>/borra',
         views.AudiosetDeleteView.as_view(),
         name='audioset_delete'
     ),

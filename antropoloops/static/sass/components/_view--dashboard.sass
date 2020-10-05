@@ -1,9 +1,8 @@
 // Dashboard view
 
 .view-dashboard__item
-  display: block
+  display: flex
   margin-bottom: 4px
-  +clearfix
   background-color: #9e9e9e
   transition: background-color .2s ease
   &:link, &:visited, &:hover, &:active
@@ -19,48 +18,24 @@
 
 .field-thumbnail--item-dashboard
   text-align: center
-  display: inline-block
-  vertical-align: top
   width: $m*5
   height: $m*5
   background-color: rgba(black, .15)
-  img
-    float: left
-
-.field-thumbnail--item-dashboard .blank-image
-  width: 100%
 
 .fieldset-info--item-dashboard
-  display: inline-block
-  width: calc(100% - #{$m*6})
-  vertical-align: top
+  max-width: calc(100% - 100px)
   padding: $m/2
-  clear: both
 
-.field-date--item-dashboard
-  font-size: .8em
-  margin-bottom: $m/2
-
-.field-date--item-dashboard .field__value
-  font-weight: bold
+.field-description--item-dashboard
+  font-size: $size_small
 
 .field-link--item-dashboard
   position: relative
   display: block
 
-.field-publish--item-dashboard
-  position: absolute
-  right: $m
-  top: 0
-  text-transform: uppercase
-  font-size: .7em
-  opacity: .8
-
 .view-dashboard__empty
   padding: $m*2 $m
-
-.field-description--item-dashboard
-  font-size: .9em
+  font-size: $size_small
 
 @media all and (min-width: 768px) and (max-width: 1080px)
   .field-description--item-dashboard

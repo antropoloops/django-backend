@@ -21,8 +21,12 @@
 {# breadcrumb #}
 {% block breadcrumb %}
 <div class="page__breadcrumb">
+    {% if object.project %}
     <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
     / <a href="{% url 'project_detail' object.project.pk %}">{{ object.project.name }}</a>
+    {% else %}
+    <a href="{% url 'audioset_list' %}">{% trans 'Audiosets' %}</a>
+    {% endif %}
     / {{ object.name }}
 </div>
 {% endblock %}
@@ -75,7 +79,7 @@
                         </a>
                     </li>
                     <li class="actions-secondary__item invert">
-                        <a href="{% url 'audioset_delete' object.project.pk object.pk %}">
+                        <a href="{% url 'audioset_delete' object.pk %}">
                             {% trans 'Borrar audioset' %}
                             {% m_icon 'delete' %}
                         </a>

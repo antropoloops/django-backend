@@ -291,6 +291,18 @@ def home(request):
         status=200
     )
 
+def community(request):
+    """ Gets Home """
+
+    project = models.Project.objects.get(
+        slug='comunidad'
+    )
+    return HttpResponse(
+        serializers.serialize_project(project),
+        content_type="application/json",
+        status=200
+    )
+
 # @cache_page(60 * 60 * 24)
 def resource(request, slug):
     """ Gets a resource """

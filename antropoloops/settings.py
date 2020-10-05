@@ -3,6 +3,7 @@ Django settings for antropoloops project.
 """
 
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +32,7 @@ S3_MEDIA_FOLDER = 'media'
 
 # Registration
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL  = '/'
 LOGOUT_REDIRECT_URL = 'goodbye'
 
 # Application definition

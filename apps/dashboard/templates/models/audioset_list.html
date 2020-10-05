@@ -1,0 +1,42 @@
+{# Dashboard page #}
+{% extends 'layouts/two-column.html' %}
+
+{# tags not defined as built-ins in settings.py #}
+{% load i18n static textblock_tags %}
+
+{# body's css classes #}
+{% block body_css_classes %}
+    page--dashboard page--audioset-list
+{% endblock %}
+
+{# html title #}
+{% block title %}
+    {% trans 'Tus audiosets' %}
+{% endblock %}
+
+{# breadcrumb #}
+{% block breadcrumb %}
+<div class="page__breadcrumb">
+    {% trans 'Audiosets' %}
+</div>
+{% endblock %}
+
+{# Sidebar #}
+{% block sidebar %}
+<div class="actions">
+    <h5 class="actions__title">{{ request.user.username }}</h5>
+    <ul class="actions__items">
+        <li class="actions__item invert" data-tooltip="{% trans 'Añadir audioset' %}">
+            <a href="{% url 'audioset_create_alt' %}">
+                {% m_icon 'add_circle' %}
+            </a>
+        </li>
+    </ul>
+</div>
+{% include 'components/view-dashboard.html' with item_list=audioset_list item_label='audioset' item_url='audioset_tracklist' %}
+{% endblock %}
+
+{# Content #}
+{% block main %}
+    {% textblock 'como-funciona' %}
+{% endblock %}

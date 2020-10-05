@@ -17,14 +17,3 @@
         </div>
     {% endfor %}
 </div>
-
-{# ExtraJS #}
-{% block extra_js %}
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function(){
-    document.querySelectorAll('.view-dashboard>a').forEach( function(it, i){
-        it.style.animationDelay = i*.2 + 's';
-    })
-})
-</script>
-{% endblock %}

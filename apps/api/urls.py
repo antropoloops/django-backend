@@ -109,6 +109,12 @@ urlpatterns = [
         views.home,
         name='home'
     ),
+    # Home
+    path(
+        'comunidad',
+        views.home,
+        name='home'
+    ),
 
     # Cache
     path(
