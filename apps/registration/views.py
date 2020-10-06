@@ -34,17 +34,6 @@ def password_reset_complete(request):
 
 class UserForm(forms.ModelForm):
 
-    password   = forms.CharField(
-        widget=forms.PasswordInput,
-        label=_('Nueva contraseña'),
-        required=False,
-    )
-    password_2 = forms.CharField(
-        widget=forms.PasswordInput,
-        label=_('Repite la nueva contraseña'),
-        required=False
-    )
-
     class Meta:
         model = User
         fields = [
@@ -60,18 +49,6 @@ class UserForm(forms.ModelForm):
         )
         self.fields['username'].label = 'Nombre de usuario'
         self.fields['email'].label = 'Correo electrónico'
-
-    def clean_password(self):
-        cleaned_data = super().clean()
-        print(cleaned_data)
-        p1 = self.cleaned_data['password']
-        p2 = self.cleaned_data['password_2']
-        if p1 != p2:
-            raise forms.ValidationError(
-                _("Las dos contraseñas no coinciden")
-            )
-        validate_password(p2)
-        return p2
 
 
 class Profile(UpdateView):
