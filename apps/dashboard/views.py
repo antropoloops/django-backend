@@ -268,7 +268,6 @@ class AudiosetTracklistView(LoginRequiredMixin, DetailView):
         context['clipsnumber'] = antropoloops_models.Clip.objects.filter(
             track__in = context['tracks']
         ).count()
-        print( context['clipsnumber'] )
         context['trackform'] = forms.TrackUpdateFormAjax(initial={'audioset' : self.kwargs['pk']})
         context['clipform']  = forms.ClipUpdateForm(initial={'audioset' : self.kwargs['pk']})
         return context

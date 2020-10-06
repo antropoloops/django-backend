@@ -17,8 +17,9 @@ class ClipAdmin(admin.ModelAdmin):
         'readme',
         'audioset',
         'audio_name',
+        'edited'
     )
-    list_filter  = ('track__audioset',)
+    list_filter  = ('track__audioset', 'edited')
 
     def audioset(self, obj):
         return obj.audioset

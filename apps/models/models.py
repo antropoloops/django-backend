@@ -233,6 +233,15 @@ class Clip(models.Model):
             'Ajuste de volumen para los samples del clip'
         )
     )
+    edited = models.BooleanField(
+        _('Editado con el nuevo editor'),
+        default=False
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.edited:
+            self.edited = True
+        super(Clip, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name if self.name else self.audio_name
