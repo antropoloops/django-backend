@@ -43,12 +43,26 @@
     display: flex
     justify-content: space-between
     align-items: center
+    line-height: 40px
+    height: 40px
   padding: 0 $m/2
-  height: 40px
-  line-height: 40px
   z-index: 12000
   &.hidden
     display: none
+
+@media all and (min-width: 768px) and (max-width: 1400px)
+  .page--audioset-configuration-form .background-field__header
+    height: 80px
+    .background-field--map
+      width: 75%
+      float: right
+      text-align: right
+    .background-field__icon
+      display: none
+    .background-field__input,
+    .background-field__submit
+      position: relative
+      top: -10px
 
 .background-field__label
   font-weight: bold
