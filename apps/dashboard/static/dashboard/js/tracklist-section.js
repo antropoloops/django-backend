@@ -51,6 +51,7 @@ function closePopup(){
 
 jQuery(document).ready( function()
 {
+
     // Forms
     document.querySelectorAll("[data-show-template]").forEach( function(button)
     {
@@ -182,6 +183,9 @@ jQuery(document).ready( function()
                     contentType: false,
                     success : function(response)
                     {
+                        // Ensure clipforms scroll to top once saved
+                        var clipform_inner = document.querySelector('.clipform-inner');
+                        if(clipform_inner) clipform_inner.scrollTop = 0;
                         location.reload();
                     },
                     error : function(response)

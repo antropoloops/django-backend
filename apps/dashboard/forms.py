@@ -78,6 +78,13 @@ class AudiosetForm(forms.ModelForm):
             'aparezca en el índice del apartado «Comunidad».'
         )
 
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data['mode_display'] == '1' and not cleaned_data['background']:
+            raise forms.ValidationError(
+                _("Has de elegir un fondo para el audioset")
+            )
+        return cleaned_data
 
     def clean_slug(self):
         slug = self.cleaned_data['slug']
@@ -189,25 +196,10 @@ class ClipForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+
         super(ClipForm,self).__init__(*args, **kwargs)
         if len(args) > 0:
             self.track_pk = args[0].get('track')
-        if 'initial' in kwargs:
-            audioset_pk = kwargs['initial'].get('audioset')
-            audioset = models.Audioset.objects.get(pk=audioset_pk)
-            if audioset.mode_display == '2':
-                self.fields['pos_x'].label = _('Longitud')
-                self.fields['pos_x'].help_text = _(
-                    'Longitud geográfica donde situar el clip. '
-                    'Puedes usar el localizador situado en la parte superior del mapa '
-                    'para rellenar automáticamente este campo'
-                )
-                self.fields['pos_y'].label = _('Latitud')
-                self.fields['pos_y'].help_text = _(
-                    'Latitud geográfica donde situar el clip. '
-                    'Puedes usar el localizador situado en la parte superior del mapa '
-                    'para rellenar automáticamente este campo'
-                )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -220,7 +212,9 @@ class ClipForm(forms.ModelForm):
     def clean_key(self):
         new_key = self.cleaned_data['key']
         if new_key:
-            audioset_tracks = self.instance.track.first().audioset.tracks.all()
+            audioset_tracks = models.Track.objects.get(
+                pk=self.track_pk
+            ).audioset.tracks.all()
             keys = list( models.Clip.objects.filter(
                 track__in=audioset_tracks,
                 key__isnull=False
@@ -228,9 +222,8 @@ class ClipForm(forms.ModelForm):
                 'key',
                 flat=True
             ))
-            current_key = self.instance.key
-            if current_key and current_key in keys:
-                keys.remove(current_key)
+            if hasattr(self, 'instance') and self.instance.key and self.instance.key in keys:
+                keys.remove(self.instance.key)
             if new_key in keys:
                 current_keys = reduce(lambda a, b : ("%s %s")%(a, b), keys)
                 raise forms.ValidationError(

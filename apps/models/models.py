@@ -27,6 +27,7 @@ validator_wav = validators.AudioTypeValidator([
     "audio/x-wave",
     "audio/vnd.wave"
 ])
+
 validator_audio = validators.AudioTypeValidator([
     "audio/mpeg",
     "audio/ogg",
@@ -35,6 +36,13 @@ validator_audio = validators.AudioTypeValidator([
     "audio/x-wave",
     "audio/vnd.wave"
 ])
+
+validate_clipimage_size = validators.ImageSizeValidator({
+    'min_width'  : 400,
+    'min_height' : 400,
+    'max_width'  : 1920,
+    'max_height' : 1080,
+})
 
 class Clip(models.Model):
     """ Clip model definition """
@@ -76,8 +84,11 @@ class Clip(models.Model):
         blank=True,
         default='images/clips/clip.jpg',
         upload_to='images/clips/',
+        validators=[
+            validate_clipimage_size
+        ],
         help_text=_(
-            'Sube una imagen cuadrada como portada de tu clip '
+            'Sube una imagen cuadrada como portada '
             '(mínimo e ideal 400x400 px).'
         )
     )

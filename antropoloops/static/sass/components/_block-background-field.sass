@@ -35,13 +35,14 @@
 
 .background-field__header
   background-color: #d6d6d6
-  position: absolute
-  left: 0
-  right: 0
-  top: 0
-  display: flex
-  justify-content: space-between
-  align-items: center
+  +breakpoint('sm')
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    display: flex
+    justify-content: space-between
+    align-items: center
   padding: 0 $m/2
   height: 40px
   line-height: 40px

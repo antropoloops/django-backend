@@ -40,4 +40,9 @@ urlpatterns = [
         views.password_reset_complete,
         name='password_reset_complete'
     ),
+    path(
+        'profile',
+        views.Profile.as_view(),
+        name='user_profile'
+    ),
 ]

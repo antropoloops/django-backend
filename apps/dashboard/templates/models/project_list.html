@@ -31,6 +31,13 @@
                 {% m_icon 'add_circle' %}
             </a>
         </li>
+        <li class="actions__item invert"
+            data-tooltip="{% trans 'Edita tu perfil' %}"
+        >
+            <a href="{% url 'user_profile' %}">
+                {% m_icon 'edit_circle' %}
+            </a>
+        </li>
     </ul>
 </div>
 {% include 'components/view-dashboard.html' with item_list=project_list item_label='proyecto' item_url='project_detail' %}

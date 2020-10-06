@@ -6,12 +6,12 @@
 
 {# body's css classes #}
 {% block body_css_classes %}
-page--registration page--login
+page--registration page--profile
 {% endblock %}
 
 {# html title #}
 {% block title %}
-Login
+Edita tu perfil
 {% endblock %}
 
 {# Content #}
@@ -20,11 +20,18 @@ Login
     {% csrf_token %}
     <div class="actions">
         <h5 class="actions__title">
-            {% trans 'Login' %}
+            {% trans 'Edita tu perfil' %}
         </h5>
         <ul class="actions__items">
             <li class="actions__item">
-                <input class="form-registration__submit btn btn--red" type="submit" value="{% trans 'Entrar' %}" />
+                <a class="form-registration__cancel btn btn--cancel"
+                 href="{% if user.is_staff %}{% url 'project_list' %}{% else %}{% url 'audioset_list' %}{% endif %}"
+                >
+                    {% trans 'Cancelar' %}
+                </a>
+            </li>
+            <li class="actions__item">
+                <input class="form-registration__submit btn btn--red" type="submit" value="{% trans 'Guardar' %}" />
             </li>
         </ul>
     </div>
@@ -32,21 +39,14 @@ Login
         <div class="form-fields">
             <input type="hidden" name="next" value="{{ next }}" />
             {% include 'forms/field.html' with field=form.username %}
-            {% include 'forms/field.html' with field=form.password %}
+            {% include 'forms/field.html' with field=form.email %}
         </div>
         {% include 'forms/form-errors.html' with name="registration" modifier="login" %}
         <div class="form-help form-help--login">
-            <a href="{% url 'password_reset' %}">
-                {% trans '¿Has olvidado tu contraseña?' %}
-                {% m_icon 'psychology' %}
-            </a>
-        </div>
-        <div class="site-info">
-            {% blocktrans trimmed %}
-            Hola, estamos aún en fase de pruebas del gestor de contenidos, si te interesa
-            probar la herramienta puedes escribirnos a talleres@antropoloops.com y te
-            crearemos un perfil de usuaria/o. ¡Saludos!
-            {% endblocktrans %}
+          <a href="{% url 'password_reset' %}">
+            {% trans 'Cambiar contraseña' %}
+            {% m_icon 'psychology' %}
+          </a>
         </div>
     </div>
 </form>

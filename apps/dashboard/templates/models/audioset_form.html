@@ -12,23 +12,23 @@
 {# breadcrumb #}
 {% block breadcrumb %}
 <div class="page__breadcrumb">
-    {% if project %}
+    {% if request.user.is_staff %}
         <a href="{% url 'project_list' %}">{% trans 'Proyectos' %}</a>
         {% if form.instance.pk %}
         / <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
         / <a href="{% url 'audioset_tracklist' form.instance.pk %}">{{ form.instance.name }}</a>
-        / {% trans 'Editar audioset' %}
+        / {% trans 'Editar' %}
         {% else %}
         / <a href="{% url 'project_detail' project.pk %}">{{ project.name }}</a>
-        / {% trans 'Añadir audioset' %}
+        / {% trans 'Crear' %}
         {% endif %}
     {% else %}
         <a href="{% url 'audioset_list' %}">{% trans 'Audiosets' %}</a>
         {% if form.instance.pk %}
         / <a href="{% url 'audioset_tracklist' form.instance.pk %}">{{ form.instance.name }}</a>
-        / {% trans 'Editar audioset' %}
+        / {% trans 'Editar' %}
         {% else %}
-        / {% trans 'Añadir audioset' %}
+        / {% trans 'Crear' %}
         {% endif %}
     {% endif %}
 </div>
