@@ -297,7 +297,7 @@ def serialize_audioset(audioset):
         # clips
         'clips'  : [],
     }
-    if audioset.mode_display is '2':
+    if audioset.mode_display == '2':
         audioset_data['visuals']['mode'] = 'map'
         audioset_data['visuals']['geomap'] = {
             'url' : audioset.map_url,
