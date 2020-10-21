@@ -1,0 +1,4 @@
+{% if widget.value %}
+<a href="{{ widget.value.url }}">{{ widget.value }}</a>
+{% endif %}
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>

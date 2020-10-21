@@ -50,8 +50,17 @@
   &.hidden
     display: none
 
+@media all and (max-width: 768px)
+  .page--audioset-configuration-form
+    .background-field__header
+      height: 140px
+      padding-top: 15px
+    .background-field__helptext
+      display: block
+    .background-field__input
+      margin-left: 20px
 @media all and (min-width: 768px) and (max-width: 1400px)
-  .page--audioset-configuration-form .background-field__header
+  .page--audioset-configuration-form [data-current-state="2"] .background-field__header
     height: 80px
     .background-field--map
       width: 75%
@@ -109,3 +118,9 @@
   display: block
   opacity: 0
   pointer-events: none
+
+.field--mode__display
+  flex-basis: 240px
+  label, ul
+    display: inline
+    vertical-align: middle

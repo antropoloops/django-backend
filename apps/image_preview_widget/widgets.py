@@ -2,7 +2,10 @@
 from django import forms
 from django.template.loader import render_to_string
 
-class ImagePreviewWidget(forms.widgets.ClearableFileInput):
+class CustomFileInput(forms.widgets.ClearableFileInput):
+    template_name = 'custom-file-input.html'
+
+class ImagePreviewWidget(CustomFileInput):
     """A custom widget, to preview video iframes from an external service as vimeo or youtube"""
 
     class Media:
