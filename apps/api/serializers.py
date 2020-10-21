@@ -44,7 +44,8 @@ class ClipSerializer(serializers.ModelSerializer):
             'image_alt',
             'place',
             'beats',
-            'volume'
+            'volume',
+            'edited',
         ]
 
 class MapClipSerializer(serializers.ModelSerializer):
@@ -370,11 +371,10 @@ def serialize_audioset(audioset):
                 },
             }
             clip_audio = {
-                'wav' : clip.audio_wav.url if clip.audio_wav else None
+                'wav' : clip.audio_wav.url if clip.audio_wav else None,
+                'mp3' : clip.audio_mp3.url if (not clip.edited and clip.audio_mp3) else None,
+                'ogg' : clip.audio_ogg.url if (not clip.edited and clip.audio_ogg) else None,
             }
-            if not clip.edited:
-                clip_audio['mp3'] = clip.audio_mp3.url if clip.audio_mp3 else None,
-                clip_audio['ogg'] = clip.audio_ogg.url if clip.audio_ogg else None,
             clip_data['resources']['audio'] = clip_audio
             audioset_data['clips'].append(clip_data)
 
