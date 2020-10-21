@@ -160,7 +160,7 @@ function loadMap(map_scale, map_center_x, map_center_y, is_map_conf, audioset)
                     document.querySelector('#id_pos_x').value = place.lon;
                     document.querySelector('#id_pos_y').value = place.lat;
                     document.querySelector('#id_pos_x').setAttribute('value', place.lon);
-                    document.querySelector('#id_pos_y').setAttribute('value', place.lat);
+                    document.querySelector('#id_pos_y').setAttribute('value', place.lat); 
                 }
                   document.querySelector('.layout-form-audioset').classList.remove('saving');
             });
