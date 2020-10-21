@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function(){
             var new_y = y * source_fh;
             document.querySelector('#id_pos_x').setAttribute('value', parseInt(new_x));
             document.querySelector('#id_pos_y').setAttribute('value', parseInt(new_y));
+            document.querySelector('#id_pos_x').value =  parseInt(new_x);
+            document.querySelector('#id_pos_y').value =  parseInt(new_y);
         }
     });
     jQuery.get('/api/1.0/track/clips/'+audioset, function(data){
