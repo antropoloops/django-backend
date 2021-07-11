@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "scripts": {
+    "bash": "docker-compose --project-name django-backend_devcontainer run bash",
+    "server:start": "docker-compose --project-name django-backend_devcontainer run server"
+  }
+}
